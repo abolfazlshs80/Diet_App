@@ -2,8 +2,11 @@
 using Diet.Domain.supplement.Entities;
 
 namespace Diet.Domain.lifeCourse;
-
-public class LifeCourse: BaseEntity
+/// <summary>
+///    نام دوره زندگی 
+///    (مثلاً "کودکی"، "نوجوانی"، "بزرگسالی"، "سالمندی")
+/// </summary>
+public sealed class LifeCourse: BaseEntity
 {
     private LifeCourse()
     {
