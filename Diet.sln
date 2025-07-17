@@ -5,11 +5,11 @@ VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApplicationCore", "ApplicationCore", "{700253E2-4E50-41BE-BF9C-2A0E872514D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diet.Domain", "Dient.Domain\Diet.Domain.csproj", "{8442DF5A-82BE-401C-8E05-485E68483B8B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diet.Domain", "Diet.Domain\Diet.Domain.csproj", "{8442DF5A-82BE-401C-8E05-485E68483B8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diet.Application", "Dient.Application\Diet.Application.csproj", "{CE61FDB1-B14F-495D-86F2-63EA800CE725}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diet.Application", "Diet.Application\Diet.Application.csproj", "{CE61FDB1-B14F-495D-86F2-63EA800CE725}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diet.Domain.Contract", "Dient.Domain.Contract\Diet.Domain.Contract.csproj", "{D3655C1B-701A-4C63-BDA1-EEBC0191988C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diet.Domain.Contract", "Diet.Domain.Contract\Diet.Domain.Contract.csproj", "{D3655C1B-701A-4C63-BDA1-EEBC0191988C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{79418F52-FD85-4EDE-8D0B-557AEE6B29DC}"
 EndProject
@@ -17,11 +17,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{2C66C700-0AF4-4C2F-A85C-4A9CCC2B06D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diet.Framework.Core", "Dient.Framework.Core\Diet.Framework.Core.csproj", "{C87A7A03-E34D-4916-99C0-B33FD7ECCE26}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diet.Framework.Core", "Diet.Framework.Core\Diet.Framework.Core.csproj", "{C87A7A03-E34D-4916-99C0-B33FD7ECCE26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diet.Persistence.EF", "Dient.Persistence.EF\Diet.Persistence.EF.csproj", "{B7C9FCF4-506B-4E5E-85B2-210A1E6F735A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diet.Persistence.EF", "Diet.Persistence.EF\Diet.Persistence.EF.csproj", "{B7C9FCF4-506B-4E5E-85B2-210A1E6F735A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dient.Api", "Dient.Api\Dient.Api.csproj", "{164E021B-08E1-40FF-AF4B-B7BD68E8D7BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diet.Api", "Diet.Api\Diet.Api.csproj", "{164E021B-08E1-40FF-AF4B-B7BD68E8D7BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
