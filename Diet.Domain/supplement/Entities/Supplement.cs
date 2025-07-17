@@ -1,6 +1,6 @@
-﻿using Dient.Domain.common;
+﻿using Diet.Domain.common;
 
-namespace Diet.Domain.supplement;
+namespace Diet.Domain.supplement.Entities;
 
 public class Supplement:BaseEntity
 {

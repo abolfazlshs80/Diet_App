@@ -20,7 +20,8 @@
 	  <Folder Include="user\ValueObjects\" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\Dient.Domain.Contract\Diet.Domain.Contract.csproj" />
 	  <ProjectReference Include="..\Diet.Domain.Contract\Diet.Domain.Contract.csproj" />
+	  <ProjectReference Include="..\Diet.Domain.Contract\Diet.Domain.Contract.csproj" />
+	  <ProjectReference Include="..\Diet.Framework.Core\Diet.Framework.Core.csproj" />
 	</ItemGroup>
 </Project>

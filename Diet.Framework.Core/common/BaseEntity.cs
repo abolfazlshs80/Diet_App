@@ -1,4 +1,4 @@
-﻿namespace Dient.Domain.common;
+﻿namespace Diet.Domain.common;
 
 public class BaseEntity
 {

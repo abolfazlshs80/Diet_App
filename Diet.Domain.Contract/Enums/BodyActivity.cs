@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dient.Domain.Contract.Enums
+namespace Diet.Domain.Contract.Enums
 {
     public class BodyActivity
     {

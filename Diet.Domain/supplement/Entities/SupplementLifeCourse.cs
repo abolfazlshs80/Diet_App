@@ -1,7 +1,7 @@
-﻿using Dient.Domain.common;
+﻿using Diet.Domain.common;
 using Diet.Domain.lifeCourse;
 
-namespace Diet.Domain.supplement;
+namespace Diet.Domain.supplement.Entities;
 
 public class SupplementLifeCourse : BaseEntity
 {

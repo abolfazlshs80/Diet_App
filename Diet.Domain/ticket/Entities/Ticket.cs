@@ -1,6 +1,6 @@
-﻿using Dient.Domain.common;
+﻿using Diet.Domain.common;
 
-namespace Diet.Domain.Ticket;
+namespace Diet.Domain.ticket.Entities;
 
 public class Ticket:BaseEntity
 {

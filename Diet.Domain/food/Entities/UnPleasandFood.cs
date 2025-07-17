@@ -1,8 +1,6 @@
-﻿
+﻿using Diet.Domain.common;
 
-using Dient.Domain.common;
-
-namespace Diet.Domain.food;
+namespace Diet.Domain.food.Entities;
 
 /// <summary>
 /// غذای ناخوشایند

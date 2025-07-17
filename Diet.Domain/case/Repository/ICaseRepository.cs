@@ -1,8 +1,7 @@
 ﻿
 
 
-
-namespace Diet.Domain.user.Repository;
+namespace Diet.Domain.@case.Repository;
 
 public interface ICaseRepository
 {

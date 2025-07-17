@@ -1,7 +1,7 @@
 ﻿
 
 
-using Dient.Domain.common;
+using Diet.Domain.common;
 using Diet.Domain.Contract.Enums;
 using Diet.Domain.disease;
 using Diet.Domain.lifeCourse;

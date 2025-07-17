@@ -1,4 +1,4 @@
-﻿using Dient.Domain.common;
+﻿using Diet.Domain.common;
 
 namespace Diet.Domain.transactions;
 

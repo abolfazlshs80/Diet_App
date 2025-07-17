@@ -1,7 +1,7 @@
-﻿using Dient.Domain.common;
+﻿using Diet.Domain.common;
 using Diet.Domain.disease;
 
-namespace Diet.Domain.supplement;
+namespace Diet.Domain.supplement.Entities;
 
 public class SupplementDisease_WhiteList:BaseEntity
 {
