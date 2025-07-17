@@ -3,7 +3,9 @@ using Diet.Domain.Contract.Enums;
 using System.Reflection;
 
 namespace Diet.Domain.user;
-
+/// <summary>
+/// کاربر سیستم
+/// </summary>
 public sealed class User : BaseEntity
 {
 
