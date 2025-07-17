@@ -1,10 +1,12 @@
 ﻿using Diet.Domain.common;
 
 namespace Diet.Domain.supplement.Entities;
-
-public class SupplementGroup: BaseEntity
+/// <summary>
+///   برای دسته‌بندی مکمل‌های غذایی است.
+/// </summary>
+public sealed class SupplementGroup: BaseEntity
 {
     private SupplementGroup() { }
     public string Title { get; set; }
-    public virtual ICollection<Supplement> Supplement { get; private set; }
+    public  ICollection<Supplement> Supplement { get; private set; }
 }

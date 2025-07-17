@@ -2,7 +2,9 @@
 using Diet.Domain.lifeCourse;
 
 namespace Diet.Domain.supplement.Entities;
-
+/// <summary>
+///   برای نگهداری اطلاعات مکمل‌های مناسب هر دوره زندگی است.
+/// </summary>
 public class SupplementLifeCourse : BaseEntity
 {
     private SupplementLifeCourse() { }
