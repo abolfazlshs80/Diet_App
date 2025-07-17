@@ -3,8 +3,12 @@ using Diet.Domain.disease;
 
 namespace Diet.Domain.user;
 
+/// <summary>
+/// دارو
+/// </summary>
 public sealed class Drug 
 {
+
     private Drug()
     {
         
