@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Diet.Domain.food.Entities;
 
-public class FoodGroup : BaseEntity
+public sealed class FoodGroup : BaseEntity
 {
     public string Title { get; set; }
 
