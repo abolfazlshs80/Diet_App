@@ -19,11 +19,11 @@ public sealed class TicketMessage : BaseEntity
     public string FileName { get; set; }
 
     public Guid TicketId { get; set; }
-    [ForeignKey("TicketId")]
+
     public  Ticket Ticket { get; set; }
 
-    public string FromId { get; set; }
-    [ForeignKey("FromId")]
+    public Guid FromId { get; set; }
+
     public  User FromUser { get; set; }
 }
 
