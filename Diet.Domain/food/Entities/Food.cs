@@ -1,5 +1,4 @@
 ﻿using Diet.Domain.common;
-using Diet.Domain.pleasandFood.Entities;
 
 namespace Diet.Domain.food.Entities;
 /// <summary>
