@@ -16,8 +16,5 @@ public sealed class Drug
     public string Title { get; private set; }
     public string Description { get; private set; }
 
-    public Guid? CaseId { get; private set; }
-
-    public  Case.Case? Case { get; private set; }
 
 }
