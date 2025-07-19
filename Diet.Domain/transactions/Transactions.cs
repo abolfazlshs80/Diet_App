@@ -6,7 +6,7 @@ namespace Diet.Domain.transactions;
 /// <summary>
 ///  نمایانگر یک تراکنش مالی یا عملیاتی در سیستم
 /// </summary>
-public class Transactions : BaseEntity
+public sealed class Transactions : BaseEntity
 {
     private Transactions()
     {

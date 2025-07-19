@@ -12,6 +12,6 @@ public sealed class WeightGoal : BaseEntity
     public Guid ParrentId { get; private set; }
 
 
-    public Guid UserId { get; set; }
-    public User User { get; set; }
+    public Guid UserId { get; private set; }
+    public User User { get; private set; }
 }

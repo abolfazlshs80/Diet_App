@@ -11,9 +11,9 @@ public class SupplementLifeCourse : BaseEntity
 
     public Guid SupplementId { get; private set; }
 
-    public virtual Supplement Supplement { get; set; }
+    public virtual Supplement Supplement { get; private set; }
 
     public Guid LifeCourseId { get; private set; }
 
-    public virtual LifeCourse LifeCourse { get; set; }
+    public virtual LifeCourse LifeCourse { get; private set; }
 }

@@ -6,7 +6,7 @@ namespace Diet.Domain.food.Entities;
 /// </summary>
 public sealed class FoodStupp : BaseEntity
 {
-    public string Title { get; set; }
+    public string Title { get; private set; }
 
     private FoodStupp() { }
 }

@@ -8,8 +8,8 @@ namespace Diet.Domain.food.Entities;
 /// </summary>
 public sealed class Food_Food_Intraction : BaseEntity
 {
-    public Guid FoodId { get; set; }
-    public Food Food { get; set; }
+    public Guid FoodId { get; private set; }
+    public Food Food { get; private set; }
 
     private Food_Food_Intraction() { }
 }

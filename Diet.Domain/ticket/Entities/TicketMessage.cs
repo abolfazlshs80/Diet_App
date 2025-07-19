@@ -15,15 +15,15 @@ public sealed class TicketMessage : BaseEntity
         
     }
 
-    public string TextMessage { get; set; }
-    public string FileName { get; set; }
+    public string TextMessage { get; private set; }
+    public string FileName { get; private set; }
 
-    public Guid TicketId { get; set; }
+    public Guid TicketId { get; private set; }
 
-    public  Ticket Ticket { get; set; }
+    public  Ticket Ticket { get; private set; }
 
-    public Guid FromId { get; set; }
+    public Guid FromId { get; private set; }
 
-    public  User FromUser { get; set; }
+    public  User FromUser { get; private set; }
 }
 

@@ -6,7 +6,7 @@ namespace Diet.Domain.food.Entities;
 
 public sealed class FoodGroup : BaseEntity
 {
-    public string Title { get; set; }
+    public string Title { get; private set; }
 
     private FoodGroup(){}
 }

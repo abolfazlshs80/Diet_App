@@ -7,6 +7,6 @@ namespace Diet.Domain.supplement.Entities;
 public sealed class SupplementGroup: BaseEntity
 {
     private SupplementGroup() { }
-    public string Title { get; set; }
+    public string Title { get; private set; }
     public  ICollection<Supplement> Supplement { get; private set; }
 }

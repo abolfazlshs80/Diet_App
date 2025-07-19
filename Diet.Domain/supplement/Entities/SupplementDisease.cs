@@ -11,9 +11,9 @@ public sealed class SupplementDisease_WhiteList:BaseEntity
 
     public Guid SupplementId { get; private set; }
 
-    public  Supplement Supplement { get; set; }
+    public  Supplement Supplement { get; private set; }
 
     public Guid DiseaseId { get; private set; }
     
-    public  Disease Disease { get; set; }
+    public  Disease Disease { get; private set; }
 }
