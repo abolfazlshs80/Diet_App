@@ -1,6 +1,7 @@
 ﻿using Diet.Domain.Case;
 using Diet.Domain.common;
 using Diet.Domain.Contract.Enums;
+using Diet.Domain.user.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Numerics;
 
@@ -21,13 +22,10 @@ public sealed class Ticket:BaseEntity
     public Priority Priority { get; private set; }
     public TicketStatus Status { get; private   set; }
 
-    public Guid? CaseId { get; private set; }
-  
-    public  Case.Case? Case { get; private set; }
 
-    public string UserId { get; private set; }
-    //[ForeignKey("UserId")]
-    //public virtual ApplicationUser User { get; set; }
+    public Guid UserId { get; private set; }
+
+    public  User User { get;private set; }
 
     public  ICollection<TicketMessage> Messages { get; private set; }
 
