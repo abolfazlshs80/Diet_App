@@ -5,15 +5,15 @@ namespace Diet.Domain.supplement.Entities;
 /// <summary>
 ///   برای نگهداری اطلاعات مکمل‌های مناسب هر دوره زندگی است.
 /// </summary>
-public class SupplementLifeCourse : BaseEntity
+public sealed class SupplementLifeCourse : BaseEntity
 {
     private SupplementLifeCourse() { }
 
     public Guid SupplementId { get; private set; }
 
-    public virtual Supplement Supplement { get; private set; }
+    public  Supplement Supplement { get; private set; }
 
     public Guid LifeCourseId { get; private set; }
 
-    public virtual LifeCourse LifeCourse { get; private set; }
+    public  LifeCourse LifeCourse { get; private set; }
 }
