@@ -1,4 +1,5 @@
-﻿using Diet.Domain.common;
+﻿using Diet.Domain.Case;
+using Diet.Domain.common;
 
 namespace Diet.Domain.food.Entities;
 /// <summary>
@@ -8,6 +9,6 @@ public sealed class FoodStuff : BaseEntity
 {
     public string Title { get; private set; }
 
-    public ICollection<Case.Case> Case { get; set; }
+    public ICollection<CaseFoodStuffAllergy> CaseFoodStuffAllergy { get; private set; }//
     private FoodStuff() { }
 }

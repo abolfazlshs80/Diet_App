@@ -8,5 +8,7 @@ public sealed class FoodGroup : BaseEntity
 {
     public string Title { get; private set; }
 
+    public ICollection<Food> Food { get;private set; }
+
     private FoodGroup(){}
 }
