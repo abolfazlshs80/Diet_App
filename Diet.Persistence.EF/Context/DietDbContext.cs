@@ -32,9 +32,13 @@ public class DietDbContext : ApplicationDbContext
 
         modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
     }
-
-    public DbSet<User> Users { get; set; }
+    #region Entity  
     public DbSet<Case> Case { get; set; }
+    public DbSet<CaseSupplement> CaseSupplement { get; set; }
+    public DbSet<CaseDisease> CaseDisease { get; set; }
+    public DbSet<CaseDrug> CaseDrug { get; set; }
+    public DbSet<CaseFoodStuffAllergy> CaseFoodStuffAllergy { get; set; }
+
     public DbSet<Disease> Disease { get; set; }
     public DbSet<Drug> Drug { get; set; }
     public DbSet<Food> Food { get; set; }
@@ -57,5 +61,13 @@ public class DietDbContext : ApplicationDbContext
     public DbSet<Ticket> Ticket { get; set; }
     public DbSet<TicketMessage> TicketMessage { get; set; }
     public DbSet<Transactions> Transactions { get; set; }
+
+
+    public DbSet<User> Users { get; set; }
+    public DbSet<Role> Role { get; set; }
+    public DbSet<UserRole> UserRole { get; set; }
+
+    #endregion
+
 
 }
