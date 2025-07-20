@@ -1,15 +1,12 @@
-﻿
-
-
+﻿using Diet.Domain.@case.Entities;
 using Diet.Domain.common;
 using Diet.Domain.Contract.Enums;
-using Diet.Domain.disease;
 using Diet.Domain.food.Entities;
 using Diet.Domain.lifeCourse;
 using Diet.Domain.sport;
-using Diet.Domain.supplement.Entities;
 using Diet.Domain.transactions;
 using Diet.Domain.user;
+using Diet.Domain.user.Entities;
 using System.Transactions;
 
 namespace Diet.Domain.Case;
@@ -46,12 +43,15 @@ public sealed  class Case :BaseEntity
     public LifeCourse LifeCourse { get; private set; } // دوره زندگی فرد
 
 
-    public ICollection<Drug> Drug { get; private set; }//لیست داروهای فرد
-    public ICollection<Disease> Disease { get; private set; }//لیست بیماری های فرد
-    public ICollection<Supplement> Supplement { get; private set; }//لیست مکمل های فرد
-    public ICollection<FoodStuff> FoodStuffAllergy { get; private set; }//لیست های آلرژی ها فرد ماده غذایی
-    //public ICollection<Food> PleasantFood { get; private set; }//غذاهای خوشایند فرد
-    //public ICollection<Food> UnPleasantFood { get; private set; }//غذا های نا خوشایند
+    public Guid UserId { get; private set; }
+    public User User { get; private set; } // دوره زندگی فرد
+
+    public ICollection<CaseDrug> CaseDrug { get; private set; }//لیست داروهای فرد
+    public ICollection<CaseDisease> Disease { get; private set; }//لیست بیماری های فرد
+    public ICollection<CaseSupplement> CaseSupplement { get; private set; }//لیست مکمل های فرد
+    public ICollection<CaseFoodStuffAllergy> FoodStuffAllergy { get; private set; }//لیست های آلرژی ها فرد ماده غذایی
+    public ICollection<CasePleasantFood> PleasantFood { get; private set; }//غذاهای خوشایند فرد
+    public ICollection<CaseUnPleasantFood> UnPleasantFood { get; private set; }//غذا های نا خوشایند
 
 
 
