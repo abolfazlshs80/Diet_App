@@ -1,6 +1,7 @@
 ﻿using Diet.Domain.Case;
 using Diet.Domain.common;
 using Diet.Domain.Contract.Enums;
+using Diet.Domain.ticket.Entities;
 using System.Reflection;
 
 namespace Diet.Domain.user.Entities;
@@ -29,6 +30,8 @@ public sealed class User : BaseEntity
     public DateTime? BirthDay { get; private set; }
     public Gender? Gender { get; private set; }
     public ICollection<UserRole> UserRoles { get; private set; }
+    public ICollection<Ticket> Ticket { get; private set; }
+    public ICollection<TicketMessage> FormTicketMessage { get; private set; }
     public ICollection<Case.Case> Case { get; private set; }
 }
 
