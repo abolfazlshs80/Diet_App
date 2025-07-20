@@ -13,4 +13,6 @@ public sealed class Recommendation:BaseEntity
     public string? HowToUse { get; private set; }
 
     public ICollection< RecommendationDisease_WhiteList> RecommendationDisease_WhiteList  { get; private set; }
+    public ICollection<RecommendationDurationAge> RecommendationDurationAge { get; private set; }
+    public ICollection<RecommendationLifeCourse> RecommendationLifeCourse { get; private set; }
 }
