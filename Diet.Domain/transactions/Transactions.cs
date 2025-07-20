@@ -1,4 +1,5 @@
-﻿using Diet.Domain.common;
+﻿using Diet.Domain.Case;
+using Diet.Domain.common;
 using Diet.Domain.Contract.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -17,6 +18,7 @@ public sealed class Transactions : BaseEntity
     public string? ZarinPalAuthority { get; private set; }
     public string? ZarinPalRefNum { get; private set; }
     public TransactionType TransactionType { get; private set; }
+    public ICollection<Case.Case> Case { get; private set; }
 
     ////public Guid PlanPluginId { get; set; }
     ////[ForeignKey("PlanPluginId")]

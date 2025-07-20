@@ -15,4 +15,6 @@ public sealed class Disease:BaseEntity
 
     public ICollection<SupplementDisease_WhiteList> SupplementDisease_WhiteList { get; private set; }
 
+    public ICollection<Case.Case> Case { get; set; }
+
 }

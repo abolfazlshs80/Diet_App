@@ -4,9 +4,10 @@ namespace Diet.Domain.food.Entities;
 /// <summary>
 ///  نمایانگر یک ماده غذایی است.
 /// </summary>
-public sealed class FoodStupp : BaseEntity
+public sealed class FoodStuff : BaseEntity
 {
     public string Title { get; private set; }
 
-    private FoodStupp() { }
+    public ICollection<Case.Case> Case { get; set; }
+    private FoodStuff() { }
 }

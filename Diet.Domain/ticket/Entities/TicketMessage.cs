@@ -1,5 +1,5 @@
 ﻿using Diet.Domain.common;
-using Diet.Domain.user;
+using Diet.Domain.user.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Diet.Domain.ticket.Entities;

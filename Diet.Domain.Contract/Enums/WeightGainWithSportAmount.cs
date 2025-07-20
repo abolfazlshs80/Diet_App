@@ -1,6 +1,9 @@
 ﻿namespace Diet.Domain.Contract.Enums
 {
-    public enum WeightLoseType
+    /// <summary>
+    /// مقدار تغییر وزن
+    /// </summary>
+    public enum WeightGainWithSportAmount
     {
         OneKilosInMonth,
         TwoKilosInMonth,

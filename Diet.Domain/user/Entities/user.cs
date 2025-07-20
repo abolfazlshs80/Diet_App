@@ -1,8 +1,9 @@
-﻿using Diet.Domain.common;
+﻿using Diet.Domain.Case;
+using Diet.Domain.common;
 using Diet.Domain.Contract.Enums;
 using System.Reflection;
 
-namespace Diet.Domain.user;
+namespace Diet.Domain.user.Entities;
 /// <summary>
 /// کاربر سیستم
 /// </summary>
@@ -27,4 +28,7 @@ public sealed class User : BaseEntity
 
     public DateTime? BirthDay { get; private set; }
     public Gender? Gender { get; private set; }
+    public ICollection<UserRole> UserRoles { get; private set; }
+    public ICollection<Case.Case> Case { get; private set; }
 }
+

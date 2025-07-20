@@ -16,7 +16,6 @@
 	  <Folder Include="drug\Entities\" />
 	  <Folder Include="drug\Errors\" />
 	  <Folder Include="drug\ValueObjects\" />
-	  <Folder Include="user\Entities\" />
 	  <Folder Include="user\ValueObjects\" />
 	</ItemGroup>
 	<ItemGroup>

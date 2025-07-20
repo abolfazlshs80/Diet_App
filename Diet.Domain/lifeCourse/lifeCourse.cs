@@ -3,8 +3,8 @@ using Diet.Domain.supplement.Entities;
 
 namespace Diet.Domain.lifeCourse;
 /// <summary>
-///    نام دوره زندگی 
-///    (مثلاً "کودکی"، "نوجوانی"، "بزرگسالی"، "سالمندی")
+///   -همراه وعده - نام دوره زندگی 
+///    مثلاً "مدرسه"، "امتحانات "، "کنکور"، "بارداری")
 /// </summary>
 public sealed class LifeCourse: BaseEntity
 {
@@ -13,8 +13,10 @@ public sealed class LifeCourse: BaseEntity
         
     }
     public string Title { get;private set; }
-    public Guid ParrentId { get; private set; }
+    public Guid ParentId { get; private set; }
 
     public ICollection<SupplementLifeCourse> SupplementLifeCourse { get; private set; }
+
+    public ICollection<Case.Case> Case { get; set; }
 
 }

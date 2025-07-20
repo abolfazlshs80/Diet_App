@@ -1,6 +1,9 @@
 ﻿namespace Diet.Domain.Contract.Enums
 {
-    public enum SportActivity
+    /// <summary>
+    /// شدت ورزش
+    /// </summary>
+    public enum ExerciseSeverity
     {
         Low,
         Medium,
