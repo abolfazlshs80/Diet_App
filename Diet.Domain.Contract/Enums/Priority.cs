@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace Diet.Domain.Contract.Enums;
-
+/// <summary>
+/// اولویت
+/// </summary>
 public enum Priority
 {
 
-	High,
-
-	Medium,
-
-	Low,
+    HIGH,
+    MEDIUM,
+    LOW,
 }

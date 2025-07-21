@@ -5,7 +5,7 @@ namespace Diet.Domain.Contract.Enums;
 public enum TicketStatus
 {
 
-	Open,
-	Seen,
-	Close,
+    OPEN,
+    SEEN,
+    CLOSE,
 }

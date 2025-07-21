@@ -5,8 +5,8 @@
     /// </summary>
     public enum ExerciseSeverity
     {
-        Low,
-        Medium,
-        High,
+        LOW,
+        MEDIUM,
+        HIGH,
     }
 }

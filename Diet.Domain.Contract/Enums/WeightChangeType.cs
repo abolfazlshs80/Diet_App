@@ -5,10 +5,10 @@
     /// </summary>
     public enum WeightChangeType
     {
-        WeightLossWithOutSport, // کاهش وزن بدون ورزش
-        WeightLossWithSport,// کاهش وزن با ورزش
-        WeightGainWithBodyBuilding,// افزایش وزن با بدنسازی
-        WeightGainWithoutBodyBuilding, // افزایش وزن بدون بدنسازی
-        WeightFixed // تثبیت وزن
+        WEIGHTLOSSWITHOUTSPORT, // کاهش وزن بدون ورزش
+        WEIGHTLOSSWITHSPORT,// کاهش وزن با ورزش
+        WEIGHTGAINWITHBODYBUILDING,// افزایش وزن با بدنسازی
+        WEIGHTGAINWITHOUTBODYBUILDING, // افزایش وزن بدون بدنسازی
+        WEIGHTFIXED // تثبیت وزن
     }
 }

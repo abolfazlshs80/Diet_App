@@ -10,8 +10,8 @@ namespace Diet.Domain.Contract.Enums
 {
     public enum Gender
     {
-        Male,
-        Female,
+        MALE,
+        FEMALE,
     }
 
 }

@@ -8,9 +8,9 @@ namespace Diet.Domain.Contract.Enums
 {
     public enum BodyForm
     {
-        Skinny,
-        OnlyMuscle,
-        MuscleFat,
-        OnlyFat
+        SKINNY,
+        ONLYMUSCLE,
+        MUSCLEFAT,
+        ONLYFAT
     }
 }

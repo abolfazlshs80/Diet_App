@@ -4,7 +4,7 @@ namespace Diet.Domain.Contract.Enums;
 
 public enum TransactionType
 {
-    Paid,
-    NotPaid,
-    Rejected,
+    OPEN,
+    SEEN,
+    CLOSE,
 }
