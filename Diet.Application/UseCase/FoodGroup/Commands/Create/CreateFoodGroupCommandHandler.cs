@@ -26,7 +26,7 @@ public class CreateFoodGroupCommandHandler : ICommandHandler<CreateFoodGroupComm
         if (orderResult.IsError)
             return orderResult.FirstError;
 
-        await _foodGroupRepository.Save(orderResult.Value!);
+        await _foodGroupRepository.Save(orderResult.Value);
         await _unitOfWorkService.SaveAsync();
 
         return new CreateFoodGroupCommandResult("success","ok");
