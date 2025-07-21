@@ -10,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ICommandBus, CommandBus>();
+builder.Services.AddScoped<IQueryBus, QueryBus>();
 builder.Services
       .AddApplication(builder.Configuration)
     .AddInfrastructure(builder.Configuration)
