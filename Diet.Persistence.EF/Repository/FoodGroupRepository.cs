@@ -19,32 +19,35 @@ public class FoodGroupRepository : IFoodGroupRepository
         _dbContext = dbContext;
     }
 
-    public async Task<FoodGroup> ById(Guid Id)
+    public async Task<Domain.food.Entities.FoodGroup> ById(Guid Id)
     {
-        return await _dbContext.FoodGroup.SingleOrDefaultAsync(x => x.Id == Id);
+        return await _dbContext.FoodGroup.AsNoTracking().SingleOrDefaultAsync(x => x.Id == Id);
     }
 
-    public async Task Save(FoodGroup FoodGroup)
+    public async Task Save(Domain.food.Entities.FoodGroup FoodGroup)
     {
         await _dbContext.FoodGroup.AddAsync(FoodGroup);
-        await _dbContext.SaveChangesAsync();
+      
     }
 
-    public async Task Update(FoodGroup FoodGroup)
+    public async Task Update(Domain.food.Entities.FoodGroup FoodGroup)
     {
         _dbContext.Update(FoodGroup);
-        await _dbContext.SaveChangesAsync();
+       
     }
 
-    public async Task Delete(FoodGroup FoodGroup)
+    public async Task Delete(Domain.food.Entities.FoodGroup FoodGroup)
     {
         _dbContext.Remove(FoodGroup);
-        await _dbContext.SaveChangesAsync();
+       
     }
 
-    public async Task<List<FoodGroup>> All()
+    public async Task<List<Domain.food.Entities.FoodGroup>> All(string? searchText, int pageCount = 8, int PageNumber = 0)
     {
-        return await _dbContext.FoodGroup.ToListAsync();
+        var result =  _dbContext.FoodGroup.AsQueryable();
+        if (!string.IsNullOrEmpty(searchText))
+            result = result.Where(_ => _.Title.Contains(searchText));
+        return await result.Skip(PageNumber * pageCount).Take(pageCount).AsNoTracking().ToListAsync();
     }
 
    
