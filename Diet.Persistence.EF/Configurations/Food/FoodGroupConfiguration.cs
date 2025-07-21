@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Diet.Persistence.EF.Configurations.User;
 
-public class FoodGroupConfiguration : IEntityTypeConfiguration<FoodGroup>
+public class FoodGroupConfiguration : IEntityTypeConfiguration<Domain.food.Entities.FoodGroup>
 {
-    public void Configure(EntityTypeBuilder<FoodGroup> builder)
+    public void Configure(EntityTypeBuilder<Domain.food.Entities.FoodGroup > builder)
     {
 
         builder.HasKey(_ => _.Id);
