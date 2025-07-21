@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Diet.Application\Diet.Application.csproj" />
     <ProjectReference Include="..\Diet.Persistence.EF\Diet.Persistence.EF.csproj" />
   </ItemGroup>
 
