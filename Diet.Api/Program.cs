@@ -1,6 +1,7 @@
+using Diet.Api.Mapping;
+using Diet.Application;
 using Diet.Framework.Core.Bus;
 using Diet.Persistence.EF;
-using Diet.Application;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -12,9 +13,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ICommandBus, CommandBus>();
 builder.Services.AddScoped<IQueryBus, QueryBus>();
 builder.Services
-      .AddApplication(builder.Configuration)
+    .AddApplication(builder.Configuration)
     .AddInfrastructure(builder.Configuration)
-    ;
+    .AddMappings();
 
 var app = builder.Build();
 
