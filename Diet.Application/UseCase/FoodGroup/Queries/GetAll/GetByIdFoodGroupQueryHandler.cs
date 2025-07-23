@@ -22,7 +22,7 @@ public class GetAllFoodGroupQueryHandler : IQueryHandler<GetAllFoodGroupQuery,Ge
 
     public async Task<ErrorOr<GetAllFoodGroupQueryResult>> Handle(GetAllFoodGroupQuery Query)
     {
-        var result = await _foodGroupRepository.All(Query.search,Query.PageSize,Query.CurrentPage);
+        var result = await _foodGroupRepository.AllAsync(Query.search,Query.PageSize,Query.CurrentPage);
         return new GetAllFoodGroupQueryResult(result.Count, result.Select(_ => new GetFoodGroupItem(_.Id,_.Title)).ToList(), Query.CurrentPage, Query.PageSize);
     }
 
