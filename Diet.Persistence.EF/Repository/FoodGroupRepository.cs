@@ -19,30 +19,30 @@ public class FoodGroupRepository : IFoodGroupRepository
         _dbContext = dbContext;
     }
 
-    public async Task<Domain.food.Entities.FoodGroup> ById(Guid Id)
+    public async Task<Domain.food.Entities.FoodGroup> ByIdAsync(Guid Id)
     {
         return await _dbContext.FoodGroup.AsNoTracking().SingleOrDefaultAsync(x => x.Id == Id);
     }
 
-    public async Task Save(Domain.food.Entities.FoodGroup FoodGroup)
+    public async Task AddAsync(Domain.food.Entities.FoodGroup FoodGroup)
     {
         await _dbContext.FoodGroup.AddAsync(FoodGroup);
       
     }
 
-    public async Task Update(Domain.food.Entities.FoodGroup FoodGroup)
+    public async Task UpdateAsync(Domain.food.Entities.FoodGroup FoodGroup)
     {
         _dbContext.Update(FoodGroup);
        
     }
 
-    public async Task Delete(Domain.food.Entities.FoodGroup FoodGroup)
+    public async Task DeleteAsync(Domain.food.Entities.FoodGroup FoodGroup)
     {
         _dbContext.Remove(FoodGroup);
        
     }
 
-    public async Task<List<Domain.food.Entities.FoodGroup>> All(string? searchText, int pageCount = 8, int PageNumber = 0)
+    public async Task<List<Domain.food.Entities.FoodGroup>> AllAsync(string? searchText, int pageCount = 8, int PageNumber = 0)
     {
         var result =  _dbContext.FoodGroup.AsQueryable();
         if (!string.IsNullOrEmpty(searchText))
