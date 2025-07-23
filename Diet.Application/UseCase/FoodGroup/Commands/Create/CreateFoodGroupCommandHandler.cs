@@ -1,9 +1,11 @@
-﻿using Diet.Domain.Contract;
+﻿using Diet.Application.Execptions;
+using Diet.Domain.Contract;
 using Diet.Domain.Contract.Commands.Order.Create;
 using Diet.Domain.food.Entities;
 using Diet.Domain.user.Repository;
 using Diet.Framework.Core.Bus;
 using ErrorOr;
+using System.Threading;
 
 namespace Diet.Application.UseCase.FoodGroup.Commands.Create;
 
@@ -25,9 +27,23 @@ public class CreateFoodGroupCommandHandler : ICommandHandler<CreateFoodGroupComm
         var orderResult = Domain.food.Entities.FoodGroup.Create(command);
         if (orderResult.IsError)
             return orderResult.FirstError;
+        try
+        {
+            await _foodGroupRepository.AddAsync(orderResult.Value);
+ 
+            await _unitOfWorkService.SaveAsync();
 
-        await _foodGroupRepository.Save(orderResult.Value);
-        await _unitOfWorkService.SaveAsync();
+            await _unitOfWorkService.CommitAsync();
+
+        }
+        catch (Exception)
+        {
+
+            await _unitOfWorkService.RollbackAsync();
+
+            return new CreateFoodGroupCommandResult("error", "Add Food Group has error and rollback is done");
+        }
+
 
         return new CreateFoodGroupCommandResult("success","ok");
     }
