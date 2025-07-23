@@ -24,22 +24,29 @@ public static class DependencyInjection
         this IServiceCollection services,
         ConfigurationManager configuration)
     {
-        services.AddScoped<ICommandHandler<CreateFoodGroupCommand, CreateFoodGroupCommandResult>, CreateFoodGroupCommandHandler>();
-        services.AddScoped<IValidator<CreateFoodGroupCommand>, CreateFoodGroupCommandValidator>();
+        //services.AddScoped<ICommandHandler<CreateFoodGroupCommand, CreateFoodGroupCommandResult>, CreateFoodGroupCommandHandler>();
+        //services.AddScoped<IValidator<CreateFoodGroupCommand>, CreateFoodGroupCommandValidator>();
 
-        services.AddScoped<ICommandHandler<UpdateFoodGroupCommand, UpdateFoodGroupCommandResult>, UpdateFoodGroupCommandHandler>();
-        services.AddScoped<IValidator<UpdateFoodGroupCommand>, UpdateFoodGroupCommandValidator>();
+        var assembly = typeof(DependencyInjection).Assembly;
 
-        services.AddScoped<ICommandHandler<DeleteFoodGroupCommand, DeleteFoodGroupCommandResult>, DeleteFoodGroupCommandHandler>();
-        services.AddScoped<IValidator<DeleteFoodGroupCommand>, DeleteFoodGroupCommandValidator>();
+        services.Scan(scan => scan
+            .FromAssemblies(assembly)
+            // CommandHandlers
+            .AddClasses(classes => classes.AssignableTo(typeof(ICommandHandler<,>)))
+                .AsImplementedInterfaces()
+                .WithScopedLifetime()
 
+            // QueryHandlers
+            .AddClasses(classes => classes.AssignableTo(typeof(IQueryHandler<,>)))
+                .AsImplementedInterfaces()
+                .WithScopedLifetime()
 
-        services.AddScoped<IQueryHandler<GetByIdFoodGroupQuery, GetByIdFoodGroupQueryResult>, GetByIdFoodGroupQueryHandler>();
-        services.AddScoped<IValidator<GetByIdFoodGroupQuery>, GetByIdFoodGroupQueryValidator>();
+            // Validators
+            .AddClasses(classes => classes.AssignableTo(typeof(IValidator<>)))
+                .AsImplementedInterfaces()
+                .WithScopedLifetime()
+        );
 
-
-        services.AddScoped<IQueryHandler<GetAllFoodGroupQuery, GetAllFoodGroupQueryResult>, GetAllFoodGroupQueryHandler>();
-        services.AddScoped<IValidator<GetAllFoodGroupQuery>, GetAllFoodGroupQueryValidator>();
         return services;
     }
 }
