@@ -1,5 +1,6 @@
 ﻿using Diet.Application.Execptions;
 using Diet.Domain.Contract;
+using Diet.Domain.Contract.Commands.Order.Create;
 using Diet.Domain.Contract.Commands.Order.Update;
 using Diet.Domain.food.Entities;
 using Diet.Domain.user.Repository;
@@ -24,7 +25,7 @@ public class UpdateFoodGroupCommandHandler : ICommandHandler<UpdateFoodGroupComm
     public async Task<ErrorOr<UpdateFoodGroupCommandResult>> Handle(UpdateFoodGroupCommand command)
     {
 
-        var foodGroup = await _foodGroupRepository.ById(command.Id);
+        var foodGroup = await _foodGroupRepository.ByIdAsync(command.Id);
         if (foodGroup == null)
             return FoodGroup_Error.FoodGroup_NotFount;
 
@@ -32,8 +33,23 @@ public class UpdateFoodGroupCommandHandler : ICommandHandler<UpdateFoodGroupComm
         if (result.IsError)
             return result.FirstError;
 
-        await _foodGroupRepository.Update(result.Value);
-        await _unitOfWorkService.SaveAsync();
+
+        try
+        {
+            await _foodGroupRepository.UpdateAsync(result.Value);
+            await _unitOfWorkService.SaveAsync();
+
+            await _unitOfWorkService.CommitAsync();
+
+        }
+        catch (Exception)
+        {
+
+            await _unitOfWorkService.RollbackAsync();
+
+            return new UpdateFoodGroupCommandResult("error", "Add Food Group has error and rollback is done");
+        }
+     
 
         return new UpdateFoodGroupCommandResult("success","ok");
     }
