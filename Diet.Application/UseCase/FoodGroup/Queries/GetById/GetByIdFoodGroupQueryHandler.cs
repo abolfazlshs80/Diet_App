@@ -21,7 +21,7 @@ public class GetByIdFoodGroupQueryHandler : IQueryHandler<GetByIdFoodGroupQuery,
 
     public async Task<ErrorOr<GetByIdFoodGroupQueryResult>> Handle(GetByIdFoodGroupQuery Query)
     {
-        var result = await _foodGroupRepository.ById(Query.Id);
+        var result = await _foodGroupRepository.ByIdAsync(Query.Id);
         if (result == null)
             return FoodGroup_Error.FoodGroup_NotFount;
 
