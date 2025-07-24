@@ -2,7 +2,7 @@
 using Diet.Domain.common;
 using Diet.Domain.Contract.Enums;
 using Diet.Domain.food.Entities;
-using Diet.Domain.lifeCourse;
+using Diet.Domain.lifeCourse.Entities;
 using Diet.Domain.sport;
 using Diet.Domain.transactions;
 using Diet.Domain.user;

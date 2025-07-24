@@ -1,5 +1,5 @@
 ﻿using Diet.Domain.common;
-using Diet.Domain.lifeCourse;
+using Diet.Domain.lifeCourse.Entities;
 
 namespace Diet.Domain.supplement.Entities;
 /// <summary>

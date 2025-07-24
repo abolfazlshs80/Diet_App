@@ -1,4 +1,4 @@
-﻿using Diet.Domain.lifeCourse;
+﻿using Diet.Domain.durationAge.Entities;
 using Diet.Domain.supplement.Entities;
 using Diet.Domain.user.Entities;
 using Microsoft.EntityFrameworkCore;

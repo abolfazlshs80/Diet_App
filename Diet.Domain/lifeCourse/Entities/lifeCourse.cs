@@ -1,18 +1,19 @@
 ﻿using Diet.Domain.common;
+using Diet.Domain.Contract.Commands.Order.Create;
+using Diet.Domain.Contract.Commands.Order.Update;
 using Diet.Domain.Recommendation.Entities;
 using Diet.Domain.supplement.Entities;
+using ErrorOr;
 
-namespace Diet.Domain.lifeCourse;
+namespace Diet.Domain.lifeCourse.Entities;
 /// <summary>
 ///   -همراه وعده - نام دوره زندگی 
 ///    مثلاً "مدرسه"، "امتحانات "، "کنکور"، "بارداری")
 /// </summary>
 public sealed class LifeCourse: BaseEntity
 {
-    private LifeCourse()
-    {
-        
-    }
+    private LifeCourse(Guid id, string title, Guid parentId) : base(id) { ParentId = parentId; Title = title; }
+    private LifeCourse(string title, Guid parentId) { ParentId = parentId; Title = title; }
     public string Title { get;private set; }
     public Guid ParentId { get; private set; }
     public LifeCourse? Parent { get; private set; } // ← Navigation به والد
@@ -23,4 +24,20 @@ public sealed class LifeCourse: BaseEntity
 
     public ICollection<Case.Case> Case { get; set; }
 
+    public static ErrorOr<LifeCourse> Create(CreateLifeCourseCommand command)
+    {
+
+        var foodGroup = new LifeCourse(command.Title, command.ParentId);
+
+
+        return foodGroup;
+    }
+
+    public static ErrorOr<LifeCourse> Update(UpdateLifeCourseCommand command)
+    {
+        var foodGroup = new LifeCourse(command.Id, command.Title, command.ParentId);
+
+
+        return foodGroup;
+    }
 }
