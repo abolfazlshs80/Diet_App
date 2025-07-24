@@ -1,4 +1,5 @@
-﻿using Diet.Domain.supplement.Entities;
+﻿using Diet.Domain.drug.Entities;
+using Diet.Domain.supplement.Entities;
 using Diet.Domain.user;
 using Diet.Domain.user.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -6,9 +7,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Diet.Persistence.EF.Configurations.User;
 
-public class DrugConfiguration : IEntityTypeConfiguration<Drug>
+public class DrugConfiguration : IEntityTypeConfiguration<Diet.Domain.drug.Entities.Drug>
 {
-    public void Configure(EntityTypeBuilder<Drug> entity)
+    public void Configure(EntityTypeBuilder<Diet.Domain.drug.Entities.Drug> entity)
     {
         entity.HasKey(e => e.Id);
 

@@ -10,7 +10,7 @@ public sealed class CaseDrug : BaseEntity
     public Case Case { get; private set; }
 
     public Guid DrugId { get; private set; }
-    public Drug Drug { get; private set; }
+    public drug.Entities.Drug Drug { get; private set; }
 
 
 }

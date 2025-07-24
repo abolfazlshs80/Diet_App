@@ -12,7 +12,6 @@
 	<ItemGroup>
 	  <Folder Include="case\Errors\" />
 	  <Folder Include="case\ValueObjects\" />
-	  <Folder Include="drug\Entities\" />
 	  <Folder Include="drug\Errors\" />
 	  <Folder Include="drug\ValueObjects\" />
 	  <Folder Include="user\ValueObjects\" />
