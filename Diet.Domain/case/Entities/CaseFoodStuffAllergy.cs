@@ -7,7 +7,7 @@ public sealed class CaseFoodStuffAllergy : BaseEntity
 {
     private CaseFoodStuffAllergy() { }
     public Guid FoodStuffId { get; private set; }
-    public FoodStuff FoodStuff { get; private set; }
+    public Domain.food.Entities.FoodStuff FoodStuff { get; private set; }
 
     public Guid CaseId { get; private set; }
     public Case Case { get; private set; }

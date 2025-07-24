@@ -1,6 +1,9 @@
 ﻿using Diet.Domain.@case.Entities;
 using Diet.Domain.Case;
 using Diet.Domain.common;
+using Diet.Domain.Contract.Commands.Order.Create;
+using Diet.Domain.Contract.Commands.Order.Update;
+using ErrorOr;
 
 namespace Diet.Domain.food.Entities;
 /// <summary>
@@ -22,5 +25,25 @@ public sealed class Food:BaseEntity
     public ICollection<Food_Drug_Intraction> Food_Drug_Intraction { get; set; }
     public ICollection<CaseFoodStuffAllergy> CaseFoodStuffAllergy { get; private set; }//
     private Food() { }
+    
+    private Food(Guid id, string title,string description, double value ,Guid foodGroupId) : base(id) { Description = description; Value = value; FoodGroupId = foodGroupId; Title = title; }
+    private Food( string title, string description, double value, Guid foodGroupId) { Description = description; Value = value; FoodGroupId = foodGroupId; Title = title; }
+
+    public static ErrorOr<Food> Create(CreateFoodCommand command)
+    {
+
+        var foodGroup = new Food(command.Title, command.Description, command.Value, command.FoodGroupId);
+
+
+        return foodGroup;
+    }
+
+    public static ErrorOr<Food> Update(UpdateFoodCommand command)
+    {
+        var foodGroup = new Food(command.Id, command.Title,command.Description,command.Value,command.FoodGroupId);
+
+
+        return foodGroup;
+    }
 
 }
