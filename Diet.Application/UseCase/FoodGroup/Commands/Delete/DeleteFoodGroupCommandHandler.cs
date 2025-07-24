@@ -29,8 +29,9 @@ public class DeleteFoodGroupCommandHandler : ICommandHandler<DeleteFoodGroupComm
             return FoodGroup_Error.FoodGroup_NotFount;
         try
         {
+            await _unitOfWorkService.BeginTransactionAsync();
             await _foodGroupRepository.DeleteAsync(result);
-            await _unitOfWorkService.SaveAsync();
+           
             await _unitOfWorkService.CommitAsync();
 
         }

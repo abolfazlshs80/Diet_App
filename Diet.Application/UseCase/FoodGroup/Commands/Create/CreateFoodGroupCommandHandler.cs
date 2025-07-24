@@ -29,9 +29,9 @@ public class CreateFoodGroupCommandHandler : ICommandHandler<CreateFoodGroupComm
             return orderResult.FirstError;
         try
         {
+            await _unitOfWorkService.BeginTransactionAsync();
             await _foodGroupRepository.AddAsync(orderResult.Value);
  
-            await _unitOfWorkService.SaveAsync();
 
             await _unitOfWorkService.CommitAsync();
 
