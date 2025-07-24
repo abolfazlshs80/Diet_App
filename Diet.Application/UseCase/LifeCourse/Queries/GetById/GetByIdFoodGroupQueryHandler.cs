@@ -3,6 +3,7 @@ using Diet.Domain.Contract.Queries.LifeCourse.GetById;
 using Diet.Domain.user.Repository;
 using Diet.Framework.Core.Bus;
 using ErrorOr;
+using static Drug.Domain.Drug.Errors.DomainErrors;
 
 namespace Diet.Application.UseCase.LifeCourse.Queries.GetById;
 

@@ -12,8 +12,8 @@ namespace Diet.Domain.durationAge.Entities;
 /// </summary>
 public sealed class DurationAge:BaseEntity
 {
-    private DurationAge(Guid id, string title, string description) : base(id) { Title = title; }
-    private DurationAge(string title, string description) {  Title = title; }
+    private DurationAge(Guid id, string title) : base(id) { Title = title; }
+    private DurationAge(string title) {  Title = title; }
     public string Title { get; private set; }
 
     public ICollection<SupplementDurationAge> SupplementDurationAge { get; private set; }

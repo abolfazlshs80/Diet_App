@@ -31,15 +31,15 @@ public static class DependencyInjection
             opt.UseSqlServer(configuration.GetConnectionString("DientConnection")));
 
         //services.AddScoped<IOrderRepository, OrderRepository>();
-        //services.AddScoped<IDurationAgeRepository, DurationAgeRepository>();
-        //services.AddScoped<ILifeCourseRepository, LifeCourseRepository>();
-        //services.AddScoped<IDrugRepository, DrugRepository>();
-        //services.AddScoped<IFoodRepository, FoodRepository>();
-        //services.AddScoped<IFoodGroupRepository, FoodGroupRepository>();
-        //services.AddScoped<IFoodStuffRepository, FoodStuffRepository>();
-        //services.AddScoped<IFoodDrugIntractionRepository, FoodDrugIntractionRepository>();
-        //services.AddScoped<IFoodFoodIntractionRepository, FoodFoodIntractionRepository>();
-        //services.AddScoped<IUnitOfWorkService, UnitOfWorkService>();
+        services.AddScoped<IDurationAgeRepository, DurationAgeRepository>();
+        services.AddScoped<ILifeCourseRepository, LifeCourseRepository>();
+        services.AddScoped<IDrugRepository, DrugRepository>();
+        services.AddScoped<IFoodRepository, FoodRepository>();
+        services.AddScoped<IFoodGroupRepository, FoodGroupRepository>();
+        services.AddScoped<IFoodStuffRepository, FoodStuffRepository>();
+        services.AddScoped<IFoodDrugIntractionRepository, FoodDrugIntractionRepository>();
+        services.AddScoped<IFoodFoodIntractionRepository, FoodFoodIntractionRepository>();
+        services.AddScoped<IUnitOfWorkService, UnitOfWorkService>();
         services.Scan(scan => scan
        .FromAssemblyOf<IFoodRepository>() // یا یکی از Interfaceهای داخل لایه‌ی Infrastructure
        .AddClasses(c => c.Where(x => x.Name.EndsWith("Repository")))
