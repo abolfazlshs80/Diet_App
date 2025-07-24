@@ -29,7 +29,11 @@ public static class DependencyInjection
             opt.UseSqlServer(configuration.GetConnectionString("DientConnection")));
 
         //services.AddScoped<IOrderRepository, OrderRepository>();
+        services.AddScoped<IFoodRepository, FoodRepository>();
         services.AddScoped<IFoodGroupRepository, FoodGroupRepository>();
+        services.AddScoped<IFoodStuffRepository, FoodStuffRepository>();
+        services.AddScoped<IFoodDrugIntractionRepository, FoodDrugIntractionRepository>();
+        services.AddScoped<IFoodFoodIntractionRepository, FoodFoodIntractionRepository>();
         services.AddScoped<IUnitOfWorkService, UnitOfWorkService>();
         
         return services;

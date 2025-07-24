@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Diet.Persistence.EF.Configurations.User;
 
-public class FoodStuffConfiguration : IEntityTypeConfiguration<FoodStuff>
+public class FoodStuffConfiguration : IEntityTypeConfiguration<Domain.food.Entities.FoodStuff>
 {
-    public void Configure(EntityTypeBuilder<FoodStuff> builder)
+    public void Configure(EntityTypeBuilder<Domain.food.Entities.FoodStuff> builder)
     {
         builder.HasKey(builder => builder.Id);
         builder.Property(_=>_.Title).IsRequired().HasMaxLength(200);

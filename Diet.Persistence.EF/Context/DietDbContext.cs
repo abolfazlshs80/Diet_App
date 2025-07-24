@@ -41,11 +41,11 @@ public class DietDbContext : ApplicationDbContext
 
     public DbSet<Disease> Disease { get; set; }
     public DbSet<Drug> Drug { get; set; }
-    public DbSet<Food> Food { get; set; }
+    public DbSet<Diet.Domain.food.Entities.Food> Food { get; set; }
     public DbSet<Food_Drug_Intraction> Food_Drug_Intraction { get; set; }
     public DbSet<Food_Food_Intraction> Food_Food_Intraction { get; set; }
     public DbSet<Diet.Domain.food.Entities.FoodGroup> FoodGroup { get; set; }
-    public DbSet<FoodStuff> FoodStuff { get; set; }
+    public DbSet<Diet. Domain.food.Entities.FoodStuff> FoodStuff { get; set; }
     public DbSet<LifeCourse> LifeCourse { get; set; }
     public DbSet<DurationAge> DurationAge { get; set; }
     public DbSet<Recommendation> Recommendation { get; set; }
