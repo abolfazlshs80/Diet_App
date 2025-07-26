@@ -4,7 +4,7 @@
 
 namespace Diet.Domain.user.Repository;
 
-public interface ISupplementRepository1
+public interface ISupplementRepository
 {
 
 }

@@ -2,9 +2,12 @@
 
 
 
+using Diet.Domain.Contract;
+using Diet.Framework.Core.Interface;
+
 namespace Diet.Domain.user.Repository;
 
-public interface ILifeCourseRepository
+public interface ILifeCourseRepository : IRepository
 {
 
     Task<List<Domain.lifeCourse.Entities.LifeCourse>> AllAsync(string? searchText, int pageCount = 8, int PageNumber = 0);
