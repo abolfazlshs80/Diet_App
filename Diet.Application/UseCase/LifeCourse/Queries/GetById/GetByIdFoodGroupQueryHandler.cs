@@ -2,6 +2,7 @@
 using Diet.Domain.Contract.Queries.LifeCourse.GetById;
 using Diet.Domain.user.Repository;
 using Diet.Framework.Core.Bus;
+using Diet.Application.Interface;
 using ErrorOr;
 using static Drug.Domain.Drug.Errors.DomainErrors;
 
@@ -10,11 +11,11 @@ namespace Diet.Application.UseCase.LifeCourse.Queries.GetById;
 public class GetByIdLifeCourseQueryHandler : IQueryHandler<GetByIdLifeCourseQuery, GetByIdLifeCourseQueryResult>
 {
     private readonly ILifeCourseRepository _LifeCourseRepository;
-    private readonly IUnitOfWorkService _unitOfWorkService;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public GetByIdLifeCourseQueryHandler(ILifeCourseRepository LifeCourseRepository, IUnitOfWorkService unitOfWorkService)
+    public GetByIdLifeCourseQueryHandler(ILifeCourseRepository LifeCourseRepository, IUnitOfWork unitOfWork)
     {
-        _unitOfWorkService = unitOfWorkService;
+        _unitOfWork = unitOfWork;
         _LifeCourseRepository = LifeCourseRepository;
     }
 

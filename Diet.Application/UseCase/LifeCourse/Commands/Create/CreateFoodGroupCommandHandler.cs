@@ -1,9 +1,10 @@
-﻿using Diet.Application.Execptions;
+﻿
 using Diet.Domain.Contract;
 using Diet.Domain.Contract.Commands.Order.Create;
 using Diet.Domain.food.Entities;
 using Diet.Domain.user.Repository;
 using Diet.Framework.Core.Bus;
+using Diet.Application.Interface;
 using ErrorOr;
 using System.Threading;
 
@@ -12,11 +13,11 @@ namespace Diet.Application.UseCase.LifeCourse.Commands.Create;
 public class CreateLifeCourseCommandHandler : ICommandHandler<CreateLifeCourseCommand, CreateLifeCourseCommandResult>
 {
     private readonly ILifeCourseRepository _LifeCourseRepository;
-    private readonly IUnitOfWorkService _unitOfWorkService;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public CreateLifeCourseCommandHandler(ILifeCourseRepository LifeCourseRepository, IUnitOfWorkService unitOfWorkService)
+    public CreateLifeCourseCommandHandler(ILifeCourseRepository LifeCourseRepository, IUnitOfWork unitOfWork)
     {
-        _unitOfWorkService = unitOfWorkService;
+        _unitOfWork = unitOfWork;
         _LifeCourseRepository = LifeCourseRepository;
     }
  
@@ -27,23 +28,15 @@ public class CreateLifeCourseCommandHandler : ICommandHandler<CreateLifeCourseCo
         var orderResult = Domain.lifeCourse.Entities.LifeCourse.Create(command);
         if (orderResult.IsError)
             return orderResult.FirstError;
-        try
-        {
-            await _unitOfWorkService.BeginTransactionAsync();
+       
+            await _unitOfWork.BeginTransactionAsync();
             await _LifeCourseRepository.AddAsync(orderResult.Value);
- 
 
-            await _unitOfWorkService.CommitAsync();
+            var commitState = await _unitOfWork.CommitAsync();
 
-        }
-        catch (Exception)
-        {
-
-            await _unitOfWorkService.RollbackAsync();
-
-            return new CreateLifeCourseCommandResult("error", "Add Food Group has error and rollback is done");
-        }
-
+            if (commitState.Value == Domain.Contract.Enums.TransactionStatus.Error)
+                return new CreateLifeCourseCommandResult("error", "Add LifeCourse has error and rollback is done");
+        
 
         return new CreateLifeCourseCommandResult("success","ok");
     }

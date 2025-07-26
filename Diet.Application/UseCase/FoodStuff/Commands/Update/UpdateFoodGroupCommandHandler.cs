@@ -1,6 +1,8 @@
-﻿using Diet.Application.Execptions;
+﻿
+using Diet.Application.Interface;
 using Diet.Domain.Contract;
 using Diet.Domain.Contract.Commands.Order.Create;
+using Diet.Domain.Contract.Commands.Order.Delete;
 using Diet.Domain.Contract.Commands.Order.Update;
 using Diet.Domain.food.Entities;
 using Diet.Domain.user.Repository;
@@ -13,11 +15,11 @@ namespace Diet.Application.UseCase.FoodStuff.Commands.Update;
 public class UpdateFoodStuffCommandHandler : ICommandHandler<UpdateFoodStuffCommand, UpdateFoodStuffCommandResult>
 {
     private readonly IFoodStuffRepository _FoodStuffRepository;
-    private readonly IUnitOfWorkService _unitOfWorkService;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public UpdateFoodStuffCommandHandler(IFoodStuffRepository FoodStuffRepository, IUnitOfWorkService unitOfWorkService)
+    public UpdateFoodStuffCommandHandler(IFoodStuffRepository FoodStuffRepository, IUnitOfWork unitOfWork)
     {
-        _unitOfWorkService = unitOfWorkService;
+        _unitOfWork = unitOfWork;
         _FoodStuffRepository = FoodStuffRepository;
     }
  
@@ -27,29 +29,22 @@ public class UpdateFoodStuffCommandHandler : ICommandHandler<UpdateFoodStuffComm
 
         var FoodStuff = await _FoodStuffRepository.ByIdAsync(command.Id);
         if (FoodStuff == null)
-            return FoodStuff_Error.FoodStuff_NotFount;
+            return new UpdateFoodStuffCommandResult("error", "NotFound FoodStuff ");
 
-        var result = Domain.food.Entities.FoodStuff.Update(command);
+
+        var result = Domain.food.Entities.FoodStuff.Update(FoodStuff, command);
         if (result.IsError)
             return result.FirstError;
 
 
-        try
-        {
-            await _unitOfWorkService.BeginTransactionAsync();
+            await _unitOfWork.BeginTransactionAsync();
             await _FoodStuffRepository.UpdateAsync(result.Value);
-      
-            await _unitOfWorkService.CommitAsync();
 
-        }
-        catch (Exception)
-        {
+            var commitState = await _unitOfWork.CommitAsync();
 
-            await _unitOfWorkService.RollbackAsync();
-
-            return new UpdateFoodStuffCommandResult("error", "Add Food Group has error and rollback is done");
-        }
-     
+            if (commitState.Value == Domain.Contract.Enums.TransactionStatus.Error)
+                return new UpdateFoodStuffCommandResult("error", "Update ete FoodStuff has error and rollback is done");
+        
 
         return new UpdateFoodStuffCommandResult("success","ok");
     }

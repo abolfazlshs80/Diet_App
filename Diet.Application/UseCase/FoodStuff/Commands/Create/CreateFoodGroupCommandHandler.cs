@@ -1,7 +1,8 @@
-﻿using Diet.Application.Execptions;
+﻿
 using Diet.Domain.Contract;
 using Diet.Domain.Contract.Commands.Order.Create;
 using Diet.Domain.food.Entities;
+using Diet.Application.Interface;
 using Diet.Domain.user.Repository;
 using Diet.Framework.Core.Bus;
 using ErrorOr;
@@ -12,11 +13,11 @@ namespace Diet.Application.UseCase.FoodStuff.Commands.Create;
 public class CreateFoodStuffCommandHandler : ICommandHandler<CreateFoodStuffCommand, CreateFoodStuffCommandResult>
 {
     private readonly IFoodStuffRepository _FoodStuffRepository;
-    private readonly IUnitOfWorkService _unitOfWorkService;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public CreateFoodStuffCommandHandler(IFoodStuffRepository FoodStuffRepository, IUnitOfWorkService unitOfWorkService)
+    public CreateFoodStuffCommandHandler(IFoodStuffRepository FoodStuffRepository, IUnitOfWork unitOfWork)
     {
-        _unitOfWorkService = unitOfWorkService;
+        _unitOfWork = unitOfWork;
         _FoodStuffRepository = FoodStuffRepository;
     }
  
@@ -24,26 +25,19 @@ public class CreateFoodStuffCommandHandler : ICommandHandler<CreateFoodStuffComm
     public async Task<ErrorOr<CreateFoodStuffCommandResult>> Handle(CreateFoodStuffCommand command)
     {
 
-        var orderResult = Domain.food.Entities.FoodStuff.Create(command);
-        if (orderResult.IsError)
-            return orderResult.FirstError;
-        try
-        {
-            await _unitOfWorkService.BeginTransactionAsync();
-            await _FoodStuffRepository.AddAsync(orderResult.Value);
- 
+        var result = Domain.food.Entities.FoodStuff.Create(command);
+        if (result.IsError)
+            return result.FirstError;
+     
+            await _unitOfWork.BeginTransactionAsync();
+            await _FoodStuffRepository.AddAsync(result.Value);
 
-            await _unitOfWorkService.CommitAsync();
 
-        }
-        catch (Exception)
-        {
+            var commitState = await _unitOfWork.CommitAsync();
 
-            await _unitOfWorkService.RollbackAsync();
-
-            return new CreateFoodStuffCommandResult("error", "Add Food Group has error and rollback is done");
-        }
-
+            if (commitState.Value == Domain.Contract.Enums.TransactionStatus.Error)
+                return new CreateFoodStuffCommandResult("error", "Add FoodStuff has error and rollback is done");
+      
 
         return new CreateFoodStuffCommandResult("success","ok");
     }

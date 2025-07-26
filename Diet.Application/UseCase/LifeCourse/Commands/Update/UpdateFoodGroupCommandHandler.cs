@@ -1,6 +1,8 @@
-﻿using Diet.Application.Execptions;
+﻿
+using Diet.Application.Interface;
 using Diet.Domain.Contract;
 using Diet.Domain.Contract.Commands.Order.Create;
+using Diet.Domain.Contract.Commands.Order.Delete;
 using Diet.Domain.Contract.Commands.Order.Update;
 using Diet.Domain.food.Entities;
 using Diet.Domain.user.Repository;
@@ -13,11 +15,11 @@ namespace Diet.Application.UseCase.LifeCourse.Commands.Update;
 public class UpdateLifeCourseCommandHandler : ICommandHandler<UpdateLifeCourseCommand, UpdateLifeCourseCommandResult>
 {
     private readonly ILifeCourseRepository _LifeCourseRepository;
-    private readonly IUnitOfWorkService _unitOfWorkService;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public UpdateLifeCourseCommandHandler(ILifeCourseRepository LifeCourseRepository, IUnitOfWorkService unitOfWorkService)
+    public UpdateLifeCourseCommandHandler(ILifeCourseRepository LifeCourseRepository, IUnitOfWork unitOfWork)
     {
-        _unitOfWorkService = unitOfWorkService;
+        _unitOfWork = unitOfWork;
         _LifeCourseRepository = LifeCourseRepository;
     }
  
@@ -27,30 +29,22 @@ public class UpdateLifeCourseCommandHandler : ICommandHandler<UpdateLifeCourseCo
 
         var LifeCourse = await _LifeCourseRepository.ByIdAsync(command.Id);
         if (LifeCourse == null)
-            return LifeCourse_Error.LifeCourse_NotFount;
+            return new UpdateLifeCourseCommandResult("error", "NotFound LifeCourse");
 
-        var result = Domain.lifeCourse.Entities.LifeCourse.Update(command);
+        var result = Domain.lifeCourse.Entities.LifeCourse.Update(LifeCourse,command);
         if (result.IsError)
             return result.FirstError;
 
 
-        try
-        {
-            await _unitOfWorkService.BeginTransactionAsync();
+        
+            await _unitOfWork.BeginTransactionAsync();
             await _LifeCourseRepository.UpdateAsync(result.Value);
-      
-            await _unitOfWorkService.CommitAsync();
 
-        }
-        catch (Exception)
-        {
+            var commitState = await _unitOfWork.CommitAsync();
 
-            await _unitOfWorkService.RollbackAsync();
-
-            return new UpdateLifeCourseCommandResult("error", "Add Food Group has error and rollback is done");
-        }
-     
-
+            if (commitState.Value == Domain.Contract.Enums.TransactionStatus.Error)
+                return new UpdateLifeCourseCommandResult("error", "Add LifeCourse has error and rollback is done");
+       
         return new UpdateLifeCourseCommandResult("success","ok");
     }
 }

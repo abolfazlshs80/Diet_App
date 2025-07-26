@@ -1,8 +1,9 @@
-﻿using Diet.Application.Execptions;
+﻿
 using Diet.Domain.Contract;
 using Diet.Domain.Contract.Commands.Order.Create;
 using Diet.Domain.Contract.Commands.Order.Delete;
 using Diet.Domain.food.Entities;
+using Diet.Application.Interface;
 using Diet.Domain.user.Repository;
 using Diet.Framework.Core.Bus;
 using ErrorOr;
@@ -13,11 +14,11 @@ namespace Diet.Application.UseCase.LifeCourse.Commands.Delete;
 public class DeleteLifeCourseCommandHandler : ICommandHandler<DeleteLifeCourseCommand, DeleteLifeCourseCommandResult>
 {
     private readonly ILifeCourseRepository _LifeCourseRepository;
-    private readonly IUnitOfWorkService _unitOfWorkService;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public DeleteLifeCourseCommandHandler(ILifeCourseRepository LifeCourseRepository, IUnitOfWorkService unitOfWorkService)
+    public DeleteLifeCourseCommandHandler(ILifeCourseRepository LifeCourseRepository, IUnitOfWork unitOfWork)
     {
-        _unitOfWorkService = unitOfWorkService;
+        _unitOfWork = unitOfWork;
         _LifeCourseRepository = LifeCourseRepository;
     }
 
@@ -26,23 +27,16 @@ public class DeleteLifeCourseCommandHandler : ICommandHandler<DeleteLifeCourseCo
     {
         var result = await _LifeCourseRepository.ByIdAsync(command.Id);
         if (result == null)
-            return LifeCourse_Error.LifeCourse_NotFount;
-        try
-        {
-            await _unitOfWorkService.BeginTransactionAsync();
+            return new DeleteLifeCourseCommandResult("error", "NotFound LifeCourse");
+    
+            await _unitOfWork.BeginTransactionAsync();
             await _LifeCourseRepository.DeleteAsync(result);
-           
-            await _unitOfWorkService.CommitAsync();
 
-        }
-        catch (Exception)
-        {
+            var commitState = await _unitOfWork.CommitAsync();
 
-            await _unitOfWorkService.RollbackAsync();
-
-            return new DeleteLifeCourseCommandResult("error", "Add Food Group has error and rollback is done");
-        }
- 
+            if (commitState.Value == Domain.Contract.Enums.TransactionStatus.Error)
+                return new DeleteLifeCourseCommandResult("error", "Add  LifeCourse has error and rollback is done");
+     
 
         return new DeleteLifeCourseCommandResult("success", "ok");
     }

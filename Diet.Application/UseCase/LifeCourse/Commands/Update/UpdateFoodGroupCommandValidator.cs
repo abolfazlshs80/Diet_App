@@ -10,7 +10,7 @@ public class UpdateLifeCourseCommandValidator : AbstractValidator<UpdateLifeCour
     public UpdateLifeCourseCommandValidator()
     {
         RuleFor(x => x.Id).NotNull();
-        RuleFor(x => x.ParentId).NotNull();
+        //RuleFor(x => x.ParentId).NotNull();
         RuleFor(x => x.Title).Length(2, 150).WithMessage("Please  Enter a  name");
 
     }
