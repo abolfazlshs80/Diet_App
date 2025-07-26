@@ -1,19 +1,68 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="drug\ValueObjects\**" />
+    <Compile Remove="NewFolder\**" />
+    <EmbeddedResource Remove="drug\ValueObjects\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
+    <None Remove="drug\ValueObjects\**" />
+    <None Remove="NewFolder\**" />
+  </ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="ErrorOr" Version="2.0.1" />
 		<PackageReference Include="FluentValidation" Version="11.9.2" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Folder Include="caseDisease\Errors\" />
+	  <Folder Include="caseDisease\Repository\" />
+	  <Folder Include="caseDrug\Errors\" />
+	  <Folder Include="caseDrug\Repository\" />
+	  <Folder Include="caseFoodStuffAllergy\Errors\" />
+	  <Folder Include="caseFoodStuffAllergy\Repository\" />
+	  <Folder Include="casePleasantFood\Errors\" />
+	  <Folder Include="casePleasantFood\Repository\" />
+	  <Folder Include="caseSupplement\Errors\" />
+	  <Folder Include="caseSupplement\Repository\" />
+	  <Folder Include="caseUnPleasantFood\Errors\" />
+	  <Folder Include="caseUnPleasantFood\Repository\" />
 	  <Folder Include="case\Errors\" />
 	  <Folder Include="case\ValueObjects\" />
 	  <Folder Include="drug\Errors\" />
-	  <Folder Include="drug\ValueObjects\" />
+	  <Folder Include="foodGroup\Errors\" />
+	  <Folder Include="foodStuff\Errors\" />
+	  <Folder Include="food_Drug_Intraction\Errors\" />
+	  <Folder Include="food_Food_Intraction\Errors\" />
+	  <Folder Include="RecommendationDisease_WhiteList\Errors\" />
+	  <Folder Include="RecommendationDisease_WhiteList\Repository\" />
+	  <Folder Include="RecommendationDurationAge\Errors\" />
+	  <Folder Include="RecommendationDurationAge\Repository\" />
+	  <Folder Include="RecommendationLifeCourse\Errors\" />
+	  <Folder Include="RecommendationLifeCourse\Repository\" />
+	  <Folder Include="recommendation\Errors\" />
+	  <Folder Include="recommendation\Repository\" />
+	  <Folder Include="Role\Errors\" />
+	  <Folder Include="Role\Repository\" />
+	  <Folder Include="sport\Errors\" />
+	  <Folder Include="sport\Repository\" />
+	  <Folder Include="supplementDisease\Errors\" />
+	  <Folder Include="supplementDisease\Repository\" />
+	  <Folder Include="supplementDurationAge\Errors\" />
+	  <Folder Include="supplementDurationAge\Repository\" />
+	  <Folder Include="supplementGroup\Errors\" />
+	  <Folder Include="supplementGroup\Repository\" />
+	  <Folder Include="supplementLifeCourse\Errors\" />
+	  <Folder Include="supplementLifeCourse\Repository\" />
+	  <Folder Include="supplement\Errors\" />
+	  <Folder Include="ticketMessage\Errors\" />
+	  <Folder Include="ticketMessage\Repository\" />
+	  <Folder Include="userRole\Errors\" />
+	  <Folder Include="userRole\Repository\" />
 	  <Folder Include="user\ValueObjects\" />
 	</ItemGroup>
 	<ItemGroup>

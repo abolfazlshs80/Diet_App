@@ -3,6 +3,7 @@ using Diet.Domain.Contract.Queries.LifeCourse.GetAll;
 using Diet.Domain.food.Entities;
 using Diet.Domain.user.Repository;
 using Diet.Framework.Core.Bus;
+using Diet.Application.Interface;
 using ErrorOr;
 
 namespace Diet.Application.UseCase.LifeCourse.Queries.GetAll;
@@ -10,11 +11,11 @@ namespace Diet.Application.UseCase.LifeCourse.Queries.GetAll;
 public class GetAllLifeCourseQueryHandler : IQueryHandler<GetAllLifeCourseQuery,GetAllLifeCourseQueryResult>
 {
     private readonly ILifeCourseRepository _LifeCourseRepository;
-    private readonly IUnitOfWorkService _unitOfWorkService;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public GetAllLifeCourseQueryHandler(ILifeCourseRepository LifeCourseRepository, IUnitOfWorkService unitOfWorkService)
+    public GetAllLifeCourseQueryHandler(ILifeCourseRepository LifeCourseRepository, IUnitOfWork unitOfWork)
     {
-        _unitOfWorkService = unitOfWorkService;
+        _unitOfWork = unitOfWork;
         _LifeCourseRepository = LifeCourseRepository;
     }
 
