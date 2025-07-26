@@ -1,6 +1,9 @@
-﻿namespace Diet.Domain.durationAge.Repository;
+﻿using Diet.Domain.Contract;
+using Diet.Framework.Core.Interface;
 
-public interface IDurationAgeRepository
+namespace Diet.Domain.durationAge.Repository;
+
+public interface IDurationAgeRepository:IRepository
 {
 
     Task<List<Domain.durationAge.Entities.DurationAge>> AllAsync(string? searchText, int pageCount = 8, int PageNumber = 0);

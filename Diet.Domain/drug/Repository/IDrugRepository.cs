@@ -1,7 +1,11 @@
-﻿namespace Diet.Domain.user.Repository;
+﻿using Diet.Domain.Contract;
+using Diet.Framework.Core.Interface;
 
-public interface IDrugRepository
+namespace Diet.Domain.user.Repository;
+
+public interface IDrugRepository : IRepository
 {
+
     Task<List<Domain.drug.Entities.Drug>> AllAsync(string? searchText, int pageCount = 8, int PageNumber = 0);
     Task<Domain.drug.Entities.Drug> ByIdAsync(Guid Id);
 
