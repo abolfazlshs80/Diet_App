@@ -1,4 +1,5 @@
 ﻿using Diet.Domain.Contract;
+using Diet.Application.Interface;
 using Diet.Domain.Contract.Queries.DurationAge.GetAll;
 using Diet.Domain.durationAge.Repository;
 using Diet.Domain.food.Entities;
@@ -11,11 +12,11 @@ namespace Diet.Application.UseCase.DurationAge.Queries.GetAll;
 public class GetAllDurationAgeQueryHandler : IQueryHandler<GetAllDurationAgeQuery,GetAllDurationAgeQueryResult>
 {
     private readonly IDurationAgeRepository _DurationAgeRepository;
-    private readonly IUnitOfWorkService _unitOfWorkService;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public GetAllDurationAgeQueryHandler(IDurationAgeRepository DurationAgeRepository, IUnitOfWorkService unitOfWorkService)
+    public GetAllDurationAgeQueryHandler(IDurationAgeRepository DurationAgeRepository, IUnitOfWork unitOfWork)
     {
-        _unitOfWorkService = unitOfWorkService;
+        _unitOfWork = unitOfWork;
         _DurationAgeRepository = DurationAgeRepository;
     }
 

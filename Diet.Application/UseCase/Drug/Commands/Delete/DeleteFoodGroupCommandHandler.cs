@@ -1,8 +1,9 @@
-﻿using Diet.Application.Execptions;
+﻿
 using Diet.Domain.Contract;
 using Diet.Domain.Contract.Commands.Order.Create;
 using Diet.Domain.Contract.Commands.Order.Delete;
 using Diet.Domain.user.Repository;
+using Diet.Application.Interface;
 using Diet.Framework.Core.Bus;
 using ErrorOr;
 using static Drug.Domain.Drug.Errors.DomainErrors;
@@ -12,11 +13,11 @@ namespace Diet.Application.UseCase.Drug.Commands.Delete;
 public class DeleteDrugCommandHandler : ICommandHandler<DeleteDrugCommand, DeleteDrugCommandResult>
 {
     private readonly IDrugRepository _DrugRepository;
-    private readonly IUnitOfWorkService _unitOfWorkService;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public DeleteDrugCommandHandler(IDrugRepository DrugRepository, IUnitOfWorkService unitOfWorkService)
+    public DeleteDrugCommandHandler(IDrugRepository DrugRepository, IUnitOfWork unitOfWork)
     {
-        _unitOfWorkService = unitOfWorkService;
+        _unitOfWork = unitOfWork;
         _DrugRepository = DrugRepository;
     }
 
@@ -25,22 +26,16 @@ public class DeleteDrugCommandHandler : ICommandHandler<DeleteDrugCommand, Delet
     {
         var result = await _DrugRepository.ByIdAsync(command.Id);
         if (result == null)
-            return Drug_Error.Drug_NotFount;
-        try
-        {
-            await _unitOfWorkService.BeginTransactionAsync();
+            return new DeleteDrugCommandResult("error", "notfound");
+
+        await _unitOfWork.BeginTransactionAsync();
             await _DrugRepository.DeleteAsync(result);
-           //TODO check rel
-            await _unitOfWorkService.CommitAsync();
+            //TODO check rel
+            var commitState = await _unitOfWork.CommitAsync();
 
-        }
-        catch (Exception)
-        {
-
-            await _unitOfWorkService.RollbackAsync();
-
-            return new DeleteDrugCommandResult("error", "Add Drug  has error and rollback is done");
-        }
+            if (commitState.Value == Domain.Contract.Enums.TransactionStatus.Error)
+                return new DeleteDrugCommandResult("error", "update Drug  has error and rollback is done");
+  
  
 
         return new DeleteDrugCommandResult("success", "ok");

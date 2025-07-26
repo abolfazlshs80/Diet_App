@@ -1,5 +1,7 @@
-﻿using Diet.Application.Execptions;
+﻿
 using Diet.Domain.Contract;
+using Diet.Application.Interface;
+using Diet.Application.Interface;
 using Diet.Domain.Contract.Commands.Order.Create;
 using Diet.Domain.Contract.Commands.Order.Delete;
 using Diet.Domain.durationAge.Repository;
@@ -14,11 +16,11 @@ namespace Diet.Application.UseCase.DurationAge.Commands.Delete;
 public class DeleteDurationAgeCommandHandler : ICommandHandler<DeleteDurationAgeCommand, DeleteDurationAgeCommandResult>
 {
     private readonly IDurationAgeRepository _DurationAgeRepository;
-    private readonly IUnitOfWorkService _unitOfWorkService;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public DeleteDurationAgeCommandHandler(IDurationAgeRepository DurationAgeRepository, IUnitOfWorkService unitOfWorkService)
+    public DeleteDurationAgeCommandHandler(IDurationAgeRepository DurationAgeRepository, IUnitOfWork unitOfWork)
     {
-        _unitOfWorkService = unitOfWorkService;
+        _unitOfWork = unitOfWork;
         _DurationAgeRepository = DurationAgeRepository;
     }
 
@@ -27,22 +29,16 @@ public class DeleteDurationAgeCommandHandler : ICommandHandler<DeleteDurationAge
     {
         var result = await _DurationAgeRepository.ByIdAsync(command.Id);
         if (result == null)
-            return DurationAge_Error.DurationAge_NotFount;
-        try
-        {
-            await _unitOfWorkService.BeginTransactionAsync();
+            return new DeleteDurationAgeCommandResult("error", "NotFound DurationAge");
+ 
+            await _unitOfWork.BeginTransactionAsync();
             await _DurationAgeRepository.DeleteAsync(result);
-           
-            await _unitOfWorkService.CommitAsync();
 
-        }
-        catch (Exception)
-        {
+            var commitState = await _unitOfWork.CommitAsync();
 
-            await _unitOfWorkService.RollbackAsync();
-
-            return new DeleteDurationAgeCommandResult("error", "Add DurationAge has error and rollback is done");
-        }
+            if (commitState.Value == Domain.Contract.Enums.TransactionStatus.Error)
+                return new DeleteDurationAgeCommandResult("error", "Add DurationAge has error and rollback is done");
+       
  
 
         return new DeleteDurationAgeCommandResult("success", "ok");

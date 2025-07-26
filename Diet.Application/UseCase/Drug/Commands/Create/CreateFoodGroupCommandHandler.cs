@@ -1,5 +1,6 @@
-﻿using Diet.Application.Execptions;
+﻿using Diet.Application.Interface;
 using Diet.Domain.Contract;
+using Diet.Application.Interface;
 using Diet.Domain.Contract.Commands.Order.Create;
 using Diet.Domain.user.Repository;
 using Diet.Framework.Core.Bus;
@@ -11,11 +12,11 @@ namespace Diet.Application.UseCase.Drug.Commands.Create;
 public class CreateDrugCommandHandler : ICommandHandler<CreateDrugCommand, CreateDrugCommandResult>
 {
     private readonly IDrugRepository _DrugRepository;
-    private readonly IUnitOfWorkService _unitOfWorkService;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public CreateDrugCommandHandler(IDrugRepository DrugRepository, IUnitOfWorkService unitOfWorkService)
+    public CreateDrugCommandHandler(IDrugRepository DrugRepository, IUnitOfWork unitOfWork)
     {
-        _unitOfWorkService = unitOfWorkService;
+        _unitOfWork = unitOfWork;
         _DrugRepository = DrugRepository;
     }
  
@@ -23,25 +24,19 @@ public class CreateDrugCommandHandler : ICommandHandler<CreateDrugCommand, Creat
     public async Task<ErrorOr<CreateDrugCommandResult>> Handle(CreateDrugCommand command)
     {
 
-        var orderResult = Domain.drug.Entities.Drug.Create(command);
-        if (orderResult.IsError)
-            return orderResult.FirstError;
-        try
-        {
-            await _unitOfWorkService.BeginTransactionAsync();
-            await _DrugRepository.AddAsync(orderResult.Value);
- 
+        var result = Domain.drug.Entities.Drug.Create(command);
+        if (result.IsError)
+            return result.FirstError;
+    
+            await _unitOfWork.BeginTransactionAsync();
+            await _DrugRepository.AddAsync(result.Value);
 
-            await _unitOfWorkService.CommitAsync();
 
-        }
-        catch (Exception)
-        {
+            var commitState = await _unitOfWork.CommitAsync();
 
-            await _unitOfWorkService.RollbackAsync();
-
-            return new CreateDrugCommandResult("error", "Add Drug  has error and rollback is done");
-        }
+            if (commitState.Value == Domain.Contract.Enums.TransactionStatus.Error)
+                return new CreateDrugCommandResult("error", "Add Drug  has error and rollback is done");
+        
 
 
         return new CreateDrugCommandResult("success","ok");

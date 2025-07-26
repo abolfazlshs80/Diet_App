@@ -1,5 +1,6 @@
-﻿using Diet.Application.Execptions;
+﻿
 using Diet.Domain.Contract;
+using Diet.Application.Interface;
 using Diet.Domain.Contract.Commands.Order.Create;
 using Diet.Domain.durationAge.Repository;
 using Diet.Domain.food.Entities;
@@ -13,11 +14,11 @@ namespace Diet.Application.UseCase.DurationAge.Commands.Create;
 public class CreateDurationAgeCommandHandler : ICommandHandler<CreateDurationAgeCommand, CreateDurationAgeCommandResult>
 {
     private readonly IDurationAgeRepository _DurationAgeRepository;
-    private readonly IUnitOfWorkService _unitOfWorkService;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public CreateDurationAgeCommandHandler(IDurationAgeRepository DurationAgeRepository, IUnitOfWorkService unitOfWorkService)
+    public CreateDurationAgeCommandHandler(IDurationAgeRepository DurationAgeRepository, IUnitOfWork unitOfWork)
     {
-        _unitOfWorkService = unitOfWorkService;
+        _unitOfWork = unitOfWork;
         _DurationAgeRepository = DurationAgeRepository;
     }
  
@@ -25,26 +26,19 @@ public class CreateDurationAgeCommandHandler : ICommandHandler<CreateDurationAge
     public async Task<ErrorOr<CreateDurationAgeCommandResult>> Handle(CreateDurationAgeCommand command)
     {
 
-        var orderResult = Domain.durationAge.Entities.DurationAge.Create(command);
-        if (orderResult.IsError)
-            return orderResult.FirstError;
-        try
-        {
-            await _unitOfWorkService.BeginTransactionAsync();
-            await _DurationAgeRepository.AddAsync(orderResult.Value);
- 
+        var result = Domain.durationAge.Entities.DurationAge.Create(command);
+        if (result.IsError)
+            return result.FirstError;
+      
+            await _unitOfWork.BeginTransactionAsync();
+            await _DurationAgeRepository.AddAsync(result.Value);
 
-            await _unitOfWorkService.CommitAsync();
 
-        }
-        catch (Exception)
-        {
+            var commitState = await _unitOfWork.CommitAsync();
 
-            await _unitOfWorkService.RollbackAsync();
-
-            return new CreateDurationAgeCommandResult("error", "Add DurationAge has error and rollback is done");
-        }
-
+            if (commitState.Value == Domain.Contract.Enums.TransactionStatus.Error)
+                return new CreateDurationAgeCommandResult("error", "Add DurationAge has error and rollback is done");
+     
 
         return new CreateDurationAgeCommandResult("success","ok");
     }

@@ -1,6 +1,6 @@
 ﻿using Diet.Domain.Contract;
 using Diet.Domain.Contract.Queries.Drug.GetAll;
-
+using Diet.Application.Interface;
 using Diet.Domain.user.Repository;
 using Diet.Framework.Core.Bus;
 using ErrorOr;
@@ -11,11 +11,11 @@ namespace Diet.Application.UseCase.Drug.Queries.GetAll;
 public class GetAllDrugQueryHandler : IQueryHandler<GetAllDrugQuery,GetAllDrugQueryResult>
 {
     private readonly IDrugRepository _DrugRepository;
-    private readonly IUnitOfWorkService _unitOfWorkService;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public GetAllDrugQueryHandler(IDrugRepository DrugRepository, IUnitOfWorkService unitOfWorkService)
+    public GetAllDrugQueryHandler(IDrugRepository DrugRepository, IUnitOfWork unitOfWork)
     {
-        _unitOfWorkService = unitOfWorkService;
+        _unitOfWork = unitOfWork;
         _DrugRepository = DrugRepository;
     }
 

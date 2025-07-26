@@ -1,4 +1,4 @@
-﻿using Diet.Application.Execptions;
+﻿using Diet.Application.Interface;
 using Diet.Domain.Contract;
 using Diet.Domain.Contract.Commands.Order.Create;
 using Diet.Domain.Contract.Commands.Order.Update;
@@ -14,11 +14,11 @@ namespace Diet.Application.UseCase.DurationAge.Commands.Update;
 public class UpdateDurationAgeCommandHandler : ICommandHandler<UpdateDurationAgeCommand, UpdateDurationAgeCommandResult>
 {
     private readonly IDurationAgeRepository _DurationAgeRepository;
-    private readonly IUnitOfWorkService _unitOfWorkService;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public UpdateDurationAgeCommandHandler(IDurationAgeRepository DurationAgeRepository, IUnitOfWorkService unitOfWorkService)
+    public UpdateDurationAgeCommandHandler(IDurationAgeRepository DurationAgeRepository, IUnitOfWork unitOfWork)
     {
-        _unitOfWorkService = unitOfWorkService;
+        _unitOfWork = unitOfWork;
         _DurationAgeRepository = DurationAgeRepository;
     }
  
@@ -28,29 +28,21 @@ public class UpdateDurationAgeCommandHandler : ICommandHandler<UpdateDurationAge
 
         var DurationAge = await _DurationAgeRepository.ByIdAsync(command.Id);
         if (DurationAge == null)
-            return DurationAge_Error.DurationAge_NotFount;
+            return new UpdateDurationAgeCommandResult("error", "NotFound DurationAge");
 
-        var result = Domain.durationAge.Entities.DurationAge.Update(command);
+        var result = Domain.durationAge.Entities.DurationAge.Update(DurationAge, command);
         if (result.IsError)
             return result.FirstError;
 
 
-        try
-        {
-            await _unitOfWorkService.BeginTransactionAsync();
+            await _unitOfWork.BeginTransactionAsync();
             await _DurationAgeRepository.UpdateAsync(result.Value);
+
+            var commitState = await _unitOfWork.CommitAsync();
+
+            if (commitState.Value == Domain.Contract.Enums.TransactionStatus.Error)
+                return new UpdateDurationAgeCommandResult("error", "Add DurationAge has error and rollback is done");
       
-            await _unitOfWorkService.CommitAsync();
-
-        }
-        catch (Exception)
-        {
-
-            await _unitOfWorkService.RollbackAsync();
-
-            return new UpdateDurationAgeCommandResult("error", "Add DurationAge has error and rollback is done");
-        }
-     
 
         return new UpdateDurationAgeCommandResult("success","ok");
     }

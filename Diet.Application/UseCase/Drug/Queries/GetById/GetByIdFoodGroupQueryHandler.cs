@@ -2,6 +2,7 @@
 using Diet.Domain.Contract.Queries.Drug.GetById;
 using Diet.Domain.user.Repository;
 using Diet.Framework.Core.Bus;
+using Diet.Application.Interface;
 using ErrorOr;
 using static Drug.Domain.Drug.Errors.DomainErrors;
 
@@ -10,11 +11,11 @@ namespace Diet.Application.UseCase.Drug.Queries.GetById;
 public class GetByIdDrugQueryHandler : IQueryHandler<GetByIdDrugQuery, GetByIdDrugQueryResult>
 {
     private readonly IDrugRepository _DrugRepository;
-    private readonly IUnitOfWorkService _unitOfWorkService;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public GetByIdDrugQueryHandler(IDrugRepository DrugRepository, IUnitOfWorkService unitOfWorkService)
+    public GetByIdDrugQueryHandler(IDrugRepository DrugRepository, IUnitOfWork unitOfWork)
     {
-        _unitOfWorkService = unitOfWorkService;
+        _unitOfWork = unitOfWork;
         _DrugRepository = DrugRepository;
     }
 

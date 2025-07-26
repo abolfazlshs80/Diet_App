@@ -1,8 +1,8 @@
-﻿using Diet.Application.Execptions;
+﻿
 using Diet.Domain.Contract;
 using Diet.Domain.Contract.Commands.Order.Create;
 using Diet.Domain.Contract.Commands.Order.Update;
-
+using Diet.Application.Interface;
 using Diet.Domain.user.Repository;
 using Diet.Framework.Core.Bus;
 using ErrorOr;
@@ -13,11 +13,11 @@ namespace Diet.Application.UseCase.Drug.Commands.Update;
 public class UpdateDrugCommandHandler : ICommandHandler<UpdateDrugCommand, UpdateDrugCommandResult>
 {
     private readonly IDrugRepository _DrugRepository;
-    private readonly IUnitOfWorkService _unitOfWorkService;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public UpdateDrugCommandHandler(IDrugRepository DrugRepository, IUnitOfWorkService unitOfWorkService)
+    public UpdateDrugCommandHandler(IDrugRepository DrugRepository, IUnitOfWork unitOfWork)
     {
-        _unitOfWorkService = unitOfWorkService;
+        _unitOfWork = unitOfWork;
         _DrugRepository = DrugRepository;
     }
  
@@ -27,29 +27,21 @@ public class UpdateDrugCommandHandler : ICommandHandler<UpdateDrugCommand, Updat
 
         var Drug = await _DrugRepository.ByIdAsync(command.Id);
         if (Drug == null)
-            return Drug_Error.Drug_NotFount;
+            return new UpdateDrugCommandResult("error", "not found drug");
 
-        var result = Domain.drug.Entities.Drug.Update(command);
+        var result = Domain.drug.Entities.Drug.Update(Drug, command);
         if (result.IsError)
             return result.FirstError;
 
 
-        try
-        {
-            await _unitOfWorkService.BeginTransactionAsync();
+            await _unitOfWork.BeginTransactionAsync();
             await _DrugRepository.UpdateAsync(result.Value);
-      
-            await _unitOfWorkService.CommitAsync();
 
-        }
-        catch (Exception)
-        {
+            var commitState = await _unitOfWork.CommitAsync();
 
-            await _unitOfWorkService.RollbackAsync();
-
-            return new UpdateDrugCommandResult("error", "Add Drug  has error and rollback is done");
-        }
-     
+            if (commitState.Value == Domain.Contract.Enums.TransactionStatus.Error)
+                return new UpdateDrugCommandResult("error", "Add Drug  has error and rollback is done");
+       
 
         return new UpdateDrugCommandResult("success","ok");
     }
