@@ -1,4 +1,4 @@
-﻿using Diet.Application.Execptions;
+﻿using Diet.Application.Interface;
 using Diet.Domain.Contract;
 using Diet.Domain.Contract.Commands.Order.Create;
 using Diet.Domain.Contract.Commands.Order.Delete;
@@ -13,11 +13,11 @@ namespace Diet.Application.UseCase.FoodDrugIntraction.Commands.Delete;
 public class DeleteFoodDrugIntractionCommandHandler : ICommandHandler<DeleteFoodDrugIntractionCommand, DeleteFoodDrugIntractionCommandResult>
 {
     private readonly IFoodDrugIntractionRepository _FoodDrugIntractionRepository;
-    private readonly IUnitOfWorkService _unitOfWorkService;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public DeleteFoodDrugIntractionCommandHandler(IFoodDrugIntractionRepository FoodDrugIntractionRepository, IUnitOfWorkService unitOfWorkService)
+    public DeleteFoodDrugIntractionCommandHandler(IFoodDrugIntractionRepository FoodDrugIntractionRepository, IUnitOfWork unitOfWork)
     {
-        _unitOfWorkService = unitOfWorkService;
+        _unitOfWork = unitOfWork;
         _FoodDrugIntractionRepository = FoodDrugIntractionRepository;
     }
 
@@ -26,23 +26,16 @@ public class DeleteFoodDrugIntractionCommandHandler : ICommandHandler<DeleteFood
     {
         var result = await _FoodDrugIntractionRepository.ByIdAsync(command.Id);
         if (result == null)
-            return FoodDrugIntraction_Error.FoodDrugIntraction_NotFount;
-        try
-        {
-            await _unitOfWorkService.BeginTransactionAsync();
+            return new DeleteFoodDrugIntractionCommandResult("error", "NotFound FoodDrugIntraction  ");
+
+        await _unitOfWork.BeginTransactionAsync();
             await _FoodDrugIntractionRepository.DeleteAsync(result);
-           
-            await _unitOfWorkService.CommitAsync();
 
-        }
-        catch (Exception)
-        {
+            var commitState = await _unitOfWork.CommitAsync();
 
-            await _unitOfWorkService.RollbackAsync();
-
-            return new DeleteFoodDrugIntractionCommandResult("error", "Add Food Group has error and rollback is done");
-        }
- 
+            if (commitState.Value == Domain.Contract.Enums.TransactionStatus.Error)
+                return new DeleteFoodDrugIntractionCommandResult("error", "Add FoodDrugIntraction  has error and rollback is done");
+        
 
         return new DeleteFoodDrugIntractionCommandResult("success", "ok");
     }

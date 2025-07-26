@@ -1,9 +1,10 @@
-﻿using Diet.Application.Execptions;
+﻿
 using Diet.Domain.Contract;
 using Diet.Domain.Contract.Commands.Order.Create;
 using Diet.Domain.Contract.Commands.Order.Delete;
 using Diet.Domain.food.Entities;
 using Diet.Domain.user.Repository;
+using Diet.Application.Interface;
 using Diet.Framework.Core.Bus;
 using ErrorOr;
 using static Food.Domain.Food.Errors.DomainErrors;
@@ -13,11 +14,11 @@ namespace Diet.Application.UseCase.Food.Commands.Delete;
 public class DeleteFoodCommandHandler : ICommandHandler<DeleteFoodCommand, DeleteFoodCommandResult>
 {
     private readonly IFoodRepository _foodRepository;
-    private readonly IUnitOfWorkService _unitOfWorkService;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public DeleteFoodCommandHandler(IFoodRepository foodRepository, IUnitOfWorkService unitOfWorkService)
+    public DeleteFoodCommandHandler(IFoodRepository foodRepository, IUnitOfWork unitOfWork)
     {
-        _unitOfWorkService = unitOfWorkService;
+        _unitOfWork = unitOfWork;
         _foodRepository = foodRepository;
     }
 
@@ -26,22 +27,17 @@ public class DeleteFoodCommandHandler : ICommandHandler<DeleteFoodCommand, Delet
     {
         var result = await _foodRepository.ByIdAsync(command.Id);
         if (result == null)
-            return Food_Error.Food_NotFount;
-        try
-        {
-            await _unitOfWorkService.BeginTransactionAsync();
+            return new DeleteFoodCommandResult("error", "NotFound Food  ");
+
+        await _unitOfWork.BeginTransactionAsync();
             await _foodRepository.DeleteAsync(result);
            //TODO check rel
-            await _unitOfWorkService.CommitAsync();
+            await _unitOfWork.CommitAsync();
+            var commitState = await _unitOfWork.CommitAsync();
 
-        }
-        catch (Exception)
-        {
-
-            await _unitOfWorkService.RollbackAsync();
-
-            return new DeleteFoodCommandResult("error", "Add Food  has error and rollback is done");
-        }
+            if (commitState.Value == Domain.Contract.Enums.TransactionStatus.Error)
+                return new DeleteFoodCommandResult("error", "Add Food  has error and rollback is done");
+        
  
 
         return new DeleteFoodCommandResult("success", "ok");

@@ -1,4 +1,5 @@
-﻿using Diet.Application.Execptions;
+﻿
+using Diet.Application.Interface;
 using Diet.Domain.Contract;
 using Diet.Domain.Contract.Commands.Order.Create;
 using Diet.Domain.food.Entities;
@@ -12,11 +13,11 @@ namespace Diet.Application.UseCase.FoodFoodIntraction.Commands.Create;
 public class CreateFoodFoodIntractionCommandHandler : ICommandHandler<CreateFoodFoodIntractionCommand, CreateFoodFoodIntractionCommandResult>
 {
     private readonly IFoodFoodIntractionRepository _FoodFoodIntractionRepository;
-    private readonly IUnitOfWorkService _unitOfWorkService;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public CreateFoodFoodIntractionCommandHandler(IFoodFoodIntractionRepository FoodFoodIntractionRepository, IUnitOfWorkService unitOfWorkService)
+    public CreateFoodFoodIntractionCommandHandler(IFoodFoodIntractionRepository FoodFoodIntractionRepository, IUnitOfWork unitOfWork)
     {
-        _unitOfWorkService = unitOfWorkService;
+        _unitOfWork = unitOfWork;
         _FoodFoodIntractionRepository = FoodFoodIntractionRepository;
     }
  
@@ -27,22 +28,16 @@ public class CreateFoodFoodIntractionCommandHandler : ICommandHandler<CreateFood
         var Result = Domain.food.Entities.Food_Food_Intraction.Create(command);
         if (Result.IsError)
             return Result.FirstError;
-        try
-        {
-            await _unitOfWorkService.BeginTransactionAsync();
+       
+            await _unitOfWork.BeginTransactionAsync();
             await _FoodFoodIntractionRepository.AddAsync(Result.Value);
- 
 
-            await _unitOfWorkService.CommitAsync();
 
-        }
-        catch (Exception)
-        {
+            var commitState = await _unitOfWork.CommitAsync();
 
-            await _unitOfWorkService.RollbackAsync();
-
-            return new CreateFoodFoodIntractionCommandResult("error", "Add Food Group has error and rollback is done");
-        }
+            if (commitState.Value == Domain.Contract.Enums.TransactionStatus.Error)
+                return new CreateFoodFoodIntractionCommandResult("error", "Add Food_Food_Intraction Group has error and rollback is done");
+        
 
 
         return new CreateFoodFoodIntractionCommandResult("success","ok");

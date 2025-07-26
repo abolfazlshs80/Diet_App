@@ -1,6 +1,7 @@
 ﻿using Diet.Domain.Contract;
 using Diet.Domain.Contract.Queries.FoodFoodIntraction.GetById;
 using Diet.Domain.user.Repository;
+using Diet.Application.Interface;
 using Diet.Framework.Core.Bus;
 using ErrorOr;
 using static FoodFoodIntraction.Domain.FoodFoodIntraction.Errors.DomainErrors;
@@ -10,11 +11,11 @@ namespace Diet.Application.UseCase.FoodFoodIntraction.Queries.GetById;
 public class GetByIdFoodFoodIntractionQueryHandler : IQueryHandler<GetByIdFoodFoodIntractionQuery, GetByIdFoodFoodIntractionQueryResult>
 {
     private readonly IFoodFoodIntractionRepository _FoodFoodIntractionRepository;
-    private readonly IUnitOfWorkService _unitOfWorkService;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public GetByIdFoodFoodIntractionQueryHandler(IFoodFoodIntractionRepository FoodFoodIntractionRepository, IUnitOfWorkService unitOfWorkService)
+    public GetByIdFoodFoodIntractionQueryHandler(IFoodFoodIntractionRepository FoodFoodIntractionRepository, IUnitOfWork unitOfWork)
     {
-        _unitOfWorkService = unitOfWorkService;
+        _unitOfWork = unitOfWork;
         _FoodFoodIntractionRepository = FoodFoodIntractionRepository;
     }
 

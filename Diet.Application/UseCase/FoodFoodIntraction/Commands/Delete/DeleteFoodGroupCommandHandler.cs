@@ -1,10 +1,11 @@
-﻿using Diet.Application.Execptions;
+﻿
 using Diet.Domain.Contract;
 using Diet.Domain.Contract.Commands.Order.Create;
 using Diet.Domain.Contract.Commands.Order.Delete;
 using Diet.Domain.food.Entities;
 using Diet.Domain.user.Repository;
 using Diet.Framework.Core.Bus;
+using Diet.Application.Interface;
 using ErrorOr;
 using static FoodFoodIntraction.Domain.FoodFoodIntraction.Errors.DomainErrors;
 
@@ -13,11 +14,11 @@ namespace Diet.Application.UseCase.FoodFoodIntraction.Commands.Delete;
 public class DeleteFoodFoodIntractionCommandHandler : ICommandHandler<DeleteFoodFoodIntractionCommand, DeleteFoodFoodIntractionCommandResult>
 {
     private readonly IFoodFoodIntractionRepository _FoodFoodIntractionRepository;
-    private readonly IUnitOfWorkService _unitOfWorkService;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public DeleteFoodFoodIntractionCommandHandler(IFoodFoodIntractionRepository FoodFoodIntractionRepository, IUnitOfWorkService unitOfWorkService)
+    public DeleteFoodFoodIntractionCommandHandler(IFoodFoodIntractionRepository FoodFoodIntractionRepository, IUnitOfWork unitOfWork)
     {
-        _unitOfWorkService = unitOfWorkService;
+        _unitOfWork = unitOfWork;
         _FoodFoodIntractionRepository = FoodFoodIntractionRepository;
     }
 
@@ -26,23 +27,16 @@ public class DeleteFoodFoodIntractionCommandHandler : ICommandHandler<DeleteFood
     {
         var result = await _FoodFoodIntractionRepository.ByIdAsync(command.Id);
         if (result == null)
-            return FoodFoodIntraction_Error.FoodFoodIntraction_NotFount;
-        try
-        {
-            await _unitOfWorkService.BeginTransactionAsync();
+            return new DeleteFoodFoodIntractionCommandResult("error", "Not Found Food_Food_Intraction");
+
+        await _unitOfWork.BeginTransactionAsync();
             await _FoodFoodIntractionRepository.DeleteAsync(result);
-           
-            await _unitOfWorkService.CommitAsync();
 
-        }
-        catch (Exception)
-        {
+            var commitState = await _unitOfWork.CommitAsync();
 
-            await _unitOfWorkService.RollbackAsync();
-
-            return new DeleteFoodFoodIntractionCommandResult("error", "Add Food Group has error and rollback is done");
-        }
- 
+            if (commitState.Value == Domain.Contract.Enums.TransactionStatus.Error)
+                return new DeleteFoodFoodIntractionCommandResult("error", "Delete Food_Food_Intraction has error and rollback is done");
+        
 
         return new DeleteFoodFoodIntractionCommandResult("success", "ok");
     }

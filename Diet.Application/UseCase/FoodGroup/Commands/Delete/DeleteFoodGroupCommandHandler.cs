@@ -1,4 +1,4 @@
-﻿using Diet.Application.Execptions;
+﻿using Diet.Application.Interface;
 using Diet.Domain.Contract;
 using Diet.Domain.Contract.Commands.Order.Create;
 using Diet.Domain.Contract.Commands.Order.Delete;
@@ -13,11 +13,11 @@ namespace Diet.Application.UseCase.FoodGroup.Commands.Delete;
 public class DeleteFoodGroupCommandHandler : ICommandHandler<DeleteFoodGroupCommand, DeleteFoodGroupCommandResult>
 {
     private readonly IFoodGroupRepository _foodGroupRepository;
-    private readonly IUnitOfWorkService _unitOfWorkService;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public DeleteFoodGroupCommandHandler(IFoodGroupRepository foodGroupRepository, IUnitOfWorkService unitOfWorkService)
+    public DeleteFoodGroupCommandHandler(IFoodGroupRepository foodGroupRepository, IUnitOfWork unitOfWork)
     {
-        _unitOfWorkService = unitOfWorkService;
+        _unitOfWork = unitOfWork;
         _foodGroupRepository = foodGroupRepository;
     }
 
@@ -26,23 +26,16 @@ public class DeleteFoodGroupCommandHandler : ICommandHandler<DeleteFoodGroupComm
     {
         var result = await _foodGroupRepository.ByIdAsync(command.Id);
         if (result == null)
-            return FoodGroup_Error.FoodGroup_NotFount;
-        try
-        {
-            await _unitOfWorkService.BeginTransactionAsync();
+            return new DeleteFoodGroupCommandResult("error", "NotFound Food Group ");
+     
+            await _unitOfWork.BeginTransactionAsync();
             await _foodGroupRepository.DeleteAsync(result);
-           
-            await _unitOfWorkService.CommitAsync();
 
-        }
-        catch (Exception)
-        {
+            var commitState = await _unitOfWork.CommitAsync();
 
-            await _unitOfWorkService.RollbackAsync();
-
-            return new DeleteFoodGroupCommandResult("error", "Add Food Group has error and rollback is done");
-        }
- 
+            if (commitState.Value == Domain.Contract.Enums.TransactionStatus.Error)
+                return new DeleteFoodGroupCommandResult("error", "Delte Food Group has error and rollback is done");
+        
 
         return new DeleteFoodGroupCommandResult("success", "ok");
     }

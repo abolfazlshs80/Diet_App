@@ -3,6 +3,7 @@ using Diet.Domain.Contract.Queries.Food.GetAll;
 using Diet.Domain.food.Entities;
 using Diet.Domain.user.Repository;
 using Diet.Framework.Core.Bus;
+using Diet.Application.Interface;
 using ErrorOr;
 using static Food.Domain.Food.Errors.DomainErrors;
 
@@ -11,11 +12,11 @@ namespace Diet.Application.UseCase.Food.Queries.GetAll;
 public class GetAllFoodQueryHandler : IQueryHandler<GetAllFoodQuery,GetAllFoodQueryResult>
 {
     private readonly IFoodRepository _foodRepository;
-    private readonly IUnitOfWorkService _unitOfWorkService;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public GetAllFoodQueryHandler(IFoodRepository foodRepository, IUnitOfWorkService unitOfWorkService)
+    public GetAllFoodQueryHandler(IFoodRepository foodRepository, IUnitOfWork unitOfWork)
     {
-        _unitOfWorkService = unitOfWorkService;
+        _unitOfWork = unitOfWork;
         _foodRepository = foodRepository;
     }
 
