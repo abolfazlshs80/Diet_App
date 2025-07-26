@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Diet.Persistence.EF.Configurations.User;
 
-public class DiseaseConfiguration : IEntityTypeConfiguration<Disease>
+public class DiseaseConfiguration : IEntityTypeConfiguration<Domain.disease.Disease>
 {
-    public void Configure(EntityTypeBuilder<Disease> entity)
+    public void Configure(EntityTypeBuilder<Domain.disease.Disease> entity)
     {
 
         entity.HasKey(e => e.Id);
@@ -21,10 +21,10 @@ public class DiseaseConfiguration : IEntityTypeConfiguration<Disease>
               .IsRequired(false); // اگر بعضی بیماری‌ها والد ندارند
 
         // Self-referencing relation: Parent <-> Children
-        entity.HasOne(e => e.Parent)
-              .WithMany(e => e.Childeren)
-              .HasForeignKey(e => e.ParentId)
-              .OnDelete(DeleteBehavior.Restrict); // جلوگیری از حذف والد اگر فرزند دارد
+        //entity.HasOne(e => e.Parent)
+        //      .WithMany(e => e.Childeren)
+        //      .HasForeignKey(e => e.ParentId)
+        //      .OnDelete(DeleteBehavior.Restrict); // جلوگیری از حذف والد اگر فرزند دارد
 
         // One-to-Many: Disease → SupplementDisease_WhiteList
         entity.HasMany(e => e.SupplementDisease_WhiteList)

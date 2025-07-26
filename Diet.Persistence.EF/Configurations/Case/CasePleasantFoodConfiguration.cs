@@ -1,4 +1,4 @@
-﻿using Diet.Domain.@case.Entities;
+﻿using Diet.Domain.casePleasantFood;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

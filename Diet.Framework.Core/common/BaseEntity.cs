@@ -2,14 +2,6 @@
 
 public class BaseEntity
 {
-    public BaseEntity()
-    {
-        Id=Guid.NewGuid();
-    }
-
-    public BaseEntity(Guid id)
-    {
-        Id = id;
-    }
-    public Guid Id { get; private set; }
+     
+    public Guid Id { get; protected set; }
 }

@@ -2,6 +2,10 @@
 
 
 using Diet.Domain.Case;
+using Diet.Domain.caseDisease;
+using Diet.Domain.caseDrug;
+using Diet.Domain.caseFoodStuffAllergy;
+using Diet.Domain.caseSupplement;
 using Diet.Domain.disease;
 using Diet.Domain.drug.Entities;
 using Diet.Domain.durationAge.Entities;
@@ -41,7 +45,7 @@ public class DietDbContext : ApplicationDbContext
     public DbSet<CaseDrug> CaseDrug { get; set; }
     public DbSet<CaseFoodStuffAllergy> CaseFoodStuffAllergy { get; set; }
 
-    public DbSet<Disease> Disease { get; set; }
+    public DbSet<Diet. Domain.disease.Disease> Disease { get; set; }
     public DbSet<Diet.Domain. drug.Entities.Drug> Drug { get; set; }
     public DbSet<Diet.Domain.food.Entities.Food> Food { get; set; }
     public DbSet<Food_Drug_Intraction> Food_Drug_Intraction { get; set; }

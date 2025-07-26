@@ -1,4 +1,4 @@
-﻿using Diet.Domain.Case;
+﻿using Diet.Domain.caseSupplement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
