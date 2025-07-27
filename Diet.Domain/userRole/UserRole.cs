@@ -1,4 +1,5 @@
 ﻿using Diet.Domain.common;
+using Diet.Domain.role;
 
 namespace Diet.Domain.user.Entities;
 

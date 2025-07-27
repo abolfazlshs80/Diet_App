@@ -20,15 +20,10 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="caseDisease\Errors\" />
-	  <Folder Include="caseDisease\Repository\" />
 	  <Folder Include="caseDrug\Errors\" />
-	  <Folder Include="caseDrug\Repository\" />
 	  <Folder Include="caseFoodStuffAllergy\Errors\" />
-	  <Folder Include="caseFoodStuffAllergy\Repository\" />
 	  <Folder Include="casePleasantFood\Errors\" />
-	  <Folder Include="casePleasantFood\Repository\" />
 	  <Folder Include="caseSupplement\Errors\" />
-	  <Folder Include="caseSupplement\Repository\" />
 	  <Folder Include="caseUnPleasantFood\Errors\" />
 	  <Folder Include="caseUnPleasantFood\Repository\" />
 	  <Folder Include="case\Errors\" />
@@ -38,16 +33,12 @@
 	  <Folder Include="foodStuff\Errors\" />
 	  <Folder Include="food_Drug_Intraction\Errors\" />
 	  <Folder Include="food_Food_Intraction\Errors\" />
-	  <Folder Include="RecommendationDisease_WhiteList\Errors\" />
-	  <Folder Include="RecommendationDisease_WhiteList\Repository\" />
-	  <Folder Include="RecommendationDurationAge\Errors\" />
-	  <Folder Include="RecommendationDurationAge\Repository\" />
-	  <Folder Include="RecommendationLifeCourse\Errors\" />
-	  <Folder Include="RecommendationLifeCourse\Repository\" />
+	  <Folder Include="recommendationDisease_WhiteList\Errors\" />
+	  <Folder Include="recommendationDurationAge\Errors\" />
+	  <Folder Include="recommendationLifeCourse\Errors\" />
 	  <Folder Include="recommendation\Errors\" />
 	  <Folder Include="recommendation\Repository\" />
-	  <Folder Include="Role\Errors\" />
-	  <Folder Include="Role\Repository\" />
+	  <Folder Include="role\Errors\" />
 	  <Folder Include="sport\Errors\" />
 	  <Folder Include="sport\Repository\" />
 	  <Folder Include="supplementDisease\Errors\" />

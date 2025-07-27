@@ -13,7 +13,7 @@ public sealed class Supplement:BaseEntity
     public string? Description { get; private set; }
     public string? HowToUse { get; private set; }
 
-    public ICollection<CaseSupplement> CaseSupplement { get; set; }
+    public ICollection<caseSupplement.CaseSupplement> CaseSupplement { get; set; }
     public Guid SupplementGroupId { get; private set; }
     public  SupplementGroup SupplementGroup { get; private set; }
     public ICollection< SupplementDisease_WhiteList> SupplementDisease_WhiteList  { get; private set; }
