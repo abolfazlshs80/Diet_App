@@ -1,0 +1,13 @@
+using Diet;
+using FluentValidation;
+using Diet.Domain.Contract.Commands.RecommendationDurationAge.Create;
+namespace Diet.Domain.UseCase.RecommendationDurationAge.Commands.Create
+{
+    public class CreateRecommendationDurationAgeCommandValidator : AbstractValidator<CreateRecommendationDurationAgeCommand>
+    {
+        public CreateRecommendationDurationAgeCommandValidator()
+        {
+            // Add validation rules here
+        }
+    }
+}
