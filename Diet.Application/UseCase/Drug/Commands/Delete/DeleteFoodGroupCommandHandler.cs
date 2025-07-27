@@ -1,12 +1,9 @@
 ﻿
-using Diet.Domain.Contract;
-using Diet.Domain.Contract.Commands.Order.Create;
-using Diet.Domain.Contract.Commands.Order.Delete;
-using Diet.Domain.user.Repository;
 using Diet.Application.Interface;
 using Diet.Framework.Core.Bus;
 using ErrorOr;
-using static Drug.Domain.Drug.Errors.DomainErrors;
+using Diet.Domain.Contract.Commands.Order.Delete;
+using Diet.Domain.user.Repository;
 
 namespace Diet.Application.UseCase.Drug.Commands.Delete;
 
