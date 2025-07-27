@@ -2,7 +2,7 @@
 using Diet.Domain.common;
 using Diet.Domain.Contract.Commands.Order.Create;
 using Diet.Domain.Contract.Commands.Order.Update;
-using Diet.Domain.Recommendation.Entities;
+using Diet.Domain.recommendationDisease_WhiteList;
 using Diet.Domain.supplement.Entities;
 using ErrorOr;
 
@@ -30,7 +30,7 @@ public sealed class Disease : BaseEntity
     public ICollection<SupplementDisease_WhiteList> SupplementDisease_WhiteList { get; private set; }
     public ICollection<RecommendationDisease_WhiteList> RecommendationDisease_WhiteList { get; private set; }
 
-    public ICollection<CaseDisease> CaseDisease { get; set; }
+    public ICollection<Domain.caseDisease.CaseDisease > CaseDisease { get; set; }
 
 
     public static ErrorOr<Disease> Create(CreateDiseaseCommand command)

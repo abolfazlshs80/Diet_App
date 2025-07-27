@@ -19,7 +19,7 @@ public sealed class Drug :BaseEntity
     public string Title { get; private set; }
     public string Description { get; private set; }
 
-    public ICollection<CaseDrug> CaseDrug { get; set; }
+    public ICollection<caseDrug. CaseDrug> CaseDrug { get; set; }
     public ICollection<Food_Drug_Intraction> Food_Drug_Intraction { get; set; }
 
 

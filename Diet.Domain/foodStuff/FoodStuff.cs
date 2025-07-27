@@ -17,7 +17,7 @@ public sealed class FoodStuff : BaseEntity
     private FoodStuff(Guid id, string title) { Id = id; Title = title; }
     public string Title { get; private set; }
 
-    public ICollection<CaseFoodStuffAllergy> CaseFoodStuffAllergy { get; private set; }//
+    public ICollection<caseFoodStuffAllergy.CaseFoodStuffAllergy> CaseFoodStuffAllergy { get; private set; }//
 
     public static ErrorOr<FoodStuff> Create(CreateFoodStuffCommand command)
     {
