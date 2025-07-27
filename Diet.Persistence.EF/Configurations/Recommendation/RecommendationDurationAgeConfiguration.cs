@@ -1,4 +1,4 @@
-﻿using Diet.Domain.Recommendation.Entities;
+﻿using Diet.Domain.recommendationDurationAge;
 using Diet.Domain.supplement.Entities;
 using Diet.Domain.user.Entities;
 using Microsoft.EntityFrameworkCore;
