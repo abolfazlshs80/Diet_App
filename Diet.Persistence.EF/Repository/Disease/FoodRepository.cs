@@ -1,8 +1,7 @@
 ﻿using Diet.Domain.disease.Repository;
 using Diet.Domain.user.Repository;
-
+using Diet.Persistence.EF.Context;
 using Microsoft.EntityFrameworkCore;
-using Order.Persistence.EF.Context;
 
 namespace Diet.Persistence.EF.Repository;
 

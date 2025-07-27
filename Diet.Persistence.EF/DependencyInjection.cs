@@ -1,12 +1,12 @@
 ﻿using Diet.Application.Interface;
 using Diet.Framework.Core.Interface;
+using Diet.Persistence.EF.Context;
 using Diet.Persistence.EF.Repository;
- 
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Order.Persistence.EF.Context;
- 
+
 namespace Diet.Persistence.EF;
 
 public static class DependencyInjection
