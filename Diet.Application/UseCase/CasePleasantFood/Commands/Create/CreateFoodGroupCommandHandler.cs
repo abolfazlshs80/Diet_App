@@ -1,5 +1,6 @@
 ﻿
 using Diet.Application.Interface;
+using Diet.Domain.@case.Repository;
 using Diet.Domain.CasePleasantFood;
 using Diet.Domain.CasePleasantFood.Repository;
 using Diet.Domain.Contract;
@@ -15,17 +16,31 @@ namespace Diet.Application.UseCase.CasePleasantFood.Commands.Create;
 public class CreateCasePleasantFoodCommandHandler : ICommandHandler<CreateCasePleasantFoodCommand, CreateCasePleasantFoodCommandResult>
 {
     private readonly ICasePleasantFoodRepository _CasePleasantFoodRepository;
+    private readonly ICaseRepository _CaseRepository;
+    private readonly IFoodRepository _FoodRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public CreateCasePleasantFoodCommandHandler(ICasePleasantFoodRepository CasePleasantFoodRepository, IUnitOfWork unitOfWork)
+    public CreateCasePleasantFoodCommandHandler(
+        ICasePleasantFoodRepository CasePleasantFoodRepository,
+        IFoodRepository FoodRepository
+        , ICaseRepository CaseRepository
+        , IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
         _CasePleasantFoodRepository = CasePleasantFoodRepository;
+        _FoodRepository = FoodRepository;
+        _CaseRepository = CaseRepository;
     }
  
 
     public async Task<ErrorOr<CreateCasePleasantFoodCommandResult>> Handle(CreateCasePleasantFoodCommand command)
     {
+
+
+        if (!await _CaseRepository.IsExists(command.CaseId))
+            return new CreateCasePleasantFoodCommandResult("error", "Case is not Exists");
+        if (!await _FoodRepository.IsExists(command.FoodId))
+            return new CreateCasePleasantFoodCommandResult("error", "Food is not Exists");
 
         var Result =Domain.casePleasantFood. CasePleasantFood.Create(command);
         if (Result.IsError)

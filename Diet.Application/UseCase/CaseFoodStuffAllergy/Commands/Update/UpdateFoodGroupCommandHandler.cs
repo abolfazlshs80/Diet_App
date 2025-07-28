@@ -1,4 +1,5 @@
 ﻿using Diet.Application.Interface;
+using Diet.Domain.@case.Repository;
 using Diet.Domain.CaseFoodStuffAllergy.Repository;
 using Diet.Domain.Contract;
 using Diet.Domain.Contract.Commands.Order.Create;
@@ -14,17 +15,29 @@ namespace Diet.Application.UseCase.CaseFoodStuffAllergy.Commands.Update;
 public class UpdateCaseFoodStuffAllergyCommandHandler : ICommandHandler<UpdateCaseFoodStuffAllergyCommand, UpdateCaseFoodStuffAllergyCommandResult>
 {
     private readonly ICaseFoodStuffAllergyRepository _CaseFoodStuffAllergyRepository;
+    private readonly ICaseRepository _CaseRepository;
+    private readonly IFoodStuffRepository _FoodStuffRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public UpdateCaseFoodStuffAllergyCommandHandler(ICaseFoodStuffAllergyRepository CaseFoodStuffAllergyRepository, IUnitOfWork unitOfWork)
+    public UpdateCaseFoodStuffAllergyCommandHandler(ICaseFoodStuffAllergyRepository CaseFoodStuffAllergyRepository
+        , ICaseRepository CaseRepository
+        , IFoodStuffRepository FoodStuffRepository
+        , IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
         _CaseFoodStuffAllergyRepository = CaseFoodStuffAllergyRepository;
+        _CaseRepository = CaseRepository;
+        _FoodStuffRepository = FoodStuffRepository;
     }
- 
+
 
     public async Task<ErrorOr<UpdateCaseFoodStuffAllergyCommandResult>> Handle(UpdateCaseFoodStuffAllergyCommand command)
     {
+
+        if (!await _CaseRepository.IsExists(command.CaseId))
+            return new UpdateCaseFoodStuffAllergyCommandResult("error", "Case is not Exists");
+        if (!await _FoodStuffRepository.IsExists(command.FoodStuffId))
+            return new UpdateCaseFoodStuffAllergyCommandResult("error", "FoodStuff is not Exists");
 
         var CaseFoodStuffAllergy = await _CaseFoodStuffAllergyRepository.ByIdAsync(command.Id);
         if (CaseFoodStuffAllergy == null)

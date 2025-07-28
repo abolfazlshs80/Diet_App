@@ -1,5 +1,6 @@
 ﻿
 using Diet.Application.Interface;
+using Diet.Domain.@case.Repository;
 using Diet.Domain.CaseDrug;
 using Diet.Domain.CaseDrug.Repository;
 using Diet.Domain.Contract;
@@ -26,12 +27,17 @@ public class CreateCaseDrugCommandHandler : ICommandHandler<CreateCaseDrugComman
     {
         _unitOfWork = unitOfWork;
         _CaseDrugRepository = CaseDrugRepository;
+        _CaseRepository = CaseRepository;
+        _DrugRepository = DrugRepository;
     }
  
 
     public async Task<ErrorOr<CreateCaseDrugCommandResult>> Handle(CreateCaseDrugCommand command)
     {
-
+        if (!await _CaseRepository.IsExists(command.CaseId))
+            return new CreateCaseDrugCommandResult("error", "Case is not Exists");
+        if (!await _DrugRepository.IsExists(command.CaseId))
+            return new CreateCaseDrugCommandResult("error", "Drug is not Exists");
         var Result =Domain.caseDrug. CaseDrug.Create(command);
         if (Result.IsError)
             return Result.FirstError;
