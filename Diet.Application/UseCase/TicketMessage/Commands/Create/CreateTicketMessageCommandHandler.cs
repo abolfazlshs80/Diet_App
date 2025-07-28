@@ -1,6 +1,9 @@
 using Diet.Application.Interface;
-using Diet.Domain.ticketMessage.Repository;
 using Diet.Domain.Contract.Commands.TicketMessage.Create;
+using Diet.Domain.supplement.Repository;
+using Diet.Domain.ticket.Repository;
+using Diet.Domain.ticketMessage.Repository;
+using Diet.Domain.user.Repository;
 using Diet.Framework.Core.Bus;
 using ErrorOr;
 
@@ -10,15 +13,30 @@ public class CreateTicketMessageCommandHandler : ICommandHandler<CreateTicketMes
 {
     private readonly ITicketMessageRepository _ticketMessageRepository;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IUsersRepository _usersRepository;
+    private readonly ITicketRepository _ticketRepository;
 
-    public CreateTicketMessageCommandHandler(ITicketMessageRepository ticketMessageRepository, IUnitOfWork unitOfWork)
+    public CreateTicketMessageCommandHandler(ITicketMessageRepository ticketMessageRepository,
+        IUsersRepository usersRepository  ,
+        ITicketRepository ticketRepository,
+
+
+        IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
         _ticketMessageRepository = ticketMessageRepository;
+
+        _ticketRepository = ticketRepository;
+        _usersRepository = usersRepository;
     }
 
     public async Task<ErrorOr<CreateTicketMessageCommandResult>> Handle(CreateTicketMessageCommand command)
     {
+        if (!await _ticketRepository.IsExists(command.TicketId))
+            return new CreateTicketMessageCommandResult("error", "TicketId is not Exists");
+        if (!await _usersRepository.IsExists(command.FromId))
+            return new CreateTicketMessageCommandResult("error", "UserId is not Exists");
+
         var result = Domain.ticketMessage.TicketMessage.Create(command);
         if (result.IsError)
             return result.FirstError;

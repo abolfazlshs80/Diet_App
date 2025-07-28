@@ -1,7 +1,8 @@
-using Diet.Domain.Contract.Commands.TicketMessage.Update;
 using Diet.Application.Interface;
+using Diet.Domain.Contract.Commands.TicketMessage.Update;
+using Diet.Domain.ticket.Repository;
 using Diet.Domain.ticketMessage.Repository;
-
+using Diet.Domain.user.Repository;
 using Diet.Framework.Core.Bus;
 using ErrorOr;
 
@@ -11,15 +12,30 @@ public class UpdateTicketMessageCommandHandler : ICommandHandler<UpdateTicketMes
 {
     private readonly ITicketMessageRepository _ticketMessageRepository;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IUsersRepository _usersRepository;
+    private readonly ITicketRepository _ticketRepository;
 
-    public UpdateTicketMessageCommandHandler(ITicketMessageRepository ticketMessageRepository, IUnitOfWork unitOfWork)
+    public UpdateTicketMessageCommandHandler(ITicketMessageRepository ticketMessageRepository,
+        IUsersRepository usersRepository,
+        ITicketRepository ticketRepository,
+
+
+        IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
         _ticketMessageRepository = ticketMessageRepository;
+
+        _ticketRepository = ticketRepository;
+        _usersRepository = usersRepository;
     }
 
     public async Task<ErrorOr<UpdateTicketMessageCommandResult>> Handle(UpdateTicketMessageCommand command)
     {
+        if (!await _ticketRepository.IsExists(command.TicketId))
+            return new UpdateTicketMessageCommandResult("error", "TicketId is not Exists");
+        if (!await _usersRepository.IsExists(command.FromId))
+            return new UpdateTicketMessageCommandResult("error", "UserId is not Exists");
+
         var ticketMessage = await _ticketMessageRepository.ByIdAsync(command.Id);
         if (ticketMessage == null)
             return new UpdateTicketMessageCommandResult("error", "not found ticketmessage");

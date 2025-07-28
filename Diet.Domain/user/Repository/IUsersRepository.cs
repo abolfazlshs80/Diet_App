@@ -5,7 +5,7 @@ namespace Diet.Domain.user.Repository
     {
         Task<List<Domain.user.User>> AllAsync(string? searchText, int pageCount = 8, int pageNumber = 0);
         Task<Domain.user.User> ByIdAsync(Guid id);
-
+        Task<bool> IsExists(Guid id);
         Task AddAsync(Domain.user.User users);
         Task UpdateAsync(Domain.user.User users);
         Task DeleteAsync(Domain.user.User users);

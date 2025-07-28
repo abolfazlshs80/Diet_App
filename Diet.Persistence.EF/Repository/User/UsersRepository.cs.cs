@@ -46,4 +46,9 @@ public class UsersRepository : IUsersRepository
             .AsNoTracking()
             .ToListAsync();
     }
+
+    public async Task<bool> IsExists(Guid id)
+    {
+        return await _dbContext.Users.AsNoTracking().AnyAsync(x => x.Id == id);
+    }
 }

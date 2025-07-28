@@ -46,4 +46,9 @@ public class SportRepository : ISportRepository
             .AsNoTracking()
             .ToListAsync();
     }
+
+    public async Task<bool> IsExists(Guid id)
+    {
+        return await _dbContext.Sport.AsNoTracking().AnyAsync(x => x.Id == id);
+    }
 }

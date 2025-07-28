@@ -1,6 +1,9 @@
 using Diet.Application.Interface;
-using Diet.Domain.supplementLifeCourse.Repository;
 using Diet.Domain.Contract.Commands.SupplementLifeCourse.Create;
+using Diet.Domain.disease.Repository;
+using Diet.Domain.supplement.Repository;
+using Diet.Domain.supplementLifeCourse.Repository;
+using Diet.Domain.user.Repository;
 using Diet.Framework.Core.Bus;
 using ErrorOr;
 
@@ -10,15 +13,28 @@ public class CreateSupplementLifeCourseCommandHandler : ICommandHandler<CreateSu
 {
     private readonly ISupplementLifeCourseRepository _supplementLifeCourseRepository;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly ISupplementRepository _supplementRepository;
+    private readonly ILifeCourseRepository _lifeCourseRepository;
 
-    public CreateSupplementLifeCourseCommandHandler(ISupplementLifeCourseRepository supplementLifeCourseRepository, IUnitOfWork unitOfWork)
+    public CreateSupplementLifeCourseCommandHandler(ISupplementLifeCourseRepository supplementLifeCourseRepository,
+
+        ISupplementRepository supplementRepository,
+        ILifeCourseRepository lifeCourseRepository,
+        IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
         _supplementLifeCourseRepository = supplementLifeCourseRepository;
+        _lifeCourseRepository = lifeCourseRepository;
+        _supplementRepository = supplementRepository;
     }
 
     public async Task<ErrorOr<CreateSupplementLifeCourseCommandResult>> Handle(CreateSupplementLifeCourseCommand command)
     {
+        if (!await _supplementRepository.IsExists(command.SupplementId))
+            return new CreateSupplementLifeCourseCommandResult("error", "SupplementId is not Exists");
+        if (!await _lifeCourseRepository.IsExists(command.LifeCourseId))
+            return new CreateSupplementLifeCourseCommandResult("error", "LifeCourseId is not Exists");
+
         var result = Domain.supplementLifeCourse.SupplementLifeCourse.Create(command);
         if (result.IsError)
             return result.FirstError;

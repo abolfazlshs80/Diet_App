@@ -46,4 +46,9 @@ public class SupplementRepository : ISupplementRepository
             .AsNoTracking()
             .ToListAsync();
     }
+
+    public async Task<bool> IsExists(Guid id)
+    {
+        return await _dbContext.Supplement.AsNoTracking().AnyAsync(x => x.Id == id);
+    }
 }

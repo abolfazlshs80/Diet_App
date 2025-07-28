@@ -48,5 +48,8 @@ public class DrugRepository : IDrugRepository
         return await result.Skip(PageNumber * pageCount).Take(pageCount).AsNoTracking().ToListAsync();
     }
 
-   
+    public async Task<bool> IsExists(Guid id)
+    {
+        return await _dbContext.Drug.AsNoTracking().AnyAsync(x => x.Id == id);
+    }
 }

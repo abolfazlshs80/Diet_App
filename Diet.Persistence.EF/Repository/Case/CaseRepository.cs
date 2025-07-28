@@ -45,6 +45,9 @@ public class CaseRepository : ICaseRepository
             result = result.Where(_ => _.Description.Contains(searchText));
         return await result.Skip(PageNumber * pageCount).Take(pageCount).AsNoTracking().ToListAsync();
     }
+    public async Task<bool> IsExists(Guid id)
+    {
+        return await _dbContext.Case.AsNoTracking().AnyAsync(x => x.Id == id);
+    }
 
-   
 }

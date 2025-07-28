@@ -1,7 +1,8 @@
-using Diet.Domain.Contract.Commands.UserRole.Update;
 using Diet.Application.Interface;
+using Diet.Domain.Contract.Commands.UserRole.Update;
+using Diet.Domain.role.Repository;
+using Diet.Domain.user.Repository;
 using Diet.Domain.userRole.Repository;
-
 using Diet.Framework.Core.Bus;
 using ErrorOr;
 
@@ -11,15 +12,28 @@ public class UpdateUserRoleCommandHandler : ICommandHandler<UpdateUserRoleComman
 {
     private readonly IUserRoleRepository _userRoleRepository;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IRoleRepository _roleRepository;
+    private readonly IUsersRepository _usersRepository;
 
-    public UpdateUserRoleCommandHandler(IUserRoleRepository userRoleRepository, IUnitOfWork unitOfWork)
+    public UpdateUserRoleCommandHandler(IUserRoleRepository userRoleRepository,
+
+        IRoleRepository roleRepository,
+        IUsersRepository usersRepository,
+        IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
         _userRoleRepository = userRoleRepository;
+        _usersRepository = usersRepository;
+        _roleRepository = roleRepository;
     }
 
     public async Task<ErrorOr<UpdateUserRoleCommandResult>> Handle(UpdateUserRoleCommand command)
     {
+        if (!await _usersRepository.IsExists(command.UserId))
+            return new UpdateUserRoleCommandResult("error", "UserId is not Exists");
+        if (!await _roleRepository.IsExists(command.RoleId))
+            return new UpdateUserRoleCommandResult("error", "RoleId is not Exists");
+
         var userRole = await _userRoleRepository.ByIdAsync(command.Id);
         if (userRole == null)
             return new UpdateUserRoleCommandResult("error", "not found userrole");

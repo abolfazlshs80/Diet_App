@@ -49,5 +49,8 @@ public class FoodRepository : IFoodRepository
         return await result.Skip(PageNumber * pageCount).Take(pageCount).AsNoTracking().ToListAsync();
     }
 
-   
+    public async Task<bool> IsExists(Guid id)
+    {
+        return await _dbContext.Food.AsNoTracking().AnyAsync(x => x.Id == id);
+    }
 }

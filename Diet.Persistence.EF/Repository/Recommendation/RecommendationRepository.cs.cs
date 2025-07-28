@@ -46,4 +46,9 @@ public class RecommendationRepository : IRecommendationRepository
             .AsNoTracking()
             .ToListAsync();
     }
+
+    public async Task<bool> IsExists(Guid id)
+    {
+        return await _dbContext.Recommendation.AsNoTracking().AnyAsync(x => x.Id == id);
+    }
 }

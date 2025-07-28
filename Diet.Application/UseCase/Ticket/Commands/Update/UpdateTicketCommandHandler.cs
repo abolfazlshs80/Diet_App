@@ -1,7 +1,7 @@
-using Diet.Domain.Contract.Commands.Ticket.Update;
 using Diet.Application.Interface;
+using Diet.Domain.Contract.Commands.Ticket.Update;
 using Diet.Domain.ticket.Repository;
-
+using Diet.Domain.user.Repository;
 using Diet.Framework.Core.Bus;
 using ErrorOr;
 
@@ -10,16 +10,21 @@ namespace Diet.Application.UseCase.Ticket.Commands.Update;
 public class UpdateTicketCommandHandler : ICommandHandler<UpdateTicketCommand, UpdateTicketCommandResult>
 {
     private readonly ITicketRepository _ticketRepository;
+    private readonly IUsersRepository _usersRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public UpdateTicketCommandHandler(ITicketRepository ticketRepository, IUnitOfWork unitOfWork)
+    public UpdateTicketCommandHandler(ITicketRepository ticketRepository, IUsersRepository usersRepository, IUnitOfWork unitOfWork)
     {
+        _usersRepository = usersRepository;
         _unitOfWork = unitOfWork;
         _ticketRepository = ticketRepository;
     }
 
     public async Task<ErrorOr<UpdateTicketCommandResult>> Handle(UpdateTicketCommand command)
     {
+        if (!await _usersRepository.IsExists(command.UserId))
+            return new UpdateTicketCommandResult("error", "UserId is not Exists");
+
         var ticket = await _ticketRepository.ByIdAsync(command.Id);
         if (ticket == null)
             return new UpdateTicketCommandResult("error", "not found ticket");

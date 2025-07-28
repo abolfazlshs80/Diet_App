@@ -47,7 +47,9 @@ public class FoodStuffRepository : IFoodStuffRepository
         if (!string.IsNullOrEmpty(searchText))
             result = result.Where(_ => _.Title.Contains(searchText));
         return await result.Skip(PageNumber * pageCount).Take(pageCount).AsNoTracking().ToListAsync();
+    }    
+    public async Task<bool> IsExists(Guid id)
+    {
+        return await _dbContext.FoodStuff.AsNoTracking().AnyAsync(x => x.Id == id);
     }
-
-   
 }

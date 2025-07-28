@@ -46,4 +46,9 @@ public class RecommendationDisease_WhiteListRepository : IRecommendationDisease_
             .AsNoTracking()
             .ToListAsync();
     }
+
+    public async Task<bool> IsExists(Guid id)
+    {
+        return await _dbContext.RecommendationDisease_WhiteList.AsNoTracking().AnyAsync(x => x.Id == id);
+    }
 }

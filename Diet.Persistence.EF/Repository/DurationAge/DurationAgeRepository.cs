@@ -49,5 +49,8 @@ public class DurationAgeRepository : IDurationAgeRepository
         return await result.Skip(PageNumber * pageCount).Take(pageCount).AsNoTracking().ToListAsync();
     }
 
-   
+    public async Task<bool> IsExists(Guid id)
+    {
+        return await _dbContext.DurationAge.AsNoTracking().AnyAsync(x => x.Id == id);
+    }
 }

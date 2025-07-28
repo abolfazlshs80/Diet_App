@@ -46,4 +46,8 @@ public class TransactionsRepository : ITransactionsRepository
             .AsNoTracking()
             .ToListAsync();
     }
+    public async Task<bool> IsExists(Guid id)
+    {
+        return await _dbContext.Transactions.AsNoTracking().AnyAsync(x => x.Id == id);
+    }
 }

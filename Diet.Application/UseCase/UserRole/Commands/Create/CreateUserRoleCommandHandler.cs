@@ -1,6 +1,9 @@
 using Diet.Application.Interface;
-using Diet.Domain.userRole.Repository;
 using Diet.Domain.Contract.Commands.UserRole.Create;
+using Diet.Domain.role.Repository;
+using Diet.Domain.ticket.Repository;
+using Diet.Domain.user.Repository;
+using Diet.Domain.userRole.Repository;
 using Diet.Framework.Core.Bus;
 using ErrorOr;
 
@@ -10,15 +13,28 @@ public class CreateUserRoleCommandHandler : ICommandHandler<CreateUserRoleComman
 {
     private readonly IUserRoleRepository _userRoleRepository;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IRoleRepository _roleRepository;
+    private readonly IUsersRepository _usersRepository;
 
-    public CreateUserRoleCommandHandler(IUserRoleRepository userRoleRepository, IUnitOfWork unitOfWork)
+    public CreateUserRoleCommandHandler(IUserRoleRepository userRoleRepository,
+
+        IRoleRepository roleRepository  ,
+        IUsersRepository usersRepository,
+        IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
         _userRoleRepository = userRoleRepository;
+        _usersRepository = usersRepository;
+        _roleRepository = roleRepository;
     }
 
     public async Task<ErrorOr<CreateUserRoleCommandResult>> Handle(CreateUserRoleCommand command)
     {
+        if (!await _usersRepository.IsExists(command.UserId))
+            return new CreateUserRoleCommandResult("error", "UserId is not Exists");
+        if (!await _roleRepository.IsExists(command.RoleId))
+            return new CreateUserRoleCommandResult("error", "RoleId is not Exists");
+
         var result = Domain.userRole.UserRole.Create(command);
         if (result.IsError)
             return result.FirstError;

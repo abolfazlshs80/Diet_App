@@ -46,4 +46,9 @@ public class RoleRepository : IRoleRepository
             .AsNoTracking()
             .ToListAsync();
     }
+
+    public async Task<bool> IsExists(Guid id)
+    {
+        return await _dbContext.Role.AsNoTracking().AnyAsync(x => x.Id == id);
+    }
 }
