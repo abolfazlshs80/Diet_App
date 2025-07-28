@@ -13,18 +13,30 @@ namespace Diet.Application.UseCase.FoodDrugIntraction.Commands.Update;
 
 public class UpdateFoodDrugIntractionCommandHandler : ICommandHandler<UpdateFoodDrugIntractionCommand, UpdateFoodDrugIntractionCommandResult>
 {
+    private readonly IFoodRepository _FoodRepository;
+    private readonly IDrugRepository _DrugRepository;
     private readonly IFoodDrugIntractionRepository _FoodDrugIntractionRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public UpdateFoodDrugIntractionCommandHandler(IFoodDrugIntractionRepository FoodDrugIntractionRepository, IUnitOfWork unitOfWork)
+    public UpdateFoodDrugIntractionCommandHandler(IFoodDrugIntractionRepository FoodDrugIntractionRepository
+        , IFoodRepository FoodRepository
+        , IDrugRepository DrugRepository
+        , IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
         _FoodDrugIntractionRepository = FoodDrugIntractionRepository;
+        _FoodRepository = FoodRepository;
+        _DrugRepository = DrugRepository;
     }
- 
 
     public async Task<ErrorOr<UpdateFoodDrugIntractionCommandResult>> Handle(UpdateFoodDrugIntractionCommand command)
     {
+        if (!await _DrugRepository.IsExists(command.DrugId))
+            return new UpdateFoodDrugIntractionCommandResult("error", "Drug is not Exists");
+        if (!await _FoodRepository.IsExists(command.FoodId))
+            return new UpdateFoodDrugIntractionCommandResult("error", "Food is not Exists");
+
+
 
         var FoodDrugIntraction = await _FoodDrugIntractionRepository.ByIdAsync(command.Id);
         if (FoodDrugIntraction == null)

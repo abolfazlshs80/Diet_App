@@ -14,9 +14,10 @@ public class CreateFoodFoodIntractionCommandHandler : ICommandHandler<CreateFood
 {
     private readonly IFoodFoodIntractionRepository _FoodFoodIntractionRepository;
     private readonly IUnitOfWork _unitOfWork;
-
-    public CreateFoodFoodIntractionCommandHandler(IFoodFoodIntractionRepository FoodFoodIntractionRepository, IUnitOfWork unitOfWork)
+    private readonly IFoodRepository _FoodRepository;
+    public CreateFoodFoodIntractionCommandHandler(IFoodFoodIntractionRepository FoodFoodIntractionRepository, IFoodRepository FoodRepository, IUnitOfWork unitOfWork)
     {
+        _FoodRepository = FoodRepository;
         _unitOfWork = unitOfWork;
         _FoodFoodIntractionRepository = FoodFoodIntractionRepository;
     }
@@ -24,6 +25,12 @@ public class CreateFoodFoodIntractionCommandHandler : ICommandHandler<CreateFood
 
     public async Task<ErrorOr<CreateFoodFoodIntractionCommandResult>> Handle(CreateFoodFoodIntractionCommand command)
     {
+    
+        if (!await _FoodRepository.IsExists(command.FoodFistId))
+            return new CreateFoodFoodIntractionCommandResult("error", "Food is not Exists");
+        if (!await _FoodRepository.IsExists(command.FoodSecondId))
+            return new CreateFoodFoodIntractionCommandResult("error", "Food is not Exists");
+
 
         var Result = Domain.food.Entities.Food_Food_Intraction.Create(command);
         if (Result.IsError)

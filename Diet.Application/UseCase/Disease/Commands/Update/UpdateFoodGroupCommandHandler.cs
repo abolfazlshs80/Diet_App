@@ -27,6 +27,8 @@ public class UpdateDiseaseCommandHandler : ICommandHandler<UpdateDiseaseCommand,
 
     public async Task<ErrorOr<UpdateDiseaseCommandResult>> Handle(UpdateDiseaseCommand command)
     {
+        if (command.ParentId != null && !await _DiseaseRepository.IsExists(command.ParentId))
+            return new UpdateDiseaseCommandResult("error", "Not Found Disease");
 
         var Disease = await _DiseaseRepository.ByIdAsync(command.Id);
         if (Disease == null)

@@ -26,6 +26,8 @@ public class UpdateLifeCourseCommandHandler : ICommandHandler<UpdateLifeCourseCo
 
     public async Task<ErrorOr<UpdateLifeCourseCommandResult>> Handle(UpdateLifeCourseCommand command)
     {
+        if (command.ParentId != null && !await _LifeCourseRepository.IsExists(command.ParentId))
+            return new UpdateLifeCourseCommandResult("error", "Not Found Disease");
 
         var LifeCourse = await _LifeCourseRepository.ByIdAsync(command.Id);
         if (LifeCourse == null)

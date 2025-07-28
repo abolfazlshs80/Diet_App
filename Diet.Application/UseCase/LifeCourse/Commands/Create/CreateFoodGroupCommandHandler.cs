@@ -1,10 +1,11 @@
 ﻿
+using Diet.Application.Interface;
 using Diet.Domain.Contract;
 using Diet.Domain.Contract.Commands.Order.Create;
+using Diet.Domain.disease.Repository;
 using Diet.Domain.food.Entities;
 using Diet.Domain.user.Repository;
 using Diet.Framework.Core.Bus;
-using Diet.Application.Interface;
 using ErrorOr;
 using System.Threading;
 
@@ -24,6 +25,9 @@ public class CreateLifeCourseCommandHandler : ICommandHandler<CreateLifeCourseCo
 
     public async Task<ErrorOr<CreateLifeCourseCommandResult>> Handle(CreateLifeCourseCommand command)
     {
+        if (command.ParentId != null && !await _LifeCourseRepository.IsExists(command.ParentId))
+            return new CreateLifeCourseCommandResult("error", "Not Found Disease");
+
 
         var orderResult = Domain.lifeCourse.Entities.LifeCourse.Create(command);
         if (orderResult.IsError)

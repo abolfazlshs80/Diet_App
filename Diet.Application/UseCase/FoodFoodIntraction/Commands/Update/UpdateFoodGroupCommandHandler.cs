@@ -14,16 +14,21 @@ public class UpdateFoodFoodIntractionCommandHandler : ICommandHandler<UpdateFood
 {
     private readonly IFoodFoodIntractionRepository _FoodFoodIntractionRepository;
     private readonly IUnitOfWork _unitOfWork;
-
-    public UpdateFoodFoodIntractionCommandHandler(IFoodFoodIntractionRepository FoodFoodIntractionRepository, IUnitOfWork unitOfWork)
+    private readonly IFoodRepository _FoodRepository;
+    public UpdateFoodFoodIntractionCommandHandler(IFoodFoodIntractionRepository FoodFoodIntractionRepository, IFoodRepository FoodRepository, IUnitOfWork unitOfWork)
     {
+        _FoodRepository = FoodRepository;
         _unitOfWork = unitOfWork;
         _FoodFoodIntractionRepository = FoodFoodIntractionRepository;
     }
- 
+
 
     public async Task<ErrorOr<UpdateFoodFoodIntractionCommandResult>> Handle(UpdateFoodFoodIntractionCommand command)
     {
+        if (!await _FoodRepository.IsExists(command.FoodFistId))
+            return new UpdateFoodFoodIntractionCommandResult("error", "Food is not Exists");
+        if (!await _FoodRepository.IsExists(command.FoodSecondId))
+            return new UpdateFoodFoodIntractionCommandResult("error", "Food is not Exists");
 
         var FoodFoodIntraction = await _FoodFoodIntractionRepository.ByIdAsync(command.Id);
         if (FoodFoodIntraction == null)
