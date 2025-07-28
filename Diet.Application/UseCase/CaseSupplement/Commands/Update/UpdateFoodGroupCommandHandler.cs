@@ -1,9 +1,11 @@
 ﻿using Diet.Application.Interface;
+using Diet.Domain.@case.Repository;
 using Diet.Domain.CaseSupplement.Repository;
 using Diet.Domain.Contract;
 using Diet.Domain.Contract.Commands.Order.Create;
 using Diet.Domain.Contract.Commands.Order.Update;
 using Diet.Domain.food.Entities;
+using Diet.Domain.supplement.Repository;
 using Diet.Domain.user.Repository;
 using Diet.Framework.Core.Bus;
 using ErrorOr;
@@ -14,17 +16,28 @@ namespace Diet.Application.UseCase.CaseSupplement.Commands.Update;
 public class UpdateCaseSupplementCommandHandler : ICommandHandler<UpdateCaseSupplementCommand, UpdateCaseSupplementCommandResult>
 {
     private readonly ICaseSupplementRepository _CaseSupplementRepository;
+    private readonly ISupplementRepository _SupplementRepository;
+    private readonly ICaseRepository _CaseRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public UpdateCaseSupplementCommandHandler(ICaseSupplementRepository CaseSupplementRepository, IUnitOfWork unitOfWork)
+    public UpdateCaseSupplementCommandHandler(ICaseSupplementRepository CaseSupplementRepository
+        , ICaseRepository CaseRepository
+        , ISupplementRepository SupplementRepository
+        , IUnitOfWork unitOfWork)
     {
+        _CaseRepository = CaseRepository;
+        _SupplementRepository = SupplementRepository;
         _unitOfWork = unitOfWork;
         _CaseSupplementRepository = CaseSupplementRepository;
     }
- 
+
 
     public async Task<ErrorOr<UpdateCaseSupplementCommandResult>> Handle(UpdateCaseSupplementCommand command)
     {
+        if (!await _CaseRepository.IsExists(command.CaseId))
+            return new UpdateCaseSupplementCommandResult("error", "Case is not Exists");
+        if (!await _SupplementRepository.IsExists(command.SupplementId))
+            return new UpdateCaseSupplementCommandResult("error", "Supplement is not Exists");
 
         var CaseSupplement = await _CaseSupplementRepository.ByIdAsync(command.Id);
         if (CaseSupplement == null)

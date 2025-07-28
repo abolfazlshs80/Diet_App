@@ -5,6 +5,7 @@ namespace Diet.Domain.supplement.Repository
     {
         Task<List<Diet.Domain.supplement.Supplement>> AllAsync(string? searchText, int pageCount = 8, int pageNumber = 0);
         Task<Diet.Domain.supplement.Supplement> ByIdAsync(Guid id);
+        Task<bool> IsExists(Guid Id);
 
         Task AddAsync(Diet.Domain.supplement.Supplement supplement);
         Task UpdateAsync(Diet.Domain.supplement.Supplement supplement);
