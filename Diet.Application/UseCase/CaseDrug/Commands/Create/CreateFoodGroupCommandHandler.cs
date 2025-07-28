@@ -15,9 +15,14 @@ namespace Diet.Application.UseCase.CaseDrug.Commands.Create;
 public class CreateCaseDrugCommandHandler : ICommandHandler<CreateCaseDrugCommand, CreateCaseDrugCommandResult>
 {
     private readonly ICaseDrugRepository _CaseDrugRepository;
+    private readonly ICaseRepository _CaseRepository;
+    private readonly IDrugRepository _DrugRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public CreateCaseDrugCommandHandler(ICaseDrugRepository CaseDrugRepository, IUnitOfWork unitOfWork)
+    public CreateCaseDrugCommandHandler(ICaseDrugRepository CaseDrugRepository,
+        ICaseRepository CaseRepository,
+        IDrugRepository DrugRepository,
+        IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
         _CaseDrugRepository = CaseDrugRepository;
