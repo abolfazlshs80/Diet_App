@@ -9,7 +9,13 @@ public class CreateLifeCourseCommandValidator : AbstractValidator<CreateLifeCour
 {
     public CreateLifeCourseCommandValidator()
     {
-        RuleFor(x => x.Title).Length(2, 150).WithMessage("Please  Enter a  name");
+
+        //RuleFor(x => x.ParentId)
+        //    .NotNull().WithMessage("شناسه والد نمی‌تواند تهی باشد.");
+
+        RuleFor(x => x.Title)
+            .NotNull().WithMessage("نام الزامی است.")
+            .Length(2, 150).WithMessage("نام باید بین ۲ تا ۱۵۰ کاراکتر باشد.");
 
     }
 }

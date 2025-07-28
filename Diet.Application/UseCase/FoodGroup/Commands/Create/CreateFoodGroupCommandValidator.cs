@@ -9,7 +9,11 @@ public class CreateFoodGroupCommandValidator : AbstractValidator<CreateFoodGroup
 {
     public CreateFoodGroupCommandValidator()
     {
-        RuleFor(x => x.Title).Length(2, 150).WithMessage("Please  Enter a customer name");
+
+
+        RuleFor(x => x.Title)
+            .NotNull().WithMessage("نام مشتری الزامی است.")
+            .Length(2, 150).WithMessage("نام مشتری باید بین ۲ تا ۱۵۰ کاراکتر باشد.");
 
     }
 }

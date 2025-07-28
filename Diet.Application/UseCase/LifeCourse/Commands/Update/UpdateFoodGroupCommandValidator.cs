@@ -9,9 +9,15 @@ public class UpdateLifeCourseCommandValidator : AbstractValidator<UpdateLifeCour
 {
     public UpdateLifeCourseCommandValidator()
     {
-        RuleFor(x => x.Id).NotNull();
-        //RuleFor(x => x.ParentId).NotNull();
-        RuleFor(x => x.Title).Length(2, 150).WithMessage("Please  Enter a  name");
+        RuleFor(x => x.Id)
+               .NotNull().WithMessage("شناسه نمی‌تواند تهی باشد.");
+
+        //RuleFor(x => x.ParentId)
+        //    .NotNull().WithMessage("شناسه والد نمی‌تواند تهی باشد.");
+
+        RuleFor(x => x.Title)
+            .NotNull().WithMessage("نام الزامی است.")
+            .Length(2, 150).WithMessage("نام باید بین ۲ تا ۱۵۰ کاراکتر باشد.");
 
     }
 }

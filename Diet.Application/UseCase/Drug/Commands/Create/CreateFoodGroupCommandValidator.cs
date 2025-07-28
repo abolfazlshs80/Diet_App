@@ -9,8 +9,14 @@ public class CreateDrugCommandValidator : AbstractValidator<CreateDrugCommand>
 {
     public CreateDrugCommandValidator()
     {
-        RuleFor(x => x.Title).Length(2, 100).WithMessage("Please  Enter a  name");
-        RuleFor(x => x.Description).Length(2, 1000).WithMessage("Please  Enter a  Description");
+
+        RuleFor(x => x.Title)
+            .NotNull().WithMessage("عنوان دارو الزامی است.")
+            .Length(2, 100).WithMessage("عنوان دارو باید بین ۲ تا ۱۵۰ کاراکتر باشد.");
+
+        RuleFor(x => x.Description)
+            .NotNull().WithMessage("توضیحات دارو الزامی است.")
+            .Length(2, 1000).WithMessage("توضیحات دارو باید بین ۲ تا ۱۵۰ کاراکتر باشد.");
 
     }
 }

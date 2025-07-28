@@ -7,7 +7,13 @@ public class CreateCaseDiseaseCommandValidator : AbstractValidator<CreateCaseDis
 {
     public CreateCaseDiseaseCommandValidator()
     {
+        RuleFor(x => x.CaseId)
+    .NotNull().WithMessage("شناسه پرونده نمی‌تواند خالی باشد.")
+    .NotEmpty().WithMessage("شناسه پرونده نمی‌تواند خالی باشد.");
 
+        RuleFor(x => x.DiseaseId)
+            .NotNull().WithMessage("شناسه بیماری نمی‌تواند خالی باشد.")
+            .NotEmpty().WithMessage("شناسه بیماری نمی‌تواند خالی باشد.");
 
     }
 }

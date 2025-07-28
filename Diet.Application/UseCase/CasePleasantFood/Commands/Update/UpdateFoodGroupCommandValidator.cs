@@ -9,11 +9,17 @@ public class UpdateCasePleasantFoodCommandValidator : AbstractValidator<UpdateCa
 {
     public UpdateCasePleasantFoodCommandValidator()
     {
-        RuleFor(x => x.CaseId).NotNull().NotEmpty();
-        RuleFor(x => x.FoodId).NotNull().NotEmpty();
-        RuleFor(x => x.Id).NotNull().NotEmpty();
+        RuleFor(x => x.CaseId)
+                .NotNull().WithMessage("شناسه پرونده نباید تهی باشد.")
+                .NotEmpty().WithMessage("شناسه پرونده نباید خالی باشد.");
 
+        RuleFor(x => x.FoodId)
+            .NotNull().WithMessage("شناسه غذا نباید تهی باشد.")
+            .NotEmpty().WithMessage("شناسه غذا نباید خالی باشد.");
 
+        RuleFor(x => x.Id)
+            .NotNull().WithMessage("شناسه رکورد نباید تهی باشد.")
+            .NotEmpty().WithMessage("شناسه رکورد نباید خالی باشد.");
     }
 }
 

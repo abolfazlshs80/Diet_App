@@ -9,8 +9,10 @@ public class CreateFoodStuffCommandValidator : AbstractValidator<CreateFoodStuff
 {
     public CreateFoodStuffCommandValidator()
     {
-        RuleFor(x => x.Title).Length(2, 150).WithMessage("Please  Enter a title");
 
+        RuleFor(x => x.Title)
+            .NotNull().WithMessage("عنوان الزامی است.")
+            .Length(2, 150).WithMessage("عنوان باید بین ۲ تا ۱۵۰ کاراکتر باشد.");
     }
 }
 

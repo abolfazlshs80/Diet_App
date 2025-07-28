@@ -1,4 +1,4 @@
-using Diet;
+﻿using Diet;
 using FluentValidation;
 using Diet.Domain.Contract.Commands.RecommendationDisease_WhiteList.Update;
 namespace Diet.Domain.UseCase.RecommendationDisease_WhiteList.Commands.Create
@@ -7,7 +7,14 @@ namespace Diet.Domain.UseCase.RecommendationDisease_WhiteList.Commands.Create
     {
         public UpdateRecommendationDisease_WhiteListCommandValidator()
         {
-            // Add validation rules here
+            RuleFor(x => x.Id)
+             .NotEmpty().WithMessage("شناسه نمی‌تواند مقدار پیش‌فرض یا تهی باشد.");
+
+            RuleFor(x => x.RecommendationId)
+                .NotEmpty().WithMessage("شناسه توصیه نمی‌تواند مقدار پیش‌فرض یا تهی باشد.");
+
+            RuleFor(x => x.DiseaseId)
+                .NotEmpty().WithMessage("شناسه بیماری نمی‌تواند مقدار پیش‌فرض یا تهی باشد.");
         }
     }
 }

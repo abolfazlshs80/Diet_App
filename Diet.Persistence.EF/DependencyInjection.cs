@@ -1,4 +1,5 @@
 ﻿using Diet.Application.Interface;
+using Diet.Domain.user.Repository;
 using Diet.Framework.Core.Interface;
 using Diet.Persistence.EF.Context;
 using Diet.Persistence.EF.Repository;
@@ -31,6 +32,7 @@ public static class DependencyInjection
             opt.UseSqlServer(configuration.GetConnectionString("DientConnection")));
  
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        //services.AddScoped<IUsersRepository, UsersRepository>();
 
 
 

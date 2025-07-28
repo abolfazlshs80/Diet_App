@@ -9,11 +9,17 @@ public class UpdateFoodFoodIntractionCommandValidator : AbstractValidator<Update
 {
     public UpdateFoodFoodIntractionCommandValidator()
     {
-        RuleFor(x => x.FoodFistId).NotNull().NotEmpty();
-        RuleFor(x => x.FoodSecondId).NotNull().NotEmpty();
-        RuleFor(x => x.Id).NotNull().NotEmpty();
+        RuleFor(x => x.FoodFistId)  // اگر اشتباه تایپی است، لطفا اصلاح کنید به FoodFirstId
+                 .NotNull().WithMessage("شناسه غذای اول نمی‌تواند تهی باشد.")
+                 .NotEmpty().WithMessage("شناسه غذای اول نمی‌تواند خالی باشد.");
 
+        RuleFor(x => x.FoodSecondId)
+            .NotNull().WithMessage("شناسه غذای دوم نمی‌تواند تهی باشد.")
+            .NotEmpty().WithMessage("شناسه غذای دوم نمی‌تواند خالی باشد.");
 
+        RuleFor(x => x.Id)
+            .NotNull().WithMessage("شناسه رکورد نمی‌تواند تهی باشد.")
+            .NotEmpty().WithMessage("شناسه رکورد نمی‌تواند خالی باشد.");
     }
 }
 

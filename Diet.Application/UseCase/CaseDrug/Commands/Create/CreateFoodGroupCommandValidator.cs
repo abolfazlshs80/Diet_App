@@ -9,9 +9,13 @@ public class CreateCaseDrugCommandValidator : AbstractValidator<CreateCaseDrugCo
 {
     public CreateCaseDrugCommandValidator()
     {
+        RuleFor(x => x.CaseId)
+                  .NotNull().WithMessage("شناسه پرونده نمی‌تواند null باشد.")
+                  .NotEmpty().WithMessage("شناسه پرونده نمی‌تواند خالی باشد.");
 
-        RuleFor(x => x.CaseId).NotNull().NotEmpty();
-        RuleFor(x => x.DrugId).NotNull().NotEmpty();
+        RuleFor(x => x.DrugId)
+            .NotNull().WithMessage("شناسه دارو نمی‌تواند null باشد.")
+            .NotEmpty().WithMessage("شناسه دارو نمی‌تواند خالی باشد.");
 
     }
 }

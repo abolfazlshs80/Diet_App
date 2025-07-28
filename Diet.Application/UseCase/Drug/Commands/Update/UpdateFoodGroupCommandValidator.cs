@@ -9,9 +9,16 @@ public class UpdateDrugCommandValidator : AbstractValidator<UpdateDrugCommand>
 {
     public UpdateDrugCommandValidator()
     {
-        RuleFor(x => x.Id).NotNull().WithMessage("Please  Enter a Id ");
-        RuleFor(x => x.Title).Length(2, 150).WithMessage("Please  Enter a  name");
-        RuleFor(x => x.Description).Length(2, 150).WithMessage("Please  Enter a  Description");
+        RuleFor(x => x.Id)
+             .NotNull().WithMessage("شناسه دارو نمی‌تواند تهی باشد.");
+
+        RuleFor(x => x.Title)
+            .NotNull().WithMessage("عنوان دارو الزامی است.")
+            .Length(2, 100).WithMessage("عنوان دارو باید بین ۲ تا ۱۵۰ کاراکتر باشد.");
+
+        RuleFor(x => x.Description)
+            .NotNull().WithMessage("توضیحات دارو الزامی است.")
+            .Length(2, 1000).WithMessage("توضیحات دارو باید بین ۲ تا ۱۵۰ کاراکتر باشد.");
 
 
     }

@@ -9,7 +9,10 @@ public class CreateDurationAgeCommandValidator : AbstractValidator<CreateDuratio
 {
     public CreateDurationAgeCommandValidator()
     {
-        RuleFor(x => x.Title).Length(2, 150).WithMessage("Please  Enter a  name");
+
+        RuleFor(x => x.Title)
+            .NotNull().WithMessage("عنوان نباید تهی باشد.")
+            .Length(2, 150).WithMessage("عنوان باید بین ۲ تا ۱۵۰ کاراکتر باشد.");
 
     }
 }

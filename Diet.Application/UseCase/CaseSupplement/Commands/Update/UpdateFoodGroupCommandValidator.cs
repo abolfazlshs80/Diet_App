@@ -9,9 +9,17 @@ public class UpdateCaseSupplementCommandValidator : AbstractValidator<UpdateCase
 {
     public UpdateCaseSupplementCommandValidator()
     {
-        RuleFor(x => x.CaseId).NotNull().NotEmpty();
-        RuleFor(x => x.SupplementId).NotNull().NotEmpty();
-        RuleFor(x => x.Id).NotNull().NotEmpty();
+        RuleFor(x => x.CaseId)
+                   .NotNull().WithMessage("شناسه پرونده نمی‌تواند تهی باشد.")
+                   .NotEmpty().WithMessage("شناسه پرونده نمی‌تواند خالی باشد.");
+
+        RuleFor(x => x.SupplementId)
+            .NotNull().WithMessage("شناسه مکمل نمی‌تواند تهی باشد.")
+            .NotEmpty().WithMessage("شناسه مکمل نمی‌تواند خالی باشد.");
+
+        RuleFor(x => x.Id)
+            .NotNull().WithMessage("شناسه رکورد نمی‌تواند تهی باشد.")
+            .NotEmpty().WithMessage("شناسه رکورد نمی‌تواند خالی باشد.");
 
 
     }

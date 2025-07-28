@@ -9,10 +9,17 @@ public class UpdateCaseDiseaseCommandValidator : AbstractValidator<UpdateCaseDis
 {
     public UpdateCaseDiseaseCommandValidator()
     {
-        RuleFor(x => x.CaseId).NotNull().NotEmpty();
-        RuleFor(x => x.DiseaseId).NotNull().NotEmpty();
-        RuleFor(x => x.Id).NotNull().NotEmpty();
+        RuleFor(x => x.CaseId)
+         .NotNull().WithMessage("شناسه پرونده نمی‌تواند خالی باشد.")
+         .NotEmpty().WithMessage("شناسه پرونده نمی‌تواند خالی باشد.");
 
+        RuleFor(x => x.DiseaseId)
+            .NotNull().WithMessage("شناسه بیماری نمی‌تواند خالی باشد.")
+            .NotEmpty().WithMessage("شناسه بیماری نمی‌تواند خالی باشد.");
+
+        RuleFor(x => x.Id)
+            .NotNull().WithMessage("شناسه نمی‌تواند خالی باشد.")
+            .NotEmpty().WithMessage("شناسه نمی‌تواند خالی باشد.");
 
     }
 }

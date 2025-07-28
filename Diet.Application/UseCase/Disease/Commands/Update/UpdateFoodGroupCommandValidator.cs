@@ -9,9 +9,15 @@ public class UpdateDiseaseCommandValidator : AbstractValidator<UpdateDiseaseComm
 {
     public UpdateDiseaseCommandValidator()
     {
-        RuleFor(x => x.Id).NotNull();
-        //RuleFor(x => x.ParentId).NotNull();
-        RuleFor(x => x.Title).Length(2, 150).WithMessage("Please  Enter a  name");
+        RuleFor(x => x.Id)
+            .NotNull().WithMessage("شناسه بیماری نمی‌تواند تهی باشد.");
+
+        //RuleFor(x => x.ParentId)
+        //    .NotNull().WithMessage("شناسه والد نمی‌تواند تهی باشد.");
+
+        RuleFor(x => x.Title)
+            .NotNull().WithMessage("عنوان بیماری الزامی است.")
+            .Length(2, 150).WithMessage("عنوان بیماری باید بین ۲ تا ۱۵۰ کاراکتر باشد.");
 
     }
 }

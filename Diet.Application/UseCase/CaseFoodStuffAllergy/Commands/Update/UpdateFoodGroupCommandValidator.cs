@@ -9,10 +9,17 @@ public class UpdateCaseFoodStuffAllergyCommandValidator : AbstractValidator<Upda
 {
     public UpdateCaseFoodStuffAllergyCommandValidator()
     {
-        RuleFor(x => x.CaseId).NotNull().NotEmpty();
-        RuleFor(x => x.FoodStuffId).NotNull().NotEmpty();
-        RuleFor(x => x.Id).NotNull().NotEmpty();
+        RuleFor(x => x.CaseId)
+            .NotNull().WithMessage("شناسه پرونده نباید تهی باشد.")
+            .NotEmpty().WithMessage("شناسه پرونده نباید خالی باشد.");
 
+        RuleFor(x => x.FoodStuffId)
+            .NotNull().WithMessage("شناسه ماده غذایی نباید تهی باشد.")
+            .NotEmpty().WithMessage("شناسه ماده غذایی نباید خالی باشد.");
+
+        RuleFor(x => x.Id)
+            .NotNull().WithMessage("شناسه رکورد نباید تهی باشد.")
+            .NotEmpty().WithMessage("شناسه رکورد نباید خالی باشد.");
 
     }
 }

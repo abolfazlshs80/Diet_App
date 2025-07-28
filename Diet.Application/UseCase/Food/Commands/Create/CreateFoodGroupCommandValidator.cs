@@ -9,10 +9,20 @@ public class CreateFoodCommandValidator : AbstractValidator<CreateFoodCommand>
 {
     public CreateFoodCommandValidator()
     {
-        RuleFor(x => x.Title).Length(2, 150).WithMessage("Please  Enter a  name");
-        RuleFor(x => x.Description).Length(2, 150).WithMessage("Please  Enter a  Description");
-        RuleFor(x => x.Value).NotNull().WithMessage("Please  Enter a Value");
-        RuleFor(x => x.FoodGroupId).NotNull().WithMessage("Please  Enter a FoodGroupId");
+
+        RuleFor(x => x.Title)
+            .NotNull().WithMessage("عنوان نباید خالی باشد.")
+            .Length(2, 100).WithMessage("عنوان باید بین ۲ تا 100 کاراکتر باشد.");
+
+        RuleFor(x => x.Description)
+            .NotNull().WithMessage("توضیحات نباید خالی باشد.")
+            .Length(2, 1000).WithMessage("توضیحات باید بین ۲ تا 1000 کاراکتر باشد.");
+
+        RuleFor(x => x.Value)
+            .NotNull().WithMessage("لطفاً مقدار را وارد کنید.");
+
+        RuleFor(x => x.FoodGroupId)
+            .NotNull().WithMessage("شناسه گروه غذایی نباید تهی باشد.");
 
     }
 }

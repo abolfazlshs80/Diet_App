@@ -9,8 +9,12 @@ public class UpdateDurationAgeCommandValidator : AbstractValidator<UpdateDuratio
 {
     public UpdateDurationAgeCommandValidator()
     {
-        RuleFor(x => x.Id).NotNull();
-        RuleFor(x => x.Title).Length(2, 150).WithMessage("Please  Enter a  name");
+        RuleFor(x => x.Id)
+               .NotNull().WithMessage("شناسه نباید تهی باشد.");
+
+        RuleFor(x => x.Title)
+            .NotNull().WithMessage("عنوان نباید تهی باشد.")
+            .Length(2, 150).WithMessage("عنوان باید بین ۲ تا ۱۵۰ کاراکتر باشد.");
 
     }
 }

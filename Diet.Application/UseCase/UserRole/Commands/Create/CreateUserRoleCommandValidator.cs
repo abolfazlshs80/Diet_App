@@ -1,4 +1,4 @@
-using Diet;
+﻿using Diet;
 using FluentValidation;
 using Diet.Domain.Contract.Commands.UserRole.Create;
 namespace Diet.Domain.UseCase.UserRole.Commands.Create
@@ -7,7 +7,12 @@ namespace Diet.Domain.UseCase.UserRole.Commands.Create
     {
         public CreateUserRoleCommandValidator()
         {
-            // Add validation rules here
+
+            RuleFor(x => x.RoleId)
+                .NotEmpty().WithMessage("شناسه نقش نمی‌تواند تهی یا مقدار پیش‌فرض باشد.");
+
+            RuleFor(x => x.UserId)
+                .NotEmpty().WithMessage("شناسه کاربر نمی‌تواند تهی یا مقدار پیش‌فرض باشد.");
         }
     }
 }
