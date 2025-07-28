@@ -6,6 +6,7 @@ using Diet.Persistence.EF.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics;
 
 namespace Diet.Persistence.EF;
 
@@ -17,7 +18,7 @@ public static class DependencyInjection
     {
         services
           .AddPersistence(configuration);
-
+        
         return services;
     }
 

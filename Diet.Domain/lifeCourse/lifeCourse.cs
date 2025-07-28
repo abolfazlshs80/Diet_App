@@ -2,7 +2,7 @@
 using Diet.Domain.Contract.Commands.Order.Create;
 using Diet.Domain.Contract.Commands.Order.Update;
 using Diet.Domain.recommendationLifeCourse;
-using Diet.Domain.supplement.Entities;
+using Diet.Domain.supplementLifeCourse;
 using ErrorOr;
 
 namespace Diet.Domain.lifeCourse.Entities;

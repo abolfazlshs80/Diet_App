@@ -1,4 +1,4 @@
-﻿using Diet.Domain.supplement.Entities;
+﻿using Diet.Domain.supplementGroup;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

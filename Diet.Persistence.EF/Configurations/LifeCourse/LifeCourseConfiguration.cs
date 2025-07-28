@@ -1,5 +1,5 @@
 ﻿using Diet.Domain.lifeCourse.Entities;
-using Diet.Domain.supplement.Entities;
+
 using Diet.Domain.user.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

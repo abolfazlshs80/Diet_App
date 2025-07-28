@@ -1,13 +1,12 @@
-﻿using Diet.Domain.supplement.Entities;
-using Diet.Domain.user.Entities;
+﻿using Diet.Domain.user.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Diet.Persistence.EF.Configurations.User;
 
-public class SupplementConfiguration : IEntityTypeConfiguration<Domain.supplement.Entities.Supplement>
+public class SupplementConfiguration : IEntityTypeConfiguration<Domain.supplement.Supplement>
 {
-    public void Configure(EntityTypeBuilder<Domain.supplement.Entities.Supplement> entity)
+    public void Configure(EntityTypeBuilder<Domain.supplement.Supplement> entity)
     {
 
         entity.HasKey(e => e.Id);

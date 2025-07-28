@@ -1,6 +1,7 @@
 ﻿using Diet.Domain.common;
 using ErrorOr;
-
+using Diet.Domain.Contract.Commands.Sport.Update;
+using Diet.Domain.Contract.Commands.Sport.Create;
 namespace Diet.Domain.sport;
 
 public sealed class Sport: BaseEntity
@@ -24,26 +25,26 @@ public sealed class Sport: BaseEntity
         High = high;
     }
 
-    //public static ErrorOr<Diet.Domain.sport.Sport> Create(CreateSportCommand command)
-    //{
-    //    return new Sport(
-    //        Guid.NewGuid(),
-    //        command.Name,
-    //        command.Low,
-    //        command.Medium,
-    //        command.High
-    //    );
-    //}
+    public static ErrorOr<Diet.Domain.sport.Sport> Create(CreateSportCommand command)
+    {
+        return new Sport(
+            Guid.NewGuid(),
+            command.Name,
+            command.Low,
+            command.Medium,
+            command.High
+        );
+    }
 
-    //public static ErrorOr<Diet.Domain.sport.Sport> Update(Sport existing, UpdateSportCommand command)
-    //{
-    //    return new Sport(
-    //        existing.Id,
-    //        command.Name,
-    //        command.Low,
-    //        command.Medium,
-    //        command.High
-    //    );
-    //}
+    public static ErrorOr<Diet.Domain.sport.Sport> Update(Diet.Domain.sport.Sport existing, UpdateSportCommand command)
+    {
+        return new Sport(
+            existing.Id,
+            command.Name,
+            command.Low,
+            command.Medium,
+            command.High
+        );
+    }
 
 }

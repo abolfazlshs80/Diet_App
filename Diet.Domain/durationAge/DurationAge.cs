@@ -2,7 +2,7 @@
 using Diet.Domain.Contract.Commands.Order.Create;
 using Diet.Domain.Contract.Commands.Order.Update;
 using Diet.Domain.recommendationDurationAge;
-using Diet.Domain.supplement.Entities;
+using Diet.Domain.supplementDurationAge;
 using ErrorOr;
 
 namespace Diet.Domain.durationAge.Entities;

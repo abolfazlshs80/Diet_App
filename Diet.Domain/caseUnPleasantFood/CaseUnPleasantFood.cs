@@ -2,7 +2,6 @@
 using Diet.Domain.Contract.Commands.Order.Create;
 using Diet.Domain.Contract.Commands.Order.Update;
 using Diet.Domain.food.Entities;
-using Diet.Domain.supplement.Entities;
 using ErrorOr;
 
 namespace Diet.Domain.caseUnPleasantFood;

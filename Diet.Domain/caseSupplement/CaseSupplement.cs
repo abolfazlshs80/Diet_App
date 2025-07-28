@@ -1,7 +1,7 @@
 ﻿using Diet.Domain.common;
 using Diet.Domain.Contract.Commands.Order.Create;
 using Diet.Domain.Contract.Commands.Order.Update;
-using Diet.Domain.supplement.Entities;
+using Diet.Domain.supplement;
 using ErrorOr;
 
 namespace Diet.Domain.caseSupplement;

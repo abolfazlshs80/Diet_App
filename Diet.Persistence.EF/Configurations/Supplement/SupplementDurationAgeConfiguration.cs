@@ -1,4 +1,4 @@
-﻿using Diet.Domain.supplement.Entities;
+﻿using Diet.Domain.supplementDurationAge;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

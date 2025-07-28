@@ -41,14 +41,10 @@
 	  <Folder Include="role\Errors\" />
 	  <Folder Include="sport\Errors\" />
 	  <Folder Include="sport\Repository\" />
-	  <Folder Include="supplementDisease\Errors\" />
-	  <Folder Include="supplementDisease\Repository\" />
+	  <Folder Include="supplementDisease_WhiteList\Errors\" />
 	  <Folder Include="supplementDurationAge\Errors\" />
-	  <Folder Include="supplementDurationAge\Repository\" />
 	  <Folder Include="supplementGroup\Errors\" />
-	  <Folder Include="supplementGroup\Repository\" />
 	  <Folder Include="supplementLifeCourse\Errors\" />
-	  <Folder Include="supplementLifeCourse\Repository\" />
 	  <Folder Include="supplement\Errors\" />
 	  <Folder Include="ticketMessage\Errors\" />
 	  <Folder Include="ticketMessage\Repository\" />

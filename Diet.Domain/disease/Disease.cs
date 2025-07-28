@@ -3,7 +3,7 @@ using Diet.Domain.common;
 using Diet.Domain.Contract.Commands.Order.Create;
 using Diet.Domain.Contract.Commands.Order.Update;
 using Diet.Domain.recommendationDisease_WhiteList;
-using Diet.Domain.supplement.Entities;
+using Diet.Domain.supplementDisease_WhiteList;
 using ErrorOr;
 
 namespace Diet.Domain.disease;
