@@ -1,6 +1,6 @@
 ﻿using Diet.Domain.recommendationDisease_WhiteList;
 
-using Diet.Domain.user.Entities;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

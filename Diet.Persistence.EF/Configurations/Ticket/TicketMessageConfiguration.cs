@@ -1,5 +1,5 @@
-﻿using Diet.Domain.ticket.Entities;
-using Diet.Domain.user.Entities;
+﻿using Diet.Domain.ticketMessage;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

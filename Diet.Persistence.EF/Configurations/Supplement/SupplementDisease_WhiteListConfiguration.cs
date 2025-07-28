@@ -1,5 +1,5 @@
 ﻿using Diet.Domain.supplementDisease_WhiteList;
-using Diet.Domain.user.Entities;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

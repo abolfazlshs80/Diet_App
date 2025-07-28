@@ -2,7 +2,7 @@
 using ErrorOr;
 using Diet.Domain.Contract.Commands.Role.Update;
 using Diet.Domain.Contract.Commands.Role.Create;
-using Diet.Domain.user.Entities;
+using Diet.Domain.userRole;
 
 namespace Diet.Domain.role;
 

@@ -1,6 +1,6 @@
 ﻿using Diet.Domain.recommendation;
 
-using Diet.Domain.user.Entities;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

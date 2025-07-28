@@ -47,9 +47,7 @@
 	  <Folder Include="supplementLifeCourse\Errors\" />
 	  <Folder Include="supplement\Errors\" />
 	  <Folder Include="ticketMessage\Errors\" />
-	  <Folder Include="ticketMessage\Repository\" />
 	  <Folder Include="userRole\Errors\" />
-	  <Folder Include="userRole\Repository\" />
 	  <Folder Include="user\ValueObjects\" />
 	</ItemGroup>
 	<ItemGroup>

@@ -24,10 +24,11 @@ using Diet.Domain.supplementDisease_WhiteList;
 using Diet.Domain.supplementDurationAge;
 using Diet.Domain.supplementGroup;
 using Diet.Domain.supplementLifeCourse;
-using Diet.Domain.ticket.Entities;
+using Diet.Domain.ticket;
+using Diet.Domain.ticketMessage;
 using Diet.Domain.transactions;
 using Diet.Domain.user;
-using Diet.Domain.user.Entities;
+using Diet.Domain.userRole;
 using Framework.Core.Persistence;
 using Microsoft.EntityFrameworkCore;
 

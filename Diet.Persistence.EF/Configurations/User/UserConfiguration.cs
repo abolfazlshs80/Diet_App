@@ -1,12 +1,12 @@
-﻿using Diet.Domain.user.Entities;
+﻿using Diet.Domain.userRole;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Diet.Persistence.EF.Configurations.User;
 
-public class UserConfiguration : IEntityTypeConfiguration<Domain.user.Entities.User>
+public class UserConfiguration : IEntityTypeConfiguration<Domain.user.User>
 {
-    public void Configure(EntityTypeBuilder<Domain.user.Entities.User> entity)
+    public void Configure(EntityTypeBuilder<Domain.user.User> entity)
     {
         entity.HasKey(e => e.Id);
 
@@ -74,9 +74,9 @@ public class UserConfiguration : IEntityTypeConfiguration<Domain.user.Entities.U
 
 }
 
-public class UserRoleConfiguration : IEntityTypeConfiguration<Domain.user.Entities.UserRole>
+public class UserRoleConfiguration : IEntityTypeConfiguration<UserRole>
 {
-    public void Configure(EntityTypeBuilder<Domain.user.Entities.UserRole> builder)
+    public void Configure(EntityTypeBuilder<UserRole> builder)
     {
 
         builder.HasKey(_ => _.Id);

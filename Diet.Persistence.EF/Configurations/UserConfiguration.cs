@@ -1,6 +1,6 @@
 ﻿using Diet.Domain.Case;
 
-using Diet.Domain.user.Entities;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

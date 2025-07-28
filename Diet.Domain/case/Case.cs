@@ -13,7 +13,6 @@ using Diet.Domain.lifeCourse.Entities;
 using Diet.Domain.sport;
 using Diet.Domain.transactions;
 using Diet.Domain.user;
-using Diet.Domain.user.Entities;
 using ErrorOr;
 using System.Reflection;
 using System.Transactions;

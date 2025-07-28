@@ -1,7 +1,7 @@
 ﻿using Diet.Domain.drug.Entities;
 
 using Diet.Domain.user;
-using Diet.Domain.user.Entities;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
