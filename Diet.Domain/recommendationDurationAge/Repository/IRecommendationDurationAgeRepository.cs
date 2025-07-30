@@ -1,3 +1,4 @@
+using Diet.Domain.Contract.DTOs.RecommendationDurationAge;
 using Diet.Framework.Core.Interface;
 namespace Diet.Domain.recommendationDurationAge.Repository
 {
@@ -5,6 +6,7 @@ namespace Diet.Domain.recommendationDurationAge.Repository
     {
         Task<List<Diet.Domain.recommendationDurationAge.RecommendationDurationAge>> AllAsync(string? searchText, int pageCount = 8, int pageNumber = 0);
         Task<Diet.Domain.recommendationDurationAge.RecommendationDurationAge> ByIdAsync(Guid id);
+        Task<GetItemRecommendationDurationAgeDto> ByIdDtoAsync(Guid id);
 
         Task AddAsync(Diet.Domain.recommendationDurationAge.RecommendationDurationAge recommendationDurationAge);
         Task UpdateAsync(Diet.Domain.recommendationDurationAge.RecommendationDurationAge recommendationDurationAge);

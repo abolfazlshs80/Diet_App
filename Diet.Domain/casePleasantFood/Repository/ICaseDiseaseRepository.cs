@@ -1,6 +1,7 @@
 ﻿
 
 
+using Diet.Domain.Contract.DTOs.CasePleasantFood;
 using Diet.Framework.Core.Interface;
 
 namespace Diet.Domain.@CasePleasantFood.Repository;
@@ -8,8 +9,9 @@ namespace Diet.Domain.@CasePleasantFood.Repository;
 public interface ICasePleasantFoodRepository : IRepository
 {
 
-    Task<List<Domain.casePleasantFood. CasePleasantFood>> AllAsync(string? searchText, int pageCount = 8, int PageNumber = 0);
+    Task<List<GetItemCasePleasantFoodDto>> AllAsync(string? searchText, int pageCount = 8, int PageNumber = 0);
     Task<Domain.casePleasantFood.CasePleasantFood> ByIdAsync(Guid Id);
+    Task<GetItemCasePleasantFoodDto> ByIdDtoAsync(Guid Id);
 
 
     Task AddAsync(Domain.casePleasantFood.CasePleasantFood CasePleasantFood);

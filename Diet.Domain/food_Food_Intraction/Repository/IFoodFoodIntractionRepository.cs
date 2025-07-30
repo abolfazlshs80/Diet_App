@@ -7,6 +7,7 @@ public interface IFoodFoodIntractionRepository : IRepository
 {
     Task<List<Domain.food.Entities.Food_Food_Intraction>> AllAsync(string? searchText, int pageCount = 8, int PageNumber = 0);
     Task<Domain.food.Entities.Food_Food_Intraction> ByIdAsync(Guid Id);
+    Task<Domain.food.Entities.Food_Food_Intraction> ByIdDtoAsync(Guid Id);
 
 
     Task AddAsync(Domain.food.Entities.Food_Food_Intraction FoodFoodIntraction);

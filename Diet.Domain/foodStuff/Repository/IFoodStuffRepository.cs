@@ -1,12 +1,14 @@
 ﻿using Diet.Domain.Contract;
+using Diet.Domain.Contract.DTOs.FoodStuff;
 using Diet.Framework.Core.Interface;
 
 namespace Diet.Domain.user.Repository;
 
 public interface IFoodStuffRepository : IRepository
 {
-    Task<List<Domain.food.Entities.FoodStuff>> AllAsync(string? searchText, int pageCount = 8, int PageNumber = 0);
+    Task<List<GetItemFoodStuffDto>> AllAsync(string? searchText, int pageCount = 8, int PageNumber = 0);
     Task<Domain.food.Entities.FoodStuff> ByIdAsync(Guid Id);
+    Task<GetItemFoodStuffDto> ByIdDtoAsync(Guid Id);
 
     Task<bool> IsExists(Guid Id);
 

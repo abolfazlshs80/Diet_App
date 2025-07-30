@@ -26,7 +26,7 @@ public class UpdateDrugCommandHandler : ICommandHandler<UpdateDrugCommand, Updat
         if (Drug == null)
             return new UpdateDrugCommandResult("error", "not found drug");
 
-        var result = Domain.drug.Entities.Drug.Update(Drug, command);
+        var result = Domain.drug.Drug.Update(Drug, command);
         if (result.IsError)
             return result.FirstError;
 

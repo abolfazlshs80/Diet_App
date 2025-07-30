@@ -1,7 +1,4 @@
-﻿
-
-
-using Diet.Domain.user.Repository;
+﻿using Diet.Domain.user.Repository;
 using Diet.Persistence.EF.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,30 +14,30 @@ public class DrugRepository : IDrugRepository
         _dbContext = dbContext;
     }
 
-    public async Task<Domain.drug.Entities.Drug> ByIdAsync(Guid Id)
+    public async Task<Domain.drug.Drug> ByIdAsync(Guid Id)
     {
         return await _dbContext.Drug.AsNoTracking().SingleOrDefaultAsync(x => x.Id == Id);
     }
 
-    public async Task AddAsync(Domain.drug.Entities.Drug Drug)
+    public async Task AddAsync(Domain.drug.Drug Drug)
     {
         await _dbContext.AddAsync(Drug);
       
     }
 
-    public async Task UpdateAsync(Domain.drug.Entities.Drug Drug)
+    public async Task UpdateAsync(Domain.drug.Drug Drug)
     {
         _dbContext.Update(Drug);
        
     }
 
-    public async Task DeleteAsync(Domain.drug.Entities.Drug Drug)
+    public async Task DeleteAsync(Domain.drug.Drug Drug)
     {
         _dbContext.Remove(Drug);
        
     }
 
-    public async Task<List<Domain.drug.Entities.Drug>> AllAsync(string? searchText, int pageCount = 8, int PageNumber = 0)
+    public async Task<List<Domain.drug.Drug>> AllAsync(string? searchText, int pageCount = 8, int PageNumber = 0)
     {
         var result =  _dbContext.Drug.AsQueryable();
         if (!string.IsNullOrEmpty(searchText))

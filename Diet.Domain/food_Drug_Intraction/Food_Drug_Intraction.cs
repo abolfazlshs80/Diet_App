@@ -21,7 +21,7 @@ public sealed class Food_Drug_Intraction : BaseEntity
     public Food Food { get; private set; }
 
     public Guid DrugId { get; private set; }
-    public drug.Entities.Drug Drug { get; private set; }
+    public drug.Drug Drug { get; private set; }
     public static ErrorOr<Food_Drug_Intraction> Create(CreateFoodDrugIntractionCommand command)
     {
 

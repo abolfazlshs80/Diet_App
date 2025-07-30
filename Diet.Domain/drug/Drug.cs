@@ -6,7 +6,7 @@ using Diet.Domain.disease;
 using Diet.Domain.food.Entities;
 using ErrorOr;
 
-namespace Diet.Domain.drug.Entities;
+namespace Diet.Domain.drug;
 
 /// <summary>
 /// دارو

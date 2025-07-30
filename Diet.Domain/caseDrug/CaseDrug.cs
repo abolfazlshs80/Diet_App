@@ -16,7 +16,7 @@ public sealed class CaseDrug : BaseEntity
     public Diet.Domain.Case.Case Case { get; private set; }
 
     public Guid DrugId { get; private set; }
-    public drug.Entities.Drug Drug { get; private set; }
+    public drug.Drug Drug { get; private set; }
 
 
     public static ErrorOr<CaseDrug> Create(CreateCaseDrugCommand command)

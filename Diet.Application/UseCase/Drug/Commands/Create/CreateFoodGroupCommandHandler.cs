@@ -24,7 +24,7 @@ public class CreateDrugCommandHandler : ICommandHandler<CreateDrugCommand, Creat
     public async Task<ErrorOr<CreateDrugCommandResult>> Handle(CreateDrugCommand command)
     {
 
-        var result = Domain.drug.Entities.Drug.Create(command);
+        var result = Domain.drug.Drug.Create(command);
         if (result.IsError)
             return result.FirstError;
     
