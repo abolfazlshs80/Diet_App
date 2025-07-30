@@ -23,11 +23,7 @@ public class GetByIdDurationAgeQueryHandler : IQueryHandler<GetByIdDurationAgeQu
 
     public async Task<ErrorOr<GetByIdDurationAgeQueryResult>> Handle(GetByIdDurationAgeQuery Query)
     {
-        var result = await _DurationAgeRepository.ByIdAsync(Query.Id);
-        if (result == null)
-            return DurationAge_Error.DurationAge_NotFount;
-
-
-        return new GetByIdDurationAgeQueryResult(result.Id,result.Title);
+        var _domain = await _DurationAgeRepository.ByIdDtoAsync(Query.Id);
+        return new GetByIdDurationAgeQueryResult(_domain);
     }
 }

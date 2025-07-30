@@ -1,9 +1,12 @@
 ﻿
+using Diet.Application.Interface;
+using Diet.Application.Service;
+using Diet.Framework.Core.Authentication;
 using Diet.Framework.Core.Bus;
+using Diet.Framework.Core.Utility;
 using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
 
 
 namespace Diet.Application;
@@ -32,7 +35,10 @@ public static class DependencyInjection
                 .WithScopedLifetime()
         );
 
-
+        services.AddScoped<IEncrypter, Encrypter>();
+        services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
+        services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
+        services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
         return services;
     }
 }

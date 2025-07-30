@@ -21,25 +21,25 @@ public class CreateDurationAgeCommandHandler : ICommandHandler<CreateDurationAge
         _unitOfWork = unitOfWork;
         _DurationAgeRepository = DurationAgeRepository;
     }
- 
+
 
     public async Task<ErrorOr<CreateDurationAgeCommandResult>> Handle(CreateDurationAgeCommand command)
     {
 
-        var result = Domain.durationAge.Entities.DurationAge.Create(command);
+        var result = Domain.durationAge.DurationAge.Create(command);
         if (result.IsError)
-            return result.FirstError;
-      
-            await _unitOfWork.BeginTransactionAsync();
-            await _DurationAgeRepository.AddAsync(result.Value);
+            return new CreateDurationAgeCommandResult("error", result.FirstError.Description);
+
+        await _unitOfWork.BeginTransactionAsync();
+        await _DurationAgeRepository.AddAsync(result.Value);
 
 
-            var commitState = await _unitOfWork.CommitAsync();
+        var commitState = await _unitOfWork.CommitAsync();
 
-            if (commitState.Value == Domain.Contract.Enums.TransactionStatus.Error)
-                return new CreateDurationAgeCommandResult("error", "Add DurationAge has error and rollback is done");
-     
+        if (commitState.Value == Domain.Contract.Enums.TransactionStatus.Error)
+            return new CreateDurationAgeCommandResult("error", "Add DurationAge has error and rollback is done");
 
-        return new CreateDurationAgeCommandResult("success","ok");
+
+        return new CreateDurationAgeCommandResult("success", "ok");
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Diet.Application.Interface;
+using Diet.Application.Service;
 using Diet.Domain.user.Repository;
 using Diet.Framework.Core.Interface;
 using Diet.Persistence.EF.Context;
@@ -33,6 +34,7 @@ public static class DependencyInjection
  
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         //services.AddScoped<IUsersRepository, UsersRepository>();
+        services.AddScoped<IAuthenticationService, AuthenticationService>();
 
 
 

@@ -4,6 +4,7 @@ using Diet.Domain.Contract.Commands.Order.Update;
 using Diet.Domain.Contract.DTOs.DurationAge;
 using Diet.Domain.Contract.Queries.DurationAge.GetAll;
 using Diet.Domain.Contract.Queries.DurationAge.GetById;
+using Diet.Domain.Contract.ViewModels.DurationAge;
 using Diet.Framework.Core.Bus;
 using MapsterMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +27,7 @@ public class DurationAgeController : ApiController
     }
 
     [HttpPost(nameof(CreateDurationAge))]
-    public async Task<IActionResult> CreateDurationAge(CreateDurationAgeDto request)
+    public async Task<IActionResult> CreateDurationAge(CreateDurationAgeViewModel request)
     {
         var createDurationAgeCommand = _mapper.Map<CreateDurationAgeCommand>(request);
          
@@ -34,7 +35,7 @@ public class DurationAgeController : ApiController
             await _commandBus.Send<CreateDurationAgeCommand, CreateDurationAgeCommandResult>(createDurationAgeCommand);
 
         return createDurationAgeResult.Match(
-             roleResult => Ok(roleResult),
+             result => Ok(result),
              errors => Problem(errors));
 
     }
@@ -68,8 +69,8 @@ public class DurationAgeController : ApiController
 
     }
 
-    [HttpGet(nameof(GetDurationAge))]
-    public async Task<IActionResult> GetDurationAge([FromQuery] GetDurationAgeDto request)
+    [HttpPost(nameof(GetDurationAge))]
+    public async Task<IActionResult> GetDurationAge(GetItemDurationAgeViewModel request)
     {
 
         var getDurationAgeQuery= _mapper.Map<GetByIdDurationAgeQuery>(request);
@@ -83,8 +84,8 @@ public class DurationAgeController : ApiController
 
     }
 
-    [HttpGet(nameof(GetAllDurationAge))]
-    public async Task<IActionResult> GetAllDurationAge([FromQuery] GetAllDurationAgeDto request)
+    [HttpPost(nameof(GetAllDurationAge))]
+    public async Task<IActionResult> GetAllDurationAge( GetAllDurationAgeDto request)
     {
 
         var getAllDurationAgeQuery = _mapper.Map<GetAllDurationAgeQuery>(request);

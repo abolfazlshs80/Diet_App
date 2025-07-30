@@ -11,6 +11,11 @@ public class CaseDiseaseConfiguration : IEntityTypeConfiguration<CaseDisease>
 
 
         builder.HasKey(x => x.Id);
+
+        builder.HasOne(e => e.Disease)
+      .WithMany(cd => cd.CaseDisease)
+      .HasForeignKey(cd => cd.DiseaseId)
+      .OnDelete(DeleteBehavior.Cascade);
     }
 
 }

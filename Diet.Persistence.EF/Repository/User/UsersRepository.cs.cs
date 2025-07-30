@@ -2,6 +2,7 @@ using Diet.Domain.user;
 using Diet.Domain.user.Repository;
 using Diet.Persistence.EF.Context;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.Metrics;
 
 namespace Diet.Persistence.EF.Repository.Users;
 
@@ -50,5 +51,25 @@ public class UsersRepository : IUsersRepository
     public async Task<bool> IsExists(Guid id)
     {
         return await _dbContext.Users.AsNoTracking().AnyAsync(x => x.Id == id);
+    }
+
+    public async Task<List<string>> GetRolesByUserId(Guid userId)
+    {
+        var _user = await _dbContext.Users.Include(a=>a.UserRoles).SingleOrDefaultAsync(x => x.Id == userId);
+        if (_user is not null &&_user.UserRoles.Any())
+        {
+            List<string> list = (from ur in _user.UserRoles
+                                 join r in _dbContext.Role on ur.RoleId equals r.Id
+                                 select r.Name).ToList<string>();
+            return list;
+        }
+        return new List<string>();
+    }
+
+    public async Task<User> GetUser(string mobile)
+    {
+
+        return await _dbContext.Users.AsNoTracking()
+            .SingleOrDefaultAsync(x =>  x.MobileNumber == mobile);
     }
 }

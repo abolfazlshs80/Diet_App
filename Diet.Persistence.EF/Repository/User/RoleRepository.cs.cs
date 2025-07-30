@@ -1,7 +1,9 @@
+using Diet.Domain.Contract.Enums;
 using Diet.Domain.role;
 using Diet.Domain.role.Repository;
 using Diet.Persistence.EF.Context;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Diet.Persistence.EF.Repository.Role;
 
@@ -12,6 +14,10 @@ public class RoleRepository : IRoleRepository
     public RoleRepository(DietDbContext dbContext)
     {
         _dbContext = dbContext;
+    }
+    public async Task<Domain.role.Role> GetByName(EnumeRole enumRole)
+    {
+        return await _dbContext.Role.SingleOrDefaultAsync(x => x.Name == enumRole.ToString());
     }
 
     public async Task<Diet.Domain.role.Role> ByIdAsync(Guid id)

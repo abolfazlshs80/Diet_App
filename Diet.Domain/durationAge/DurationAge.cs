@@ -5,7 +5,7 @@ using Diet.Domain.recommendationDurationAge;
 using Diet.Domain.supplementDurationAge;
 using ErrorOr;
 
-namespace Diet.Domain.durationAge.Entities;
+namespace Diet.Domain.durationAge;
 
 /// <summary>
 /// 
@@ -16,8 +16,15 @@ public sealed class DurationAge:BaseEntity
     {
         
     }
-    private DurationAge(Guid id, string title) { Id = id; Title = title; }
+    private DurationAge(Guid id, string title, int maxAge, int minAge)
+    {
+        Id = id; Title = title;
+        MaxAge = maxAge;
+        MinAge = minAge;
+    }
     public string Title { get; private set; }
+    public int MinAge { get; set; }
+    public int MaxAge { get; set; }
 
     public ICollection<SupplementDurationAge> SupplementDurationAge { get; private set; }
     public ICollection<RecommendationDurationAge> RecommendationDurationAge { get; private set; }
@@ -27,14 +34,14 @@ public sealed class DurationAge:BaseEntity
     public static ErrorOr<DurationAge> Create(CreateDurationAgeCommand command)
     {
 
-        return new DurationAge(Guid.NewGuid(),command.Title);
+        return new DurationAge(Guid.NewGuid(),command.Title,command.MinAge,command.MaxAge);
 
 
     }
 
     public static ErrorOr<DurationAge> Update(DurationAge durationAge,UpdateDurationAgeCommand command)
     {
-        return new DurationAge(durationAge.Id, command.Title);
+        return new DurationAge(durationAge.Id, command.Title,command.MinAge,command.MaxAge);
 
 
     }

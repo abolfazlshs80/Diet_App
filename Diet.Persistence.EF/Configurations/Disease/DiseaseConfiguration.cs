@@ -39,10 +39,7 @@ public class DiseaseConfiguration : IEntityTypeConfiguration<Domain.disease.Dise
               .OnDelete(DeleteBehavior.Cascade);
 
         // One-to-Many (Many-to-Many via join): Disease → CaseDisease
-        entity.HasMany(e => e.CaseDisease)
-              .WithOne(cd => cd.Disease)
-              .HasForeignKey(cd => cd.DiseaseId)
-              .OnDelete(DeleteBehavior.Cascade);
+
     }
 
 }

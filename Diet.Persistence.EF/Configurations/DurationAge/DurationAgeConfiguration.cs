@@ -1,6 +1,4 @@
-﻿using Diet.Domain.durationAge.Entities;
-
-
+﻿using Diet.Domain.durationAge;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

@@ -8,6 +8,7 @@ using Diet.Domain.Contract.Commands.Users.Update;
 using Diet.Domain.userRole;
 using Diet.Domain.ticket;
 using Diet.Domain.ticketMessage;
+using Diet.Domain.Contract.Commands.Account.Register;
 
 namespace Diet.Domain.user;
 /// <summary>
@@ -21,6 +22,9 @@ public sealed class User : BaseEntity
 
     public string? FirstName { get; private set; }
     public string? LastName { get; private set; }
+    public string? Password { get; private set; }
+    public string? MobileNumber { get; private set; }
+    public string? Salt { get; private set; }
     //public bool? Female { get; private set; }
     public string? ImageName { get; private set; }
     public string? ReferenceCode { get; private set; }
@@ -41,8 +45,9 @@ public sealed class User : BaseEntity
 
 
 
-    private User(Guid id, string firstName, string lastName, string imageName, string referenceCode, string verifyCode, string cardNumber, string shbaNumber, DateTime? verifyExpire, bool deleted, DateTime createDate, DateTime? birthDay, Gender? gender)
+    private User(Guid id, string firstName, string lastName, string imageName, string referenceCode, string verifyCode, string cardNumber, string shbaNumber, DateTime? verifyExpire, bool deleted, DateTime createDate, DateTime? birthDay, Gender? gender,string? password,string? salt,string mobileNumber)
     {
+        MobileNumber=mobileNumber;
         Id = id;
         FirstName = firstName;
         LastName = lastName;
@@ -56,11 +61,14 @@ public sealed class User : BaseEntity
         CreateDate = createDate;
         BirthDay = birthDay;
         Gender = gender;
+        Password = password;
+        Salt = salt;
     }
 
     public static ErrorOr<Domain.user.User> Create(CreateUsersCommand command)
     {
         return new User(
+            
             Guid.NewGuid(),
             command.FirstName,
             command.LastName,
@@ -73,7 +81,29 @@ public sealed class User : BaseEntity
             command.Deleted,
             command.CreateDate,
             command.BirthDay,
-            ((Gender)command.Gender)
+            ((Gender)command.Gender),null,null,null
+
+        );
+    }
+    public static ErrorOr<Domain.user.User> Create(RegisterUserCommand command)
+    {
+        return new User(
+            Guid.NewGuid(),
+            command.Firstname,
+            command.Lastname,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            false,
+            DateTime.Now,
+            null,
+            null
+            ,command.Password
+            ,command.Salt
+            ,command.MobileNumber
 
         );
     }
@@ -94,6 +124,9 @@ public sealed class User : BaseEntity
             command.CreateDate,
             command.BirthDay,
          ((Gender)command.Gender)
+         ,null
+         ,null
+         ,null
         );
     }
 }

@@ -1,9 +1,9 @@
 ﻿using Diet.Domain.common;
-using Diet.Domain.durationAge.Entities;
 using ErrorOr;
 using Diet.Domain.Contract.Commands.SupplementDurationAge.Update;
 using Diet.Domain.Contract.Commands.SupplementDurationAge.Create;
 using Diet.Domain.supplement;
+using Diet.Domain.durationAge;
 
 namespace Diet.Domain.supplementDurationAge;
 

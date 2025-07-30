@@ -25,8 +25,8 @@ public class CreateDiseaseCommandHandler : ICommandHandler<CreateDiseaseCommand,
 
     public async Task<ErrorOr<CreateDiseaseCommandResult>> Handle(CreateDiseaseCommand command)
     {
-        if (command.ParentId != null && !await _DiseaseRepository.IsExists(command.ParentId))
-            return new CreateDiseaseCommandResult("error", "Not Found Disease");
+       // if (command.ParentId != null && !await _DiseaseRepository.IsExists(command.ParentId))
+           // return new CreateDiseaseCommandResult("error", "Not Found Disease");
 
         var diseaseResult = Domain.disease.Disease.Create(command);
         if (diseaseResult.IsError)

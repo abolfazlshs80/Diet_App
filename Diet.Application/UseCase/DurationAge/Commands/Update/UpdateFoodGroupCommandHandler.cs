@@ -30,12 +30,12 @@ public class UpdateDurationAgeCommandHandler : ICommandHandler<UpdateDurationAge
         if (DurationAge == null)
             return new UpdateDurationAgeCommandResult("error", "NotFound DurationAge");
 
-        var result = Domain.durationAge.Entities.DurationAge.Update(DurationAge, command);
+        var result = Domain.durationAge.DurationAge.Update(DurationAge, command);
         if (result.IsError)
-            return result.FirstError;
+            return new UpdateDurationAgeCommandResult("error", result.FirstError.Description);
 
 
-            await _unitOfWork.BeginTransactionAsync();
+        await _unitOfWork.BeginTransactionAsync();
             await _DurationAgeRepository.UpdateAsync(result.Value);
 
             var commitState = await _unitOfWork.CommitAsync();

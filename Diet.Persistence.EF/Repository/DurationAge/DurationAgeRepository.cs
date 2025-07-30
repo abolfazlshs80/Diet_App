@@ -2,6 +2,8 @@
 
 
 
+using Diet.Domain.Contract.DTOs.DurationAge;
+using Diet.Domain.durationAge;
 using Diet.Domain.durationAge.Repository;
 using Diet.Persistence.EF.Context;
 using Microsoft.EntityFrameworkCore;
@@ -18,39 +20,62 @@ public class DurationAgeRepository : IDurationAgeRepository
         _dbContext = dbContext;
     }
 
-    public async Task<Domain.durationAge.Entities.DurationAge> ByIdAsync(Guid Id)
-    {
-        return await _dbContext.DurationAge.AsNoTracking().SingleOrDefaultAsync(x => x.Id == Id);
-    }
 
-    public async Task AddAsync(Domain.durationAge.Entities.DurationAge DurationAge)
+    public async Task AddAsync(DurationAge DurationAge)
     {
         await _dbContext.AddAsync(DurationAge);
-      
     }
 
-    public async Task UpdateAsync(Domain.durationAge.Entities.DurationAge DurationAge)
+    public void Update(DurationAge DurationAge)
     {
         _dbContext.Update(DurationAge);
-       
     }
 
-    public async Task DeleteAsync(Domain.durationAge.Entities.DurationAge DurationAge)
+    public void Delete(DurationAge DurationAge)
     {
         _dbContext.Remove(DurationAge);
-       
     }
 
-    public async Task<List<Domain.durationAge.Entities.DurationAge>> AllAsync(string? searchText, int pageCount = 8, int PageNumber = 0)
+    public async Task<List<GetItemDurationAgeDto>> AllAsync(string? searchText, int pageCount = 8, int PageNumber = 0)
     {
-        var result =  _dbContext.DurationAge.AsQueryable();
-        if (!string.IsNullOrEmpty(searchText))
-            result = result.Where(_ => _.Title.Contains(searchText));
-        return await result.Skip(PageNumber * pageCount).Take(pageCount).AsNoTracking().ToListAsync();
+        var res = await (from d in _dbContext.DurationAge
+                          where d.Title.Contains(searchText!)
+                          select new GetItemDurationAgeDto(
+                             d.Id,
+                             d.Title,
+                             d.MinAge,
+                             d.MaxAge)
+                        )
+                        .Skip(PageNumber)
+                        .Take(pageCount)
+                        .AsNoTracking()
+                        .ToListAsync();
+        return res;
     }
 
-    public async Task<bool> IsExists(Guid id)
+    public async Task<bool> IsExists(Guid Id)
     {
-        return await _dbContext.DurationAge.AsNoTracking().AnyAsync(x => x.Id == id);
+        return await _dbContext.DurationAge.AnyAsync(x => x.Id == Id);
+    }
+
+    public async Task<DurationAge> ByIdAsync(Guid Id)
+    {
+        return await _dbContext.DurationAge.FirstOrDefaultAsync(x => x.Id == Id);
+    }
+
+    public async Task<GetItemDurationAgeDto> ByIdDtoAsync(Guid Id)
+    {
+        var res = await (from d in _dbContext.DurationAge
+                         where d.Id == Id
+                         select new GetItemDurationAgeDto(
+                               d.Id,
+                               d.Title,
+                               d.MinAge,
+                               d.MaxAge
+                             )
+                        ).AsNoTracking().FirstOrDefaultAsync();
+
+        return res!;
+
     }
 }

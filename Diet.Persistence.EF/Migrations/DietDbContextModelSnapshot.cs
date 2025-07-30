@@ -100,7 +100,7 @@ namespace Diet.Persistence.EF.Migrations
                     b.ToTable("Case");
                 });
 
-            modelBuilder.Entity("Diet.Domain.Case.CaseDisease", b =>
+            modelBuilder.Entity("Diet.Domain.caseDisease.CaseDisease", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -121,7 +121,7 @@ namespace Diet.Persistence.EF.Migrations
                     b.ToTable("CaseDisease");
                 });
 
-            modelBuilder.Entity("Diet.Domain.Case.CaseDrug", b =>
+            modelBuilder.Entity("Diet.Domain.caseDrug.CaseDrug", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -142,7 +142,7 @@ namespace Diet.Persistence.EF.Migrations
                     b.ToTable("CaseDrug");
                 });
 
-            modelBuilder.Entity("Diet.Domain.Case.CaseFoodStuffAllergy", b =>
+            modelBuilder.Entity("Diet.Domain.caseFoodStuffAllergy.CaseFoodStuffAllergy", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -168,118 +168,7 @@ namespace Diet.Persistence.EF.Migrations
                     b.ToTable("CaseFoodStuffAllergy");
                 });
 
-            modelBuilder.Entity("Diet.Domain.Case.CaseSupplement", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CaseId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("SupplementId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CaseId");
-
-                    b.HasIndex("SupplementId");
-
-                    b.ToTable("CaseSupplement");
-                });
-
-            modelBuilder.Entity("Diet.Domain.Recommendation.Entities.Recommendation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)");
-
-                    b.Property<string>("EnglishTitle")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("HowToUse")
-                        .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)");
-
-                    b.Property<string>("Title")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Recommendation");
-                });
-
-            modelBuilder.Entity("Diet.Domain.Recommendation.Entities.RecommendationDisease_WhiteList", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("DiseaseId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("RecommendationId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DiseaseId");
-
-                    b.HasIndex("RecommendationId");
-
-                    b.ToTable("RecommendationDisease_WhiteList");
-                });
-
-            modelBuilder.Entity("Diet.Domain.Recommendation.Entities.RecommendationDurationAge", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("DurationAgeId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("RecommendationId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DurationAgeId");
-
-                    b.HasIndex("RecommendationId");
-
-                    b.ToTable("RecommendationDurationAge");
-                });
-
-            modelBuilder.Entity("Diet.Domain.Recommendation.Entities.RecommendationLifeCourse", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("LifeCourseId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("RecommendationId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LifeCourseId");
-
-                    b.HasIndex("RecommendationId");
-
-                    b.ToTable("RecommendationLifeCourse");
-                });
-
-            modelBuilder.Entity("Diet.Domain.case.Entities.CasePleasantFood", b =>
+            modelBuilder.Entity("Diet.Domain.casePleasantFood.CasePleasantFood", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -300,7 +189,28 @@ namespace Diet.Persistence.EF.Migrations
                     b.ToTable("CasePleasantFood");
                 });
 
-            modelBuilder.Entity("Diet.Domain.case.Entities.CaseUnPleasantFood", b =>
+            modelBuilder.Entity("Diet.Domain.caseSupplement.CaseSupplement", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CaseId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SupplementId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CaseId");
+
+                    b.HasIndex("SupplementId");
+
+                    b.ToTable("CaseSupplement");
+                });
+
+            modelBuilder.Entity("Diet.Domain.caseUnPleasantFood.CaseUnPleasantFood", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -337,9 +247,50 @@ namespace Diet.Persistence.EF.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ParentId");
-
                     b.ToTable("Disease");
+                });
+
+            modelBuilder.Entity("Diet.Domain.drug.Entities.Drug", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Drug");
+                });
+
+            modelBuilder.Entity("Diet.Domain.durationAge.DurationAge", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("MaxAge")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MinAge")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DurationAge");
                 });
 
             modelBuilder.Entity("Diet.Domain.food.Entities.Food", b =>
@@ -443,23 +394,7 @@ namespace Diet.Persistence.EF.Migrations
                     b.ToTable("Food_Food_Intraction");
                 });
 
-            modelBuilder.Entity("Diet.Domain.lifeCourse.DurationAge", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DurationAge");
-                });
-
-            modelBuilder.Entity("Diet.Domain.lifeCourse.LifeCourse", b =>
+            modelBuilder.Entity("Diet.Domain.lifeCourse.Entities.LifeCourse", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -478,6 +413,112 @@ namespace Diet.Persistence.EF.Migrations
                     b.HasIndex("ParentId");
 
                     b.ToTable("LifeCourse");
+                });
+
+            modelBuilder.Entity("Diet.Domain.recommendation.Recommendation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<string>("EnglishTitle")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("HowToUse")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Recommendation");
+                });
+
+            modelBuilder.Entity("Diet.Domain.recommendationDisease_WhiteList.RecommendationDisease_WhiteList", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("DiseaseId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("RecommendationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DiseaseId");
+
+                    b.HasIndex("RecommendationId");
+
+                    b.ToTable("RecommendationDisease_WhiteList");
+                });
+
+            modelBuilder.Entity("Diet.Domain.recommendationDurationAge.RecommendationDurationAge", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("DurationAgeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("RecommendationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DurationAgeId");
+
+                    b.HasIndex("RecommendationId");
+
+                    b.ToTable("RecommendationDurationAge");
+                });
+
+            modelBuilder.Entity("Diet.Domain.recommendationLifeCourse.RecommendationLifeCourse", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("LifeCourseId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("RecommendationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LifeCourseId");
+
+                    b.HasIndex("RecommendationId");
+
+                    b.ToTable("RecommendationLifeCourse");
+                });
+
+            modelBuilder.Entity("Diet.Domain.role.Role", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Role");
                 });
 
             modelBuilder.Entity("Diet.Domain.sport.Sport", b =>
@@ -505,7 +546,7 @@ namespace Diet.Persistence.EF.Migrations
                     b.ToTable("Sport");
                 });
 
-            modelBuilder.Entity("Diet.Domain.supplement.Entities.Supplement", b =>
+            modelBuilder.Entity("Diet.Domain.supplement.Supplement", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -537,7 +578,7 @@ namespace Diet.Persistence.EF.Migrations
                     b.ToTable("Supplement");
                 });
 
-            modelBuilder.Entity("Diet.Domain.supplement.Entities.SupplementDisease_WhiteList", b =>
+            modelBuilder.Entity("Diet.Domain.supplementDisease_WhiteList.SupplementDisease_WhiteList", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -558,7 +599,7 @@ namespace Diet.Persistence.EF.Migrations
                     b.ToTable("SupplementDisease_WhiteList");
                 });
 
-            modelBuilder.Entity("Diet.Domain.supplement.Entities.SupplementDurationAge", b =>
+            modelBuilder.Entity("Diet.Domain.supplementDurationAge.SupplementDurationAge", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -579,7 +620,7 @@ namespace Diet.Persistence.EF.Migrations
                     b.ToTable("SupplementDurationAge");
                 });
 
-            modelBuilder.Entity("Diet.Domain.supplement.Entities.SupplementGroup", b =>
+            modelBuilder.Entity("Diet.Domain.supplementGroup.SupplementGroup", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -594,7 +635,7 @@ namespace Diet.Persistence.EF.Migrations
                     b.ToTable("SupplementGroup");
                 });
 
-            modelBuilder.Entity("Diet.Domain.supplement.Entities.SupplementLifeCourse", b =>
+            modelBuilder.Entity("Diet.Domain.supplementLifeCourse.SupplementLifeCourse", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -615,7 +656,7 @@ namespace Diet.Persistence.EF.Migrations
                     b.ToTable("SupplementLifeCourse");
                 });
 
-            modelBuilder.Entity("Diet.Domain.ticket.Entities.Ticket", b =>
+            modelBuilder.Entity("Diet.Domain.ticket.Ticket", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -647,7 +688,7 @@ namespace Diet.Persistence.EF.Migrations
                     b.ToTable("Ticket");
                 });
 
-            modelBuilder.Entity("Diet.Domain.ticket.Entities.TicketMessage", b =>
+            modelBuilder.Entity("Diet.Domain.ticketMessage.TicketMessage", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -703,44 +744,7 @@ namespace Diet.Persistence.EF.Migrations
                     b.ToTable("Transactions");
                 });
 
-            modelBuilder.Entity("Diet.Domain.user.Drug", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Drug");
-                });
-
-            modelBuilder.Entity("Diet.Domain.user.Entities.Role", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Role");
-                });
-
-            modelBuilder.Entity("Diet.Domain.user.Entities.User", b =>
+            modelBuilder.Entity("Diet.Domain.user.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -774,9 +778,18 @@ namespace Diet.Persistence.EF.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("MobileNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ReferenceCode")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Salt")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ShbaNumber")
                         .HasMaxLength(26)
@@ -794,7 +807,7 @@ namespace Diet.Persistence.EF.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Diet.Domain.user.Entities.UserRole", b =>
+            modelBuilder.Entity("Diet.Domain.userRole.UserRole", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -817,7 +830,7 @@ namespace Diet.Persistence.EF.Migrations
 
             modelBuilder.Entity("Diet.Domain.Case.Case", b =>
                 {
-                    b.HasOne("Diet.Domain.lifeCourse.LifeCourse", "LifeCourse")
+                    b.HasOne("Diet.Domain.lifeCourse.Entities.LifeCourse", "LifeCourse")
                         .WithMany("Case")
                         .HasForeignKey("LifeCourseId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -835,7 +848,7 @@ namespace Diet.Persistence.EF.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Diet.Domain.user.Entities.User", "User")
+                    b.HasOne("Diet.Domain.user.User", "User")
                         .WithMany("Case")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -850,7 +863,7 @@ namespace Diet.Persistence.EF.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Diet.Domain.Case.CaseDisease", b =>
+            modelBuilder.Entity("Diet.Domain.caseDisease.CaseDisease", b =>
                 {
                     b.HasOne("Diet.Domain.Case.Case", "Case")
                         .WithMany("Disease")
@@ -869,7 +882,7 @@ namespace Diet.Persistence.EF.Migrations
                     b.Navigation("Disease");
                 });
 
-            modelBuilder.Entity("Diet.Domain.Case.CaseDrug", b =>
+            modelBuilder.Entity("Diet.Domain.caseDrug.CaseDrug", b =>
                 {
                     b.HasOne("Diet.Domain.Case.Case", "Case")
                         .WithMany("CaseDrug")
@@ -877,7 +890,7 @@ namespace Diet.Persistence.EF.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Diet.Domain.user.Drug", "Drug")
+                    b.HasOne("Diet.Domain.drug.Entities.Drug", "Drug")
                         .WithMany("CaseDrug")
                         .HasForeignKey("DrugId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -888,7 +901,7 @@ namespace Diet.Persistence.EF.Migrations
                     b.Navigation("Drug");
                 });
 
-            modelBuilder.Entity("Diet.Domain.Case.CaseFoodStuffAllergy", b =>
+            modelBuilder.Entity("Diet.Domain.caseFoodStuffAllergy.CaseFoodStuffAllergy", b =>
                 {
                     b.HasOne("Diet.Domain.Case.Case", "Case")
                         .WithMany("FoodStuffAllergy")
@@ -911,83 +924,7 @@ namespace Diet.Persistence.EF.Migrations
                     b.Navigation("FoodStuff");
                 });
 
-            modelBuilder.Entity("Diet.Domain.Case.CaseSupplement", b =>
-                {
-                    b.HasOne("Diet.Domain.Case.Case", "Case")
-                        .WithMany("CaseSupplement")
-                        .HasForeignKey("CaseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Diet.Domain.supplement.Entities.Supplement", "Supplement")
-                        .WithMany("CaseSupplement")
-                        .HasForeignKey("SupplementId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Case");
-
-                    b.Navigation("Supplement");
-                });
-
-            modelBuilder.Entity("Diet.Domain.Recommendation.Entities.RecommendationDisease_WhiteList", b =>
-                {
-                    b.HasOne("Diet.Domain.disease.Disease", "Disease")
-                        .WithMany("RecommendationDisease_WhiteList")
-                        .HasForeignKey("DiseaseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Diet.Domain.Recommendation.Entities.Recommendation", "Recommendation")
-                        .WithMany("RecommendationDisease_WhiteList")
-                        .HasForeignKey("RecommendationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Disease");
-
-                    b.Navigation("Recommendation");
-                });
-
-            modelBuilder.Entity("Diet.Domain.Recommendation.Entities.RecommendationDurationAge", b =>
-                {
-                    b.HasOne("Diet.Domain.lifeCourse.DurationAge", "DurationAge")
-                        .WithMany("RecommendationDurationAge")
-                        .HasForeignKey("DurationAgeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Diet.Domain.Recommendation.Entities.Recommendation", "Recommendation")
-                        .WithMany("RecommendationDurationAge")
-                        .HasForeignKey("RecommendationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DurationAge");
-
-                    b.Navigation("Recommendation");
-                });
-
-            modelBuilder.Entity("Diet.Domain.Recommendation.Entities.RecommendationLifeCourse", b =>
-                {
-                    b.HasOne("Diet.Domain.lifeCourse.LifeCourse", "LifeCourse")
-                        .WithMany("RecommendationLifeCourse")
-                        .HasForeignKey("LifeCourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Diet.Domain.Recommendation.Entities.Recommendation", "Recommendation")
-                        .WithMany("RecommendationLifeCourse")
-                        .HasForeignKey("RecommendationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("LifeCourse");
-
-                    b.Navigation("Recommendation");
-                });
-
-            modelBuilder.Entity("Diet.Domain.case.Entities.CasePleasantFood", b =>
+            modelBuilder.Entity("Diet.Domain.casePleasantFood.CasePleasantFood", b =>
                 {
                     b.HasOne("Diet.Domain.Case.Case", "Case")
                         .WithMany("PleasantFood")
@@ -1006,7 +943,26 @@ namespace Diet.Persistence.EF.Migrations
                     b.Navigation("Food");
                 });
 
-            modelBuilder.Entity("Diet.Domain.case.Entities.CaseUnPleasantFood", b =>
+            modelBuilder.Entity("Diet.Domain.caseSupplement.CaseSupplement", b =>
+                {
+                    b.HasOne("Diet.Domain.Case.Case", "Case")
+                        .WithMany("CaseSupplement")
+                        .HasForeignKey("CaseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Diet.Domain.supplement.Supplement", "Supplement")
+                        .WithMany("CaseSupplement")
+                        .HasForeignKey("SupplementId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Case");
+
+                    b.Navigation("Supplement");
+                });
+
+            modelBuilder.Entity("Diet.Domain.caseUnPleasantFood.CaseUnPleasantFood", b =>
                 {
                     b.HasOne("Diet.Domain.Case.Case", "Case")
                         .WithMany("UnPleasantFood")
@@ -1025,17 +981,6 @@ namespace Diet.Persistence.EF.Migrations
                     b.Navigation("Food");
                 });
 
-            modelBuilder.Entity("Diet.Domain.disease.Disease", b =>
-                {
-                    b.HasOne("Diet.Domain.disease.Disease", "Parent")
-                        .WithMany("Childeren")
-                        .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Parent");
-                });
-
             modelBuilder.Entity("Diet.Domain.food.Entities.Food", b =>
                 {
                     b.HasOne("Diet.Domain.food.Entities.FoodGroup", "FoodGroup")
@@ -1049,7 +994,7 @@ namespace Diet.Persistence.EF.Migrations
 
             modelBuilder.Entity("Diet.Domain.food.Entities.Food_Drug_Intraction", b =>
                 {
-                    b.HasOne("Diet.Domain.user.Drug", "Drug")
+                    b.HasOne("Diet.Domain.drug.Entities.Drug", "Drug")
                         .WithMany("Food_Drug_Intraction")
                         .HasForeignKey("DrugId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1085,9 +1030,9 @@ namespace Diet.Persistence.EF.Migrations
                     b.Navigation("FoodSecond");
                 });
 
-            modelBuilder.Entity("Diet.Domain.lifeCourse.LifeCourse", b =>
+            modelBuilder.Entity("Diet.Domain.lifeCourse.Entities.LifeCourse", b =>
                 {
-                    b.HasOne("Diet.Domain.lifeCourse.LifeCourse", "Parent")
+                    b.HasOne("Diet.Domain.lifeCourse.Entities.LifeCourse", "Parent")
                         .WithMany("Children")
                         .HasForeignKey("ParentId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -1096,9 +1041,66 @@ namespace Diet.Persistence.EF.Migrations
                     b.Navigation("Parent");
                 });
 
-            modelBuilder.Entity("Diet.Domain.supplement.Entities.Supplement", b =>
+            modelBuilder.Entity("Diet.Domain.recommendationDisease_WhiteList.RecommendationDisease_WhiteList", b =>
                 {
-                    b.HasOne("Diet.Domain.supplement.Entities.SupplementGroup", "SupplementGroup")
+                    b.HasOne("Diet.Domain.disease.Disease", "Disease")
+                        .WithMany("RecommendationDisease_WhiteList")
+                        .HasForeignKey("DiseaseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Diet.Domain.recommendation.Recommendation", "Recommendation")
+                        .WithMany("RecommendationDisease_WhiteList")
+                        .HasForeignKey("RecommendationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Disease");
+
+                    b.Navigation("Recommendation");
+                });
+
+            modelBuilder.Entity("Diet.Domain.recommendationDurationAge.RecommendationDurationAge", b =>
+                {
+                    b.HasOne("Diet.Domain.durationAge.DurationAge", "DurationAge")
+                        .WithMany("RecommendationDurationAge")
+                        .HasForeignKey("DurationAgeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Diet.Domain.recommendation.Recommendation", "Recommendation")
+                        .WithMany("RecommendationDurationAge")
+                        .HasForeignKey("RecommendationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DurationAge");
+
+                    b.Navigation("Recommendation");
+                });
+
+            modelBuilder.Entity("Diet.Domain.recommendationLifeCourse.RecommendationLifeCourse", b =>
+                {
+                    b.HasOne("Diet.Domain.lifeCourse.Entities.LifeCourse", "LifeCourse")
+                        .WithMany("RecommendationLifeCourse")
+                        .HasForeignKey("LifeCourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Diet.Domain.recommendation.Recommendation", "Recommendation")
+                        .WithMany("RecommendationLifeCourse")
+                        .HasForeignKey("RecommendationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("LifeCourse");
+
+                    b.Navigation("Recommendation");
+                });
+
+            modelBuilder.Entity("Diet.Domain.supplement.Supplement", b =>
+                {
+                    b.HasOne("Diet.Domain.supplementGroup.SupplementGroup", "SupplementGroup")
                         .WithMany("Supplement")
                         .HasForeignKey("SupplementGroupId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -1107,7 +1109,7 @@ namespace Diet.Persistence.EF.Migrations
                     b.Navigation("SupplementGroup");
                 });
 
-            modelBuilder.Entity("Diet.Domain.supplement.Entities.SupplementDisease_WhiteList", b =>
+            modelBuilder.Entity("Diet.Domain.supplementDisease_WhiteList.SupplementDisease_WhiteList", b =>
                 {
                     b.HasOne("Diet.Domain.disease.Disease", "Disease")
                         .WithMany("SupplementDisease_WhiteList")
@@ -1115,7 +1117,7 @@ namespace Diet.Persistence.EF.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Diet.Domain.supplement.Entities.Supplement", "Supplement")
+                    b.HasOne("Diet.Domain.supplement.Supplement", "Supplement")
                         .WithMany("SupplementDisease_WhiteList")
                         .HasForeignKey("SupplementId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1126,15 +1128,15 @@ namespace Diet.Persistence.EF.Migrations
                     b.Navigation("Supplement");
                 });
 
-            modelBuilder.Entity("Diet.Domain.supplement.Entities.SupplementDurationAge", b =>
+            modelBuilder.Entity("Diet.Domain.supplementDurationAge.SupplementDurationAge", b =>
                 {
-                    b.HasOne("Diet.Domain.lifeCourse.DurationAge", "DurationAge")
+                    b.HasOne("Diet.Domain.durationAge.DurationAge", "DurationAge")
                         .WithMany("SupplementDurationAge")
                         .HasForeignKey("DurationAgeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Diet.Domain.supplement.Entities.Supplement", "Supplement")
+                    b.HasOne("Diet.Domain.supplement.Supplement", "Supplement")
                         .WithMany("SupplementDurationAge")
                         .HasForeignKey("SupplementId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1145,15 +1147,15 @@ namespace Diet.Persistence.EF.Migrations
                     b.Navigation("Supplement");
                 });
 
-            modelBuilder.Entity("Diet.Domain.supplement.Entities.SupplementLifeCourse", b =>
+            modelBuilder.Entity("Diet.Domain.supplementLifeCourse.SupplementLifeCourse", b =>
                 {
-                    b.HasOne("Diet.Domain.lifeCourse.LifeCourse", "LifeCourse")
+                    b.HasOne("Diet.Domain.lifeCourse.Entities.LifeCourse", "LifeCourse")
                         .WithMany("SupplementLifeCourse")
                         .HasForeignKey("LifeCourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Diet.Domain.supplement.Entities.Supplement", "Supplement")
+                    b.HasOne("Diet.Domain.supplement.Supplement", "Supplement")
                         .WithMany("SupplementLifeCourse")
                         .HasForeignKey("SupplementId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1164,9 +1166,9 @@ namespace Diet.Persistence.EF.Migrations
                     b.Navigation("Supplement");
                 });
 
-            modelBuilder.Entity("Diet.Domain.ticket.Entities.Ticket", b =>
+            modelBuilder.Entity("Diet.Domain.ticket.Ticket", b =>
                 {
-                    b.HasOne("Diet.Domain.user.Entities.User", "User")
+                    b.HasOne("Diet.Domain.user.User", "User")
                         .WithMany("Ticket")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -1175,15 +1177,15 @@ namespace Diet.Persistence.EF.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Diet.Domain.ticket.Entities.TicketMessage", b =>
+            modelBuilder.Entity("Diet.Domain.ticketMessage.TicketMessage", b =>
                 {
-                    b.HasOne("Diet.Domain.user.Entities.User", "FromUser")
+                    b.HasOne("Diet.Domain.user.User", "FromUser")
                         .WithMany("FormTicketMessage")
                         .HasForeignKey("FromId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Diet.Domain.ticket.Entities.Ticket", "Ticket")
+                    b.HasOne("Diet.Domain.ticket.Ticket", "Ticket")
                         .WithMany("Messages")
                         .HasForeignKey("TicketId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1194,15 +1196,15 @@ namespace Diet.Persistence.EF.Migrations
                     b.Navigation("Ticket");
                 });
 
-            modelBuilder.Entity("Diet.Domain.user.Entities.UserRole", b =>
+            modelBuilder.Entity("Diet.Domain.userRole.UserRole", b =>
                 {
-                    b.HasOne("Diet.Domain.user.Entities.Role", "Role")
+                    b.HasOne("Diet.Domain.role.Role", "Role")
                         .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Diet.Domain.user.Entities.User", "User")
+                    b.HasOne("Diet.Domain.user.User", "User")
                         .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1228,24 +1230,27 @@ namespace Diet.Persistence.EF.Migrations
                     b.Navigation("UnPleasantFood");
                 });
 
-            modelBuilder.Entity("Diet.Domain.Recommendation.Entities.Recommendation", b =>
-                {
-                    b.Navigation("RecommendationDisease_WhiteList");
-
-                    b.Navigation("RecommendationDurationAge");
-
-                    b.Navigation("RecommendationLifeCourse");
-                });
-
             modelBuilder.Entity("Diet.Domain.disease.Disease", b =>
                 {
                     b.Navigation("CaseDisease");
 
-                    b.Navigation("Childeren");
-
                     b.Navigation("RecommendationDisease_WhiteList");
 
                     b.Navigation("SupplementDisease_WhiteList");
+                });
+
+            modelBuilder.Entity("Diet.Domain.drug.Entities.Drug", b =>
+                {
+                    b.Navigation("CaseDrug");
+
+                    b.Navigation("Food_Drug_Intraction");
+                });
+
+            modelBuilder.Entity("Diet.Domain.durationAge.DurationAge", b =>
+                {
+                    b.Navigation("RecommendationDurationAge");
+
+                    b.Navigation("SupplementDurationAge");
                 });
 
             modelBuilder.Entity("Diet.Domain.food.Entities.Food", b =>
@@ -1273,14 +1278,7 @@ namespace Diet.Persistence.EF.Migrations
                     b.Navigation("CaseFoodStuffAllergy");
                 });
 
-            modelBuilder.Entity("Diet.Domain.lifeCourse.DurationAge", b =>
-                {
-                    b.Navigation("RecommendationDurationAge");
-
-                    b.Navigation("SupplementDurationAge");
-                });
-
-            modelBuilder.Entity("Diet.Domain.lifeCourse.LifeCourse", b =>
+            modelBuilder.Entity("Diet.Domain.lifeCourse.Entities.LifeCourse", b =>
                 {
                     b.Navigation("Case");
 
@@ -1291,12 +1289,26 @@ namespace Diet.Persistence.EF.Migrations
                     b.Navigation("SupplementLifeCourse");
                 });
 
+            modelBuilder.Entity("Diet.Domain.recommendation.Recommendation", b =>
+                {
+                    b.Navigation("RecommendationDisease_WhiteList");
+
+                    b.Navigation("RecommendationDurationAge");
+
+                    b.Navigation("RecommendationLifeCourse");
+                });
+
+            modelBuilder.Entity("Diet.Domain.role.Role", b =>
+                {
+                    b.Navigation("UserRoles");
+                });
+
             modelBuilder.Entity("Diet.Domain.sport.Sport", b =>
                 {
                     b.Navigation("Case");
                 });
 
-            modelBuilder.Entity("Diet.Domain.supplement.Entities.Supplement", b =>
+            modelBuilder.Entity("Diet.Domain.supplement.Supplement", b =>
                 {
                     b.Navigation("CaseSupplement");
 
@@ -1307,12 +1319,12 @@ namespace Diet.Persistence.EF.Migrations
                     b.Navigation("SupplementLifeCourse");
                 });
 
-            modelBuilder.Entity("Diet.Domain.supplement.Entities.SupplementGroup", b =>
+            modelBuilder.Entity("Diet.Domain.supplementGroup.SupplementGroup", b =>
                 {
                     b.Navigation("Supplement");
                 });
 
-            modelBuilder.Entity("Diet.Domain.ticket.Entities.Ticket", b =>
+            modelBuilder.Entity("Diet.Domain.ticket.Ticket", b =>
                 {
                     b.Navigation("Messages");
                 });
@@ -1322,19 +1334,7 @@ namespace Diet.Persistence.EF.Migrations
                     b.Navigation("Case");
                 });
 
-            modelBuilder.Entity("Diet.Domain.user.Drug", b =>
-                {
-                    b.Navigation("CaseDrug");
-
-                    b.Navigation("Food_Drug_Intraction");
-                });
-
-            modelBuilder.Entity("Diet.Domain.user.Entities.Role", b =>
-                {
-                    b.Navigation("UserRoles");
-                });
-
-            modelBuilder.Entity("Diet.Domain.user.Entities.User", b =>
+            modelBuilder.Entity("Diet.Domain.user.User", b =>
                 {
                     b.Navigation("Case");
 

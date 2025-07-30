@@ -1,7 +1,7 @@
 ﻿using Diet.Domain.common;
 using Diet.Domain.Contract.Commands.RecommendationDurationAge.Create;
 using Diet.Domain.Contract.Commands.RecommendationDurationAge.Update;
-using Diet.Domain.durationAge.Entities;
+using Diet.Domain.durationAge;
 using ErrorOr;
 
 namespace Diet.Domain.recommendationDurationAge;

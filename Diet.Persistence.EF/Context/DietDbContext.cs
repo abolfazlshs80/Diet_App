@@ -10,7 +10,7 @@ using Diet.Domain.caseSupplement;
 using Diet.Domain.caseUnPleasantFood;
 using Diet.Domain.disease;
 using Diet.Domain.drug.Entities;
-using Diet.Domain.durationAge.Entities;
+using Diet.Domain.durationAge;
 using Diet.Domain.food.Entities;
 using Diet.Domain.lifeCourse.Entities;
 using Diet.Domain.recommendation;
@@ -32,8 +32,9 @@ using Diet.Domain.userRole;
 using Framework.Core.Persistence;
 using Microsoft.EntityFrameworkCore;
 
-namespace Diet.Persistence.EF.Context;
+using static Diet.Persistence.EF.Context.DietDbContextFactory;
 
+namespace Diet.Persistence.EF.Context;
 public class DietDbContext : ApplicationDbContext
 {
     public DietDbContext(DbContextOptions<DietDbContext> options) : base(options)

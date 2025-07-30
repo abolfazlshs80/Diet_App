@@ -26,7 +26,7 @@ public sealed class Disease : BaseEntity
     public Guid? ParentId { get; private set; }
 
 
-    public ICollection<Disease> Childeren { get; private set; }
+    //public ICollection<Disease> Childeren { get; private set; }
     public ICollection<SupplementDisease_WhiteList> SupplementDisease_WhiteList { get; private set; }
     public ICollection<RecommendationDisease_WhiteList> RecommendationDisease_WhiteList { get; private set; }
 
