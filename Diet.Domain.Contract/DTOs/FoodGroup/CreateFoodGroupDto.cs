@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace Diet.Domain.Contract.DTOs.FoodGroup
 {
+    public record GetItemFoodGroupDto(Guid Id, string Title);
+
     public record CreateFoodGroupDto(string Title);
     public record UpdateFoodGroupDto(Guid Id,string Title);
     public record DeleteFoodGroupDto(Guid Id);

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace Diet.Domain.Contract.DTOs.CaseSupplement
 {
+    public record GetItemCaseSupplementDto(Guid Id, Guid SupplementId, Guid CaseId);
+
     public record CreateCaseSupplementDto(  Guid CaseId, Guid SupplementId);
     public record UpdateCaseSupplementDto(Guid Id, Guid CaseId, Guid SupplementId);
     public record DeleteCaseSupplementDto(Guid Id);

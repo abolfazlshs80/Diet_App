@@ -1,5 +1,7 @@
 namespace Diet.Domain.Contract.DTOs.RecommendationDisease_WhiteList
 {
+    public record GetItemRecommendationDisease_WhiteListDto(Guid Id, Guid RecommendationId, Guid DiseaseId);
+
     public record CreateRecommendationDisease_WhiteListDto(Guid RecommendationId, Guid DiseaseId);
     public record UpdateRecommendationDisease_WhiteListDto(Guid Id, Guid RecommendationId, Guid DiseaseId);
     public record DeleteRecommendationDisease_WhiteListDto(Guid Id);

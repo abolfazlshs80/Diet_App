@@ -1,5 +1,7 @@
 namespace Diet.Domain.Contract.DTOs.Recommendation
 {
+    public record GetItemRecommendationDto(Guid Id, string Title, string EnglishTitle, string Description, string HowToUse);
+
     public record CreateRecommendationDto(string Title, string EnglishTitle, string Description, string HowToUse);
     public record UpdateRecommendationDto(Guid Id, string Title, string EnglishTitle, string Description, string HowToUse);
     public record DeleteRecommendationDto(Guid Id);

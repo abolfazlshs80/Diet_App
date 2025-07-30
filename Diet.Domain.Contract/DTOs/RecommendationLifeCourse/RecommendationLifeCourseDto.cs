@@ -1,5 +1,7 @@
 namespace Diet.Domain.Contract.DTOs.RecommendationLifeCourse
 {
+    public record GetItemRecommendationLifeCourseDto(Guid Id, Guid RecommendationId, Guid LifeCourseId);
+
     public record CreateRecommendationLifeCourseDto(Guid RecommendationId, Guid LifeCourseId);
     public record UpdateRecommendationLifeCourseDto(Guid Id, Guid RecommendationId, Guid LifeCourseId);
     public record DeleteRecommendationLifeCourseDto(Guid Id);

@@ -1,5 +1,7 @@
 namespace Diet.Domain.Contract.DTOs.Transactions
 {
+    public record GetItemTransactionsDto(Guid Id, float TotalPrice, string ZarinPalAuthority, string ZarinPalRefNum, int TransactionType);
+
     public record CreateTransactionsDto(float TotalPrice, string ZarinPalAuthority, string ZarinPalRefNum, int TransactionType);
     public record UpdateTransactionsDto(Guid Id, float TotalPrice, string ZarinPalAuthority, string ZarinPalRefNum, int TransactionType);
     public record DeleteTransactionsDto(Guid Id);

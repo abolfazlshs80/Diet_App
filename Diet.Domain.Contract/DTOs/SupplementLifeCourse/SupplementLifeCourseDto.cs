@@ -1,5 +1,7 @@
 namespace Diet.Domain.Contract.DTOs.SupplementLifeCourse
 {
+    public record GetItemSupplementLifeCourseDto(Guid Id, Guid SupplementId, Guid LifeCourseId);
+
     public record CreateSupplementLifeCourseDto(Guid SupplementId, Guid LifeCourseId);
     public record UpdateSupplementLifeCourseDto(Guid Id, Guid SupplementId, Guid LifeCourseId);
     public record DeleteSupplementLifeCourseDto(Guid Id);

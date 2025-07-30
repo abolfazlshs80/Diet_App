@@ -1,5 +1,7 @@
 namespace Diet.Domain.Contract.DTOs.SupplementDurationAge
 {
+    public record GetItemSupplementDurationAgeDto(Guid Id, Guid SupplementId, Guid DurationAgeId);
+
     public record CreateSupplementDurationAgeDto(Guid SupplementId, Guid DurationAgeId);
     public record UpdateSupplementDurationAgeDto(Guid Id, Guid SupplementId, Guid DurationAgeId);
     public record DeleteSupplementDurationAgeDto(Guid Id);

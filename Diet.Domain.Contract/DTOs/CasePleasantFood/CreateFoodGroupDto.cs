@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace Diet.Domain.Contract.DTOs.CasePleasantFood
 {
+    public record GetItemCasePleasantFoodDto(Guid Id, Guid FoodId, Guid CaseId);
+
     public record CreateCasePleasantFoodDto(  Guid CaseId, Guid FoodId);
     public record UpdateCasePleasantFoodDto(Guid Id, Guid CaseId, Guid FoodId);
     public record DeleteCasePleasantFoodDto(Guid Id);

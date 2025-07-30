@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace Diet.Domain.Contract.DTOs.LifeCourse
 {
+    public record GetItemLifeCourseDto(Guid Id, string Title, Guid ParentId);
+
     public record CreateLifeCourseDto(string Title, Guid ParentId);
     public record UpdateLifeCourseDto(Guid Id,string Title, Guid ParentId);
     public record DeleteLifeCourseDto(Guid Id);

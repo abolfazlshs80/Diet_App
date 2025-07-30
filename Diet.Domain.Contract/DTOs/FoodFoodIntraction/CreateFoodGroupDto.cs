@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace Diet.Domain.Contract.DTOs.FoodFoodIntraction
 {
+    public record GetItemFood_Food_IntractionDto(Guid Id, Guid FoodFistId, Guid FoodSecondId);
+
     public record CreateFoodFoodIntractionDto( Guid FoodFistId, Guid FoodSecondId);
     public record UpdateFoodFoodIntractionDto(Guid Id, Guid FoodFistId, Guid FoodSecondId);
     public record DeleteFoodFoodIntractionDto(Guid Id);

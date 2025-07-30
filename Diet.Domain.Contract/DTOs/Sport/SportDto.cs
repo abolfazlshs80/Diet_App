@@ -1,5 +1,7 @@
 namespace Diet.Domain.Contract.DTOs.Sport
 {
+    public record GetItemSportDto(Guid Id, string Name, int Low, int Medium, int High);
+
     public record CreateSportDto(string Name, int Low, int Medium, int High);
     public record UpdateSportDto(Guid Id, string Name, int Low, int Medium, int High);
     public record DeleteSportDto(Guid Id);

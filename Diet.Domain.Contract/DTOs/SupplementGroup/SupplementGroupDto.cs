@@ -1,5 +1,7 @@
 namespace Diet.Domain.Contract.DTOs.SupplementGroup
 {
+    public record GetItemSupplementGroupDto(Guid Id, string Title);
+
     public record CreateSupplementGroupDto(string Title);
     public record UpdateSupplementGroupDto(Guid Id, string Title);
     public record DeleteSupplementGroupDto(Guid Id);

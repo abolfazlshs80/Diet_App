@@ -1,5 +1,7 @@
 namespace Diet.Domain.Contract.DTOs.UserRole
 {
+    public record GetItemUserRoleDto(Guid Id, Guid RoleId, Guid UserId);
+
     public record CreateUserRoleDto(Guid RoleId, Guid UserId);
     public record UpdateUserRoleDto(Guid Id, Guid RoleId, Guid UserId);
     public record DeleteUserRoleDto(Guid Id);

@@ -12,5 +12,6 @@ namespace Diet.Domain.Contract.DTOs.Food
     public record GetFoodDto(Guid Id);
     public record GetAllFoodDto(string? search, int CurrentPage = 0, int PageSize = 8);
 
+    public record GetItemFoodDto(Guid Id, string Title, string Description, float? Value, Guid FoodGroupId);
 
 }
