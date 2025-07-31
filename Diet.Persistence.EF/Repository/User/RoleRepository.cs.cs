@@ -1,3 +1,4 @@
+using Diet.Domain.Contract.DTOs.Role;
 using Diet.Domain.Contract.Enums;
 using Diet.Domain.role;
 using Diet.Domain.role.Repository;
@@ -24,35 +25,41 @@ public class RoleRepository : IRoleRepository
     {
         return await _dbContext.Role.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id);
     }
+    public async Task<GetItemRoleDto> ByIdDtoAsync(Guid Id)
+    {
+        var res = await (from d in _dbContext.Role
+                         where d.Id == Id
+                         select new GetItemRoleDto(d.Id, d.Name)
+         ).AsNoTracking().FirstOrDefaultAsync();
+        return res!;
 
+    }
     public async Task AddAsync(Diet.Domain.role.Role role)
     {
         await _dbContext.Role.AddAsync(role);
     }
 
-    public async Task UpdateAsync(Diet.Domain.role.Role role)
+    public void Update(Diet.Domain.role.Role role)
     {
         _dbContext.Update(role);
     }
 
-    public async Task DeleteAsync(Diet.Domain.role.Role role)
+    public void Delete(Diet.Domain.role.Role role)
     {
         _dbContext.Remove(role);
     }
 
-    public async Task<List<     Diet.Domain.role.Role>> AllAsync(string? searchText, int pageCount = 8, int pageNumber = 0)
+    public async Task<List<GetItemRoleDto>> AllAsync(string? searchText, int pageCount = 8, int pageNumber = 0)
     {
-        var result = _dbContext.Role.AsQueryable();
-        if (!string.IsNullOrEmpty(searchText))
-            result = result.Where(_ => _.Id.ToString().Contains(searchText)); // Customize search logic
+        var res = await (from d in _dbContext.Role
+                         select new GetItemRoleDto(d.Id, d.Name))
+             .Skip(pageNumber * pageCount)
+             .Take(pageCount)
+             .AsNoTracking()
+             .ToListAsync();
+        return res!;
 
-        return await result
-            .Skip(pageNumber * pageCount)
-            .Take(pageCount)
-            .AsNoTracking()
-            .ToListAsync();
     }
-
     public async Task<bool> IsExists(Guid id)
     {
         return await _dbContext.Role.AsNoTracking().AnyAsync(x => x.Id == id);

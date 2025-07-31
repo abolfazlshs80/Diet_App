@@ -26,7 +26,7 @@ public class DeleteDrugCommandHandler : ICommandHandler<DeleteDrugCommand, Delet
             return new DeleteDrugCommandResult("error", "notfound");
 
         await _unitOfWork.BeginTransactionAsync();
-            await _DrugRepository.DeleteAsync(result);
+             _DrugRepository.Delete(result);
             //TODO check rel
             var commitState = await _unitOfWork.CommitAsync();
 

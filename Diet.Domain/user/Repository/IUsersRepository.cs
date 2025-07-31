@@ -11,7 +11,7 @@ namespace Diet.Domain.user.Repository
         Task<GetItemUsersDto> ByIdDtoAsync(Guid id);
         Task<bool> IsExists(Guid id);
         Task AddAsync(Domain.user.User users);
-        Task UpdateAsync(Domain.user.User users);
-        Task DeleteAsync(Domain.user.User users);
+        void Update(Domain.user.User users);
+        void Delete(Domain.user.User users);
     }
 }

@@ -15,6 +15,6 @@ public interface ICaseFoodStuffAllergyRepository : IRepository
 
 
     Task AddAsync(Domain.caseFoodStuffAllergy.CaseFoodStuffAllergy CaseFoodStuffAllergy);
-    Task UpdateAsync(Domain.caseFoodStuffAllergy.CaseFoodStuffAllergy CaseFoodStuffAllergy);
-    Task DeleteAsync(Domain.caseFoodStuffAllergy.CaseFoodStuffAllergy CaseFoodStuffAllergy);
+    void Update(Domain.caseFoodStuffAllergy.CaseFoodStuffAllergy CaseFoodStuffAllergy);
+    void Delete(Domain.caseFoodStuffAllergy.CaseFoodStuffAllergy CaseFoodStuffAllergy);
 }

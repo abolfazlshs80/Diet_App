@@ -14,6 +14,6 @@ public interface IDurationAgeRepository:IRepository
     Task<bool> IsExists(Guid Id);
 
     Task AddAsync(DurationAge DurationAge);
-    Task UpdateAsync(DurationAge DurationAge);
-    Task DeleteAsync(DurationAge DurationAge);
+    void Update(DurationAge DurationAge);
+    void Delete(DurationAge DurationAge);
 }

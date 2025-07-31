@@ -10,7 +10,7 @@ namespace Diet.Domain.sport.Repository
         Task<GetItemSportDto> ByIdDtoAsync(Guid id);
         Task<bool> IsExists(Guid id);
         Task AddAsync(Diet.Domain.sport.Sport sport);
-        Task UpdateAsync(Diet.Domain.sport.Sport sport);
-        Task DeleteAsync(Diet.Domain.sport.Sport sport);
+        void Update(Diet.Domain.sport.Sport sport);
+        void Delete(Diet.Domain.sport.Sport sport);
     }
 }

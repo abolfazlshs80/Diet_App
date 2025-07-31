@@ -9,7 +9,7 @@ namespace Diet.Domain.supplementLifeCourse.Repository
         Task<GetItemSupplementLifeCourseDto> ByIdDtoAsync(Guid id);
 
         Task AddAsync(Diet.Domain.supplementLifeCourse.SupplementLifeCourse supplementLifeCourse);
-        Task UpdateAsync(Diet.Domain.supplementLifeCourse.SupplementLifeCourse supplementLifeCourse);
-        Task DeleteAsync(Diet.Domain.supplementLifeCourse.SupplementLifeCourse supplementLifeCourse);
+        void Update(Diet.Domain.supplementLifeCourse.SupplementLifeCourse supplementLifeCourse);
+        void Delete(Diet.Domain.supplementLifeCourse.SupplementLifeCourse supplementLifeCourse);
     }
 }

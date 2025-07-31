@@ -1,3 +1,5 @@
+using Diet.Domain.Contract.DTOs.Users;
+using Diet.Domain.Contract.Enums;
 using Diet.Domain.user;
 using Diet.Domain.user.Repository;
 using Diet.Persistence.EF.Context;
@@ -20,32 +22,40 @@ public class UsersRepository : IUsersRepository
         return await _dbContext.Users.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id);
     }
 
+    public async Task<GetItemUsersDto> ByIdDtoAsync(Guid Id)
+    {
+        var res = await (from d in _dbContext.Users
+                         where d.Id == Id
+                         select new GetItemUsersDto(d.Id, d.FirstName, d.LastName, d.ImageName, d.ReferenceCode, d.VerifyCode, d.CardNumber, d.ShbaNumber, d.VerifyExpire, d.Deleted, d.CreateDate, d.BirthDay, d.Gender, d.MobileNumber, d.Password, d.Salt)
+         ).AsNoTracking().FirstOrDefaultAsync();
+        return res!;
+
+    }
     public async Task AddAsync(Diet.Domain.user.User users)
     {
         await _dbContext.Users.AddAsync(users);
     }
 
-    public async Task UpdateAsync(Diet.Domain.user.User users)
+    public void Update(Diet.Domain.user.User users)
     {
         _dbContext.Update(users);
     }
 
-    public async Task DeleteAsync(Diet.Domain.user.User users)
+    public void Delete(Diet.Domain.user.User users)
     {
         _dbContext.Remove(users);
     }
 
-    public async Task<List<     Diet.Domain.user.User>> AllAsync(string? searchText, int pageCount = 8, int pageNumber = 0)
+    public async Task<List<GetItemUsersDto>> AllAsync(string? searchText, int pageCount = 8, int pageNumber = 0)
     {
-        var result = _dbContext.Users.AsQueryable();
-        if (!string.IsNullOrEmpty(searchText))
-            result = result.Where(_ => _.Id.ToString().Contains(searchText)); // Customize search logic
+        var res = await (from d in _dbContext.Users
+                         select new GetItemUsersDto(d.Id, d.FirstName, d.LastName, d.ImageName, d.ReferenceCode, d.VerifyCode, d.CardNumber, d.ShbaNumber, d.VerifyExpire, d.Deleted, d.CreateDate, d.BirthDay, (d.Gender), d.MobileNumber, d.Password, d.Salt))
+             .Skip(pageNumber * pageCount)
+             .Take(pageCount)
+             .AsNoTracking()
+             .ToListAsync();
+        return res!;
 
-        return await result
-            .Skip(pageNumber * pageCount)
-            .Take(pageCount)
-            .AsNoTracking()
-            .ToListAsync();
     }
 
     public async Task<bool> IsExists(Guid id)

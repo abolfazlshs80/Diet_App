@@ -17,6 +17,6 @@ public interface IFoodRepository : IRepository
     Task<bool> IsExists(Guid Id);
 
     Task AddAsync(Domain.food.Entities.Food Food);
-    Task UpdateAsync(Domain.food.Entities.Food Food);
-    Task DeleteAsync(Domain.food.Entities.Food Food);
+    void Update(Domain.food.Entities.Food Food);
+    void Delete(Domain.food.Entities.Food Food);
 }

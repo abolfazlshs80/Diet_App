@@ -38,7 +38,7 @@ public class UpdateFoodStuffCommandHandler : ICommandHandler<UpdateFoodStuffComm
 
 
             await _unitOfWork.BeginTransactionAsync();
-            await _FoodStuffRepository.UpdateAsync(result.Value);
+             _FoodStuffRepository.Update(result.Value);
 
             var commitState = await _unitOfWork.CommitAsync();
 

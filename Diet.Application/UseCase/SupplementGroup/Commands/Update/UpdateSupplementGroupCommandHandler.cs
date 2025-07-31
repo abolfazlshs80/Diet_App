@@ -29,7 +29,7 @@ public class UpdateSupplementGroupCommandHandler : ICommandHandler<UpdateSupplem
             return result.FirstError;
 
         await _unitOfWork.BeginTransactionAsync();
-        await _supplementGroupRepository.UpdateAsync(result.Value);
+         _supplementGroupRepository.Update(result.Value);
 
         var commitState = await _unitOfWork.CommitAsync();
         if (commitState.Value == Domain.Contract.Enums.TransactionStatus.Error)

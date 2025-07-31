@@ -24,7 +24,7 @@ public class DeleteRecommendationDurationAgeCommandHandler : ICommandHandler<Del
             return new DeleteRecommendationDurationAgeCommandResult("error", "notfound");
 
         await _unitOfWork.BeginTransactionAsync();
-        await _RecommendationDurationAgeRepository.DeleteAsync(result);
+         _RecommendationDurationAgeRepository.Delete(result);
 
         var commitState = await _unitOfWork.CommitAsync();
 

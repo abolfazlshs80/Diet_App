@@ -32,7 +32,7 @@ public class DeleteDiseaseCommandHandler : ICommandHandler<DeleteDiseaseCommand,
             return new DeleteDiseaseCommandResult("errorFound", " not found desaised ");
 
         await _unitOfWork.BeginTransactionAsync();
-        await _DiseaseRepository.DeleteAsync(result);
+         _DiseaseRepository.Delete(result);
         var commitState = await _unitOfWork.CommitAsync();
 
         if (commitState.Value == Domain.Contract.Enums.TransactionStatus.Error)

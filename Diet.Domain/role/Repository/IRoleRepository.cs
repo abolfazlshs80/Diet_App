@@ -11,7 +11,7 @@ namespace Diet.Domain.role.Repository
         Task<GetItemRoleDto> ByIdDtoAsync(Guid id);
         Task<bool> IsExists(Guid id);
         Task AddAsync(Diet.Domain.role.Role role);
-        Task UpdateAsync(Diet.Domain.role.Role role);
-        Task DeleteAsync(Diet.Domain.role.Role role);
+        void Update(Diet.Domain.role.Role role);
+        void Delete(Diet.Domain.role.Role role);
     }
 }

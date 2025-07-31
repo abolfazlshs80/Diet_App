@@ -44,7 +44,7 @@ public class UpdateRecommendationDurationAgeCommandHandler : ICommandHandler<Upd
                 return result.FirstError;
 
             await _unitOfWork.BeginTransactionAsync();
-            await _recommendationDurationAgeRepository.UpdateAsync(result.Value);
+             _recommendationDurationAgeRepository.Update(result.Value);
 
             var commitState = await _unitOfWork.CommitAsync();
             if (commitState.Value == Domain.Contract.Enums.TransactionStatus.Error)

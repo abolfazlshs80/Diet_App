@@ -45,7 +45,7 @@ public class UpdateRecommendationLifeCourseCommandHandler : ICommandHandler<Upda
             return result.FirstError;
 
         await _unitOfWork.BeginTransactionAsync();
-        await _recommendationLifeCourseRepository.UpdateAsync(result.Value);
+         _recommendationLifeCourseRepository.Update(result.Value);
 
         var commitState = await _unitOfWork.CommitAsync();
         if (commitState.Value == Domain.Contract.Enums.TransactionStatus.Error)

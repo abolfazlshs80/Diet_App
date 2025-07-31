@@ -36,7 +36,7 @@ public class UpdateDurationAgeCommandHandler : ICommandHandler<UpdateDurationAge
 
 
         await _unitOfWork.BeginTransactionAsync();
-            await _DurationAgeRepository.UpdateAsync(result.Value);
+             _DurationAgeRepository.Update(result.Value);
 
             var commitState = await _unitOfWork.CommitAsync();
 

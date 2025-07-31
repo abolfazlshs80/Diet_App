@@ -24,7 +24,7 @@ public class DeleteTransactionsCommandHandler : ICommandHandler<DeleteTransactio
             return new DeleteTransactionsCommandResult("error", "notfound");
 
         await _unitOfWork.BeginTransactionAsync();
-        await _TransactionsRepository.DeleteAsync(result);
+         _TransactionsRepository.Delete(result);
 
         var commitState = await _unitOfWork.CommitAsync();
 

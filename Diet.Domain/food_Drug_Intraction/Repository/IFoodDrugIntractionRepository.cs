@@ -12,6 +12,6 @@ public interface IFoodDrugIntractionRepository : IRepository
 
 
     Task AddAsync(Domain.food.Entities.Food_Drug_Intraction FoodDrugIntraction);
-    Task UpdateAsync(Domain.food.Entities.Food_Drug_Intraction FoodDrugIntraction);
-    Task DeleteAsync(Domain.food.Entities.Food_Drug_Intraction FoodDrugIntraction);
+    void Update(Domain.food.Entities.Food_Drug_Intraction FoodDrugIntraction);
+    void Delete(Domain.food.Entities.Food_Drug_Intraction FoodDrugIntraction);
 }

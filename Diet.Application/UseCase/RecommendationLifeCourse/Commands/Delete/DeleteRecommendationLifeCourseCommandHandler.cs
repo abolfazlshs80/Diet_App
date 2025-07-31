@@ -24,7 +24,7 @@ public class DeleteRecommendationLifeCourseCommandHandler : ICommandHandler<Dele
             return new DeleteRecommendationLifeCourseCommandResult("error", "notfound");
 
         await _unitOfWork.BeginTransactionAsync();
-        await _RecommendationLifeCourseRepository.DeleteAsync(result);
+         _RecommendationLifeCourseRepository.Delete(result);
 
         var commitState = await _unitOfWork.CommitAsync();
 

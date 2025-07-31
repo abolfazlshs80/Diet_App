@@ -49,7 +49,7 @@ public class UpdateCaseSupplementCommandHandler : ICommandHandler<UpdateCaseSupp
 
 
             await _unitOfWork.BeginTransactionAsync();
-            await _CaseSupplementRepository.UpdateAsync(result.Value);
+             _CaseSupplementRepository.Update(result.Value);
 
             var commitState = await _unitOfWork.CommitAsync();
 

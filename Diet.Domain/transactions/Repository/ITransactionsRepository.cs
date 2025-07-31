@@ -9,7 +9,7 @@ namespace Diet.Domain.transactions.Repository
         Task<GetItemTransactionsDto> ByIdDtoAsync(Guid id);
         Task<bool> IsExists(Guid id);
         Task AddAsync(Diet.Domain.transactions.Transactions transactions);
-        Task UpdateAsync(Diet.Domain.transactions.Transactions transactions);
-        Task DeleteAsync(Diet.Domain.transactions.Transactions transactions);
+        void Update(Diet.Domain.transactions.Transactions transactions);
+        void Delete(Diet.Domain.transactions.Transactions transactions);
     }
 }

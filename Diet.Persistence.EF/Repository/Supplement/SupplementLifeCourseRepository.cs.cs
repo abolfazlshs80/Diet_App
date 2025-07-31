@@ -1,3 +1,4 @@
+using Diet.Domain.Contract.DTOs.SupplementLifeCourse;
 using Diet.Domain.supplementLifeCourse;
 using Diet.Domain.supplementLifeCourse.Repository;
 using Diet.Persistence.EF.Context;
@@ -18,32 +19,40 @@ public class SupplementLifeCourseRepository : ISupplementLifeCourseRepository
     {
         return await _dbContext.SupplementLifeCourse.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id);
     }
+    public async Task<GetItemSupplementLifeCourseDto> ByIdDtoAsync(Guid Id)
+    {
+        var res = await (from d in _dbContext.SupplementLifeCourse
+                         where d.Id == Id
+                         select new GetItemSupplementLifeCourseDto(d.Id, d.SupplementId, d.LifeCourseId)
+         ).AsNoTracking().FirstOrDefaultAsync();
+        return res!;
+
+    }
 
     public async Task AddAsync(Diet.Domain.supplementLifeCourse.SupplementLifeCourse supplementLifeCourse)
     {
         await _dbContext.SupplementLifeCourse.AddAsync(supplementLifeCourse);
     }
 
-    public async Task UpdateAsync(Diet.Domain.supplementLifeCourse.SupplementLifeCourse supplementLifeCourse)
+    public void Update(Diet.Domain.supplementLifeCourse.SupplementLifeCourse supplementLifeCourse)
     {
         _dbContext.Update(supplementLifeCourse);
     }
 
-    public async Task DeleteAsync(Diet.Domain.supplementLifeCourse.SupplementLifeCourse supplementLifeCourse)
+    public void Delete(Diet.Domain.supplementLifeCourse.SupplementLifeCourse supplementLifeCourse)
     {
         _dbContext.Remove(supplementLifeCourse);
     }
 
-    public async Task<List<     Diet.Domain.supplementLifeCourse.SupplementLifeCourse>> AllAsync(string? searchText, int pageCount = 8, int pageNumber = 0)
+    public async Task<List<GetItemSupplementLifeCourseDto>> AllAsync(string? searchText, int pageCount = 8, int pageNumber = 0)
     {
-        var result = _dbContext.SupplementLifeCourse.AsQueryable();
-        if (!string.IsNullOrEmpty(searchText))
-            result = result.Where(_ => _.Id.ToString().Contains(searchText)); // Customize search logic
+        var res = await (from d in _dbContext.SupplementLifeCourse
+                         select new GetItemSupplementLifeCourseDto(d.Id, d.SupplementId, d.LifeCourseId))
+             .Skip(pageNumber * pageCount)
+             .Take(pageCount)
+             .AsNoTracking()
+             .ToListAsync();
+        return res!;
 
-        return await result
-            .Skip(pageNumber * pageCount)
-            .Take(pageCount)
-            .AsNoTracking()
-            .ToListAsync();
     }
 }

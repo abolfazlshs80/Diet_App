@@ -13,8 +13,8 @@ public interface IDrugRepository : IRepository
     Task<GetItemDrugDto> ByIdDtoAsync(Guid Id);
     Task<bool> IsExists(Guid Id);
     Task AddAsync(drug.Drug Drug);
-    Task UpdateAsync(drug.Drug Drug);
-    Task DeleteAsync(drug.Drug Drug);
+    void Update(drug.Drug Drug);
+    void Delete(drug.Drug Drug);
 
 
 }

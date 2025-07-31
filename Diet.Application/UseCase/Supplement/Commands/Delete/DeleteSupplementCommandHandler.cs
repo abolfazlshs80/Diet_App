@@ -24,7 +24,7 @@ public class DeleteSupplementCommandHandler : ICommandHandler<DeleteSupplementCo
             return new DeleteSupplementCommandResult("error", "notfound");
 
         await _unitOfWork.BeginTransactionAsync();
-        await _SupplementRepository.DeleteAsync(result);
+         _SupplementRepository.Delete(result);
 
         var commitState = await _unitOfWork.CommitAsync();
 

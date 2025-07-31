@@ -1,4 +1,5 @@
-﻿using Diet.Domain.disease.Repository;
+﻿using Diet.Domain.Contract.DTOs.Disease;
+using Diet.Domain.disease.Repository;
 using Diet.Domain.user.Repository;
 using Diet.Persistence.EF.Context;
 using Microsoft.EntityFrameworkCore;
@@ -19,31 +20,43 @@ public class DiseaseRepository : IDiseaseRepository
     {
         return await _dbContext.Disease.AsNoTracking().SingleOrDefaultAsync(x => x.Id == Id);
     }
+    public async Task<GetItemDiseaseDto> ByIdDtoAsync(Guid Id)
+    {
+        var res = await (from d in _dbContext.Disease
+                         where d.Id == Id
+                         select new GetItemDiseaseDto(d.Id, d.Title, d.ParentId)
+         ).AsNoTracking().FirstOrDefaultAsync();
+        return res!;
 
+    }
     public async Task AddAsync(Domain.disease.Disease Disease)
     {
         await _dbContext.AddAsync(Disease);
       
     }
 
-    public async Task UpdateAsync(Domain.disease.Disease Disease)
+    public void Update(Domain.disease.Disease Disease)
     {
         _dbContext.Update(Disease);
        
     }
 
-    public async Task DeleteAsync(Domain.disease.Disease Disease)
+    public void Delete(Domain.disease.Disease Disease)
     {
         _dbContext.Remove(Disease);
        
     }
 
-    public async Task<List<Domain.disease.Disease>> AllAsync(string? searchText, int pageCount = 8, int PageNumber = 0)
+    public async Task<List<GetItemDiseaseDto>> AllAsync(string? searchText, int pageCount = 8, int pageNumber = 0)
     {
-        var result =  _dbContext.Disease.AsQueryable();
-        if (!string.IsNullOrEmpty(searchText))
-            result = result.Where(_ => _.Title.Contains(searchText));
-        return await result.Skip(PageNumber * pageCount).Take(pageCount).AsNoTracking().ToListAsync();
+        var res = await (from d in _dbContext.Disease
+                         select new GetItemDiseaseDto(d.Id, d.Title, d.ParentId))
+             .Skip(pageNumber * pageCount)
+             .Take(pageCount)
+             .AsNoTracking()
+             .ToListAsync();
+        return res!;
+
     }
     public async Task<bool> IsExists(Guid id)
     {

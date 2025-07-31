@@ -1,6 +1,8 @@
+using Diet.Domain.Contract.Enums;
+
 namespace Diet.Domain.Contract.DTOs.Ticket
 {
-    public record GetItemTicketDto(Guid Id, string Title, string Number, int Priority, int Status, Guid UserId);
+    public record GetItemTicketDto(Guid Id, string Title, string Number, Priority Priority, TicketStatus Status, Guid UserId);
 
     public record CreateTicketDto(string Title, string Number, int Priority, int Status, Guid UserId);
     public record UpdateTicketDto(Guid Id, string Title, string Number, int Priority, int Status, Guid UserId);

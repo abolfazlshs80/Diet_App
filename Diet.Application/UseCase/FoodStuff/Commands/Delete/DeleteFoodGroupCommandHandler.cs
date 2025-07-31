@@ -31,7 +31,7 @@ public class DeleteFoodStuffCommandHandler : ICommandHandler<DeleteFoodStuffComm
             return new DeleteFoodStuffCommandResult("error", "NotFound FoodStuff ");
        
             await _unitOfWork.BeginTransactionAsync();
-            await _FoodStuffRepository.DeleteAsync(result);
+             _FoodStuffRepository.Delete(result);
 
             var commitState = await _unitOfWork.CommitAsync();
 

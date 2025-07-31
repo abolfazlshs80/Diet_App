@@ -40,7 +40,7 @@ public class UpdateLifeCourseCommandHandler : ICommandHandler<UpdateLifeCourseCo
 
         
             await _unitOfWork.BeginTransactionAsync();
-            await _LifeCourseRepository.UpdateAsync(result.Value);
+             _LifeCourseRepository.Update(result.Value);
 
             var commitState = await _unitOfWork.CommitAsync();
 

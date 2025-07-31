@@ -31,7 +31,7 @@ public class DeleteCaseDrugCommandHandler : ICommandHandler<DeleteCaseDrugComman
             return new DeleteCaseDrugCommandResult("error", "Not Found Food_Food_Intraction");
 
         await _unitOfWork.BeginTransactionAsync();
-            await _CaseDrugRepository.DeleteAsync(result);
+             _CaseDrugRepository.Delete(result);
 
             var commitState = await _unitOfWork.CommitAsync();
 

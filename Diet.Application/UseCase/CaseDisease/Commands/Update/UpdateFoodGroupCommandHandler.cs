@@ -47,7 +47,7 @@ public class UpdateCaseDiseaseCommandHandler : ICommandHandler<UpdateCaseDisease
 
 
             await _unitOfWork.BeginTransactionAsync();
-            await _CaseDiseaseRepository.UpdateAsync(result.Value);
+             _CaseDiseaseRepository.Update(result.Value);
 
             var commitState = await _unitOfWork.CommitAsync();
 

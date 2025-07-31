@@ -16,6 +16,6 @@ public interface ICaseRepository:IRepository
 
 
     Task AddAsync(Diet.Domain.Case.Case Case);
-    Task UpdateAsync(Diet.Domain.Case.Case Case);
-    Task DeleteAsync(Diet.Domain.Case.Case Case);
+    void Update(Diet.Domain.Case.Case Case);
+    void Delete(Diet.Domain.Case.Case Case);
 }

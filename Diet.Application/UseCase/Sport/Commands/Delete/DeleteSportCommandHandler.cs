@@ -24,7 +24,7 @@ public class DeleteSportCommandHandler : ICommandHandler<DeleteSportCommand, Del
             return new DeleteSportCommandResult("error", "notfound");
 
         await _unitOfWork.BeginTransactionAsync();
-        await _SportRepository.DeleteAsync(result);
+         _SportRepository.Delete(result);
 
         var commitState = await _unitOfWork.CommitAsync();
 

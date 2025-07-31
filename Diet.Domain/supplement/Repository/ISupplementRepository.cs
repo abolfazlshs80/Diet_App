@@ -10,7 +10,7 @@ namespace Diet.Domain.supplement.Repository
         Task<bool> IsExists(Guid Id);
 
         Task AddAsync(Diet.Domain.supplement.Supplement supplement);
-        Task UpdateAsync(Diet.Domain.supplement.Supplement supplement);
-        Task DeleteAsync(Diet.Domain.supplement.Supplement supplement);
+        void Update(Diet.Domain.supplement.Supplement supplement);
+        void Delete(Diet.Domain.supplement.Supplement supplement);
     }
 }

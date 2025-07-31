@@ -32,7 +32,7 @@ public class DeleteDurationAgeCommandHandler : ICommandHandler<DeleteDurationAge
             return new DeleteDurationAgeCommandResult("error", "NotFound DurationAge");
  
             await _unitOfWork.BeginTransactionAsync();
-            await _DurationAgeRepository.DeleteAsync(result);
+             _DurationAgeRepository.Delete(result);
 
             var commitState = await _unitOfWork.CommitAsync();
 

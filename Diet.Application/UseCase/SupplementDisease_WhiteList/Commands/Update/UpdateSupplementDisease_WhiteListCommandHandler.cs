@@ -44,7 +44,7 @@ public class UpdateSupplementDisease_WhiteListCommandHandler : ICommandHandler<U
             return result.FirstError;
 
         await _unitOfWork.BeginTransactionAsync();
-        await _supplementDisease_WhiteListRepository.UpdateAsync(result.Value);
+         _supplementDisease_WhiteListRepository.Update(result.Value);
 
         var commitState = await _unitOfWork.CommitAsync();
         if (commitState.Value == Domain.Contract.Enums.TransactionStatus.Error)

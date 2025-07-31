@@ -9,7 +9,7 @@ namespace Diet.Domain.supplementDisease_WhiteList.Repository
         Task<GetItemSupplementDisease_WhiteListDto> ByIdDtoAsync(Guid id);
 
         Task AddAsync(Diet.Domain.supplementDisease_WhiteList.SupplementDisease_WhiteList supplementDisease_WhiteList);
-        Task UpdateAsync(Diet.Domain.supplementDisease_WhiteList.SupplementDisease_WhiteList supplementDisease_WhiteList);
-        Task DeleteAsync(Diet.Domain.supplementDisease_WhiteList.SupplementDisease_WhiteList supplementDisease_WhiteList);
+        void Update(Diet.Domain.supplementDisease_WhiteList.SupplementDisease_WhiteList supplementDisease_WhiteList);
+        void Delete(Diet.Domain.supplementDisease_WhiteList.SupplementDisease_WhiteList supplementDisease_WhiteList);
     }
 }

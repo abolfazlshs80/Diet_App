@@ -44,7 +44,7 @@ public class UpdateSupplementLifeCourseCommandHandler : ICommandHandler<UpdateSu
             return result.FirstError;
 
         await _unitOfWork.BeginTransactionAsync();
-        await _supplementLifeCourseRepository.UpdateAsync(result.Value);
+         _supplementLifeCourseRepository.Update(result.Value);
 
         var commitState = await _unitOfWork.CommitAsync();
         if (commitState.Value == Domain.Contract.Enums.TransactionStatus.Error)

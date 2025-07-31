@@ -1,3 +1,4 @@
+using Diet.Domain.Contract.DTOs.Recommendation;
 using Diet.Domain.recommendation;
 using Diet.Domain.recommendation.Repository;
 using Diet.Persistence.EF.Context;
@@ -18,33 +19,40 @@ public class RecommendationRepository : IRecommendationRepository
     {
         return await _dbContext.Recommendation.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id);
     }
+    public async Task<GetItemRecommendationDto> ByIdDtoAsync(Guid Id)
+    {
+        var res = await (from d in _dbContext.Recommendation
+                         where d.Id == Id
+                         select new GetItemRecommendationDto(d.Id, d.Title, d.EnglishTitle, d.Description, d.HowToUse)
+         ).AsNoTracking().FirstOrDefaultAsync();
+        return res!;
 
+    }
     public async Task AddAsync(Diet.Domain.recommendation.Recommendation recommendation)
     {
         await _dbContext.Recommendation.AddAsync(recommendation);
     }
 
-    public async Task UpdateAsync(Diet.Domain.recommendation.Recommendation recommendation)
+    public void Update(Diet.Domain.recommendation.Recommendation recommendation)
     {
         _dbContext.Update(recommendation);
     }
 
-    public async Task DeleteAsync(Diet.Domain.recommendation.Recommendation recommendation)
+    public void Delete(Diet.Domain.recommendation.Recommendation recommendation)
     {
         _dbContext.Remove(recommendation);
     }
 
-    public async Task<List<     Diet.Domain.recommendation.Recommendation>> AllAsync(string? searchText, int pageCount = 8, int pageNumber = 0)
+    public async Task<List<GetItemRecommendationDto>> AllAsync(string? searchText, int pageCount = 8, int pageNumber = 0)
     {
-        var result = _dbContext.Recommendation.AsQueryable();
-        if (!string.IsNullOrEmpty(searchText))
-            result = result.Where(_ => _.Id.ToString().Contains(searchText)); // Customize search logic
+        var res = await (from d in _dbContext.Recommendation
+                         select new GetItemRecommendationDto(d.Id, d.Title, d.EnglishTitle, d.Description, d.HowToUse))
+             .Skip(pageNumber * pageCount)
+             .Take(pageCount)
+             .AsNoTracking()
+             .ToListAsync();
+        return res!;
 
-        return await result
-            .Skip(pageNumber * pageCount)
-            .Take(pageCount)
-            .AsNoTracking()
-            .ToListAsync();
     }
 
     public async Task<bool> IsExists(Guid id)

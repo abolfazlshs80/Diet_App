@@ -9,7 +9,7 @@ namespace Diet.Domain.ticket.Repository
         Task<GetItemTicketDto> ByIdDtoAsync(Guid id);
         Task<bool> IsExists(Guid id);
         Task AddAsync(Diet.Domain.ticket.Ticket ticket);
-        Task UpdateAsync(Diet.Domain.ticket.Ticket ticket);
-        Task DeleteAsync(Diet.Domain.ticket.Ticket ticket);
+        void Update(Diet.Domain.ticket.Ticket ticket);
+        void Delete(Diet.Domain.ticket.Ticket ticket);
     }
 }

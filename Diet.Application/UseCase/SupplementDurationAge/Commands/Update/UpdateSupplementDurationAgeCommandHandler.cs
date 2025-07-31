@@ -42,7 +42,7 @@ public class UpdateSupplementDurationAgeCommandHandler : ICommandHandler<UpdateS
             return result.FirstError;
 
         await _unitOfWork.BeginTransactionAsync();
-        await _supplementDurationAgeRepository.UpdateAsync(result.Value);
+         _supplementDurationAgeRepository.Update(result.Value);
 
         var commitState = await _unitOfWork.CommitAsync();
         if (commitState.Value == Domain.Contract.Enums.TransactionStatus.Error)

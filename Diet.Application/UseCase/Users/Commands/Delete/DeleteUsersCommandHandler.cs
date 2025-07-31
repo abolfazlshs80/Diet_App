@@ -24,7 +24,7 @@ public class DeleteUsersCommandHandler : ICommandHandler<DeleteUsersCommand, Del
             return new DeleteUsersCommandResult("error", "notfound");
 
         await _unitOfWork.BeginTransactionAsync();
-        await _UsersRepository.DeleteAsync(result);
+         _UsersRepository.Delete(result);
 
         var commitState = await _unitOfWork.CommitAsync();
 

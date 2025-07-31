@@ -15,6 +15,6 @@ public interface ICasePleasantFoodRepository : IRepository
 
 
     Task AddAsync(Domain.casePleasantFood.CasePleasantFood CasePleasantFood);
-    Task UpdateAsync(Domain.casePleasantFood.CasePleasantFood CasePleasantFood);
-    Task DeleteAsync(Domain.casePleasantFood.CasePleasantFood CasePleasantFood);
+    void Update(Domain.casePleasantFood.CasePleasantFood CasePleasantFood);
+    void Delete(Domain.casePleasantFood.CasePleasantFood CasePleasantFood);
 }

@@ -9,7 +9,7 @@ namespace Diet.Domain.recommendation.Repository
         Task<GetItemRecommendationDto> ByIdDtoAsync(Guid id);
         Task<bool> IsExists(Guid Id);
         Task AddAsync(Diet.Domain.recommendation.Recommendation recommendation);
-        Task UpdateAsync(Diet.Domain.recommendation.Recommendation recommendation);
-        Task DeleteAsync(Diet.Domain.recommendation.Recommendation recommendation);
+        void Update(Diet.Domain.recommendation.Recommendation recommendation);
+        void Delete(Diet.Domain.recommendation.Recommendation recommendation);
     }
 }

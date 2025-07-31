@@ -1,4 +1,5 @@
-﻿using Diet.Domain.user.Repository;
+﻿using Diet.Domain.Contract.DTOs.FoodDrugIntraction;
+using Diet.Domain.user.Repository;
 using Diet.Persistence.EF.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +19,15 @@ public class FoodDrugIntractionRepository : IFoodDrugIntractionRepository
     {
         return await _dbContext.Food_Drug_Intraction.AsNoTracking().SingleOrDefaultAsync(x => x.Id == Id);
     }
+    public async Task<GetItemFood_Drug_IntractionDto> ByIdDtoAsync(Guid Id)
+    {
+        var res = await (from d in _dbContext.Food_Drug_Intraction
+                         where d.Id == Id
+                         select new GetItemFood_Drug_IntractionDto(d.Id, d.FoodId, d.DrugId)
+         ).AsNoTracking().FirstOrDefaultAsync();
+        return res!;
+
+    }
 
     public async Task AddAsync(Domain.food.Entities.Food_Drug_Intraction FoodDrugIntraction)
     {
@@ -25,25 +35,27 @@ public class FoodDrugIntractionRepository : IFoodDrugIntractionRepository
 
     }
 
-    public async Task UpdateAsync(Domain.food.Entities.Food_Drug_Intraction FoodDrugIntraction)
+    public void Update(Domain.food.Entities.Food_Drug_Intraction FoodDrugIntraction)
     {
         _dbContext.Update(FoodDrugIntraction);
 
     }
 
-    public async Task DeleteAsync(Domain.food.Entities.Food_Drug_Intraction FoodDrugIntraction)
+    public void Delete(Domain.food.Entities.Food_Drug_Intraction FoodDrugIntraction)
     {
         _dbContext.Remove(FoodDrugIntraction);
 
     }
 
-    public async Task<List<Domain.food.Entities.Food_Drug_Intraction>> AllAsync(string? searchText, int pageCount = 8, int PageNumber = 0)
+    public async Task<List<GetItemFood_Drug_IntractionDto>> AllAsync(string? searchText, int pageCount = 8, int pageNumber = 0)
     {
-        var result = _dbContext.Food_Drug_Intraction.AsQueryable();
-        if (!string.IsNullOrEmpty(searchText))
-            result = result.Where(_ => _.FoodId.Equals(searchText)|| _.DrugId.Equals(searchText));
-        return await result.Skip(PageNumber * pageCount).Take(pageCount).AsNoTracking().ToListAsync();
+        var res = await (from d in _dbContext.Food_Drug_Intraction
+                         select new GetItemFood_Drug_IntractionDto(d.Id, d.FoodId, d.DrugId))
+             .Skip(pageNumber * pageCount)
+             .Take(pageCount)
+             .AsNoTracking()
+             .ToListAsync();
+        return res!;
+
     }
-
-
 }

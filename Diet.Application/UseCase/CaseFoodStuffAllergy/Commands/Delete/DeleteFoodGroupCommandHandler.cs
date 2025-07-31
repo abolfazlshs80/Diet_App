@@ -31,7 +31,7 @@ public class DeleteCaseFoodStuffAllergyCommandHandler : ICommandHandler<DeleteCa
             return new DeleteCaseFoodStuffAllergyCommandResult("error", "Not Found Food_Food_Intraction");
 
         await _unitOfWork.BeginTransactionAsync();
-            await _CaseFoodStuffAllergyRepository.DeleteAsync(result);
+             _CaseFoodStuffAllergyRepository.Delete(result);
 
             var commitState = await _unitOfWork.CommitAsync();
 

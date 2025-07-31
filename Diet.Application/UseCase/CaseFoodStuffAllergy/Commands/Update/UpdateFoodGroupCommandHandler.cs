@@ -49,7 +49,7 @@ public class UpdateCaseFoodStuffAllergyCommandHandler : ICommandHandler<UpdateCa
 
 
             await _unitOfWork.BeginTransactionAsync();
-            await _CaseFoodStuffAllergyRepository.UpdateAsync(result.Value);
+             _CaseFoodStuffAllergyRepository.Update(result.Value);
 
             var commitState = await _unitOfWork.CommitAsync();
 

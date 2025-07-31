@@ -13,6 +13,6 @@ public interface IFoodStuffRepository : IRepository
     Task<bool> IsExists(Guid Id);
 
     Task AddAsync(Domain.food.Entities.FoodStuff FoodStuff);
-    Task UpdateAsync(Domain.food.Entities.FoodStuff FoodStuff);
-    Task DeleteAsync(Domain.food.Entities.FoodStuff FoodStuff);
+    void Update(Domain.food.Entities.FoodStuff FoodStuff);
+    void Delete(Domain.food.Entities.FoodStuff FoodStuff);
 }

@@ -34,7 +34,7 @@ public class UpdateTicketCommandHandler : ICommandHandler<UpdateTicketCommand, U
             return result.FirstError;
 
         await _unitOfWork.BeginTransactionAsync();
-        await _ticketRepository.UpdateAsync(result.Value);
+         _ticketRepository.Update(result.Value);
 
         var commitState = await _unitOfWork.CommitAsync();
         if (commitState.Value == Domain.Contract.Enums.TransactionStatus.Error)

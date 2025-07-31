@@ -13,6 +13,6 @@ public interface IDiseaseRepository: IRepository
 
     Task<bool> IsExists(Guid Id);
     Task AddAsync(Disease Disease);
-    Task UpdateAsync(Disease Disease);
-    Task DeleteAsync(Disease Disease);
+    void Update(Disease Disease);
+    void Delete(Disease Disease);
 }

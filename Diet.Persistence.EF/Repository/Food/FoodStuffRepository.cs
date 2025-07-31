@@ -1,6 +1,7 @@
 ﻿
 
 
+using Diet.Domain.Contract.DTOs.FoodStuff;
 using Diet.Domain.food.Entities;
 using Diet.Domain.user.Repository;
 using Diet.Persistence.EF.Context;
@@ -22,32 +23,44 @@ public class FoodStuffRepository : IFoodStuffRepository
     {
         return await _dbContext.FoodStuff.AsNoTracking().SingleOrDefaultAsync(x => x.Id == Id);
     }
+    public async Task<GetItemFoodStuffDto> ByIdDtoAsync(Guid Id)
+    {
+        var res = await (from d in _dbContext.FoodStuff
+                         where d.Id == Id
+                         select new GetItemFoodStuffDto(d.Id, d.Title)
+         ).AsNoTracking().FirstOrDefaultAsync();
+        return res!;
 
+    }
     public async Task AddAsync(Domain.food.Entities.FoodStuff FoodStuff)
     {
         await _dbContext.AddAsync(FoodStuff);
       
     }
 
-    public async Task UpdateAsync(Domain.food.Entities.FoodStuff FoodStuff)
+    public void Update(Domain.food.Entities.FoodStuff FoodStuff)
     {
         _dbContext.Update(FoodStuff);
        
     }
 
-    public async Task DeleteAsync(Domain.food.Entities.FoodStuff FoodStuff)
+    public void Delete(Domain.food.Entities.FoodStuff FoodStuff)
     {
         _dbContext.Remove(FoodStuff);
        
     }
 
-    public async Task<List<Domain.food.Entities.FoodStuff>> AllAsync(string? searchText, int pageCount = 8, int PageNumber = 0)
+    public async Task<List<GetItemFoodStuffDto>> AllAsync(string? searchText, int pageCount = 8, int pageNumber = 0)
     {
-        var result =  _dbContext.FoodStuff.AsQueryable();
-        if (!string.IsNullOrEmpty(searchText))
-            result = result.Where(_ => _.Title.Contains(searchText));
-        return await result.Skip(PageNumber * pageCount).Take(pageCount).AsNoTracking().ToListAsync();
-    }    
+        var res = await (from d in _dbContext.FoodStuff
+                         select new GetItemFoodStuffDto(d.Id, d.Title))
+             .Skip(pageNumber * pageCount)
+             .Take(pageCount)
+             .AsNoTracking()
+             .ToListAsync();
+        return res!;
+
+    }
     public async Task<bool> IsExists(Guid id)
     {
         return await _dbContext.FoodStuff.AsNoTracking().AnyAsync(x => x.Id == id);

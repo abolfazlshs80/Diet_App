@@ -24,7 +24,7 @@ public class DeleteSupplementDurationAgeCommandHandler : ICommandHandler<DeleteS
             return new DeleteSupplementDurationAgeCommandResult("error", "notfound");
 
         await _unitOfWork.BeginTransactionAsync();
-        await _SupplementDurationAgeRepository.DeleteAsync(result);
+         _SupplementDurationAgeRepository.Delete(result);
 
         var commitState = await _unitOfWork.CommitAsync();
 

@@ -24,7 +24,7 @@ public class DeleteUserRoleCommandHandler : ICommandHandler<DeleteUserRoleComman
             return new DeleteUserRoleCommandResult("error", "notfound");
 
         await _unitOfWork.BeginTransactionAsync();
-        await _UserRoleRepository.DeleteAsync(result);
+         _UserRoleRepository.Delete(result);
 
         var commitState = await _unitOfWork.CommitAsync();
 

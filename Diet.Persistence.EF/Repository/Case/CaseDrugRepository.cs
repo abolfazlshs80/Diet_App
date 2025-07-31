@@ -1,5 +1,6 @@
 ﻿using Diet.Domain.caseDrug;
 using Diet.Domain.CaseDrug.Repository;
+using Diet.Domain.Contract.DTOs.CaseDrug;
 using Diet.Persistence.EF.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,30 +21,44 @@ public class CaseDrugRepository : ICaseDrugRepository
         return await _dbContext.CaseDrug.AsNoTracking().SingleOrDefaultAsync(x => x.Id == Id);
     }
 
+    public async Task<GetItemCaseDrugDto> ByIdDtoAsync(Guid Id)
+    {
+        var res = await (from d in _dbContext.CaseDrug
+                         where d.Id == Id
+                         select new GetItemCaseDrugDto(d.Id, d.CaseId, d.DrugId)
+         ).AsNoTracking().FirstOrDefaultAsync();
+        return res!;
+
+    }
+
     public async Task AddAsync(CaseDrug CaseDrug)
     {
         await _dbContext.CaseDrug.AddAsync(CaseDrug);
 
     }
 
-    public async Task UpdateAsync(CaseDrug CaseDrug)
+    public void Update(CaseDrug CaseDrug)
     {
         _dbContext.Update(CaseDrug);
 
     }
 
-    public async Task DeleteAsync(CaseDrug CaseDrug)
+    public void Delete(CaseDrug CaseDrug)
     {
         _dbContext.Remove(CaseDrug);
 
     }
 
-    public async Task<List<CaseDrug>> AllAsync(string? searchText, int pageCount = 8, int PageNumber = 0)
+    public async Task<List<GetItemCaseDrugDto>> AllAsync(string? searchText, int pageCount = 8, int pageNumber = 0)
     {
-        var result = _dbContext.CaseDrug.AsQueryable();
-        if (!string.IsNullOrEmpty(searchText))
-            result = result.Where(_ => _.CaseId.Equals(searchText)|| _.DrugId.Equals(searchText));
-        return await result.Skip(PageNumber * pageCount).Take(pageCount).AsNoTracking().ToListAsync();
+        var res = await (from d in _dbContext.CaseDrug
+                         select new GetItemCaseDrugDto(d.Id, d.CaseId, d.DrugId))
+             .Skip(pageNumber * pageCount)
+             .Take(pageCount)
+             .AsNoTracking()
+             .ToListAsync();
+        return res!;
+
     }
 
 

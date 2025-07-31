@@ -29,7 +29,7 @@ public class UpdateUsersCommandHandler : ICommandHandler<UpdateUsersCommand, Upd
             return result.FirstError;
 
         await _unitOfWork.BeginTransactionAsync();
-        await _usersRepository.UpdateAsync(result.Value);
+         _usersRepository.Update(result.Value);
 
         var commitState = await _unitOfWork.CommitAsync();
         if (commitState.Value == Domain.Contract.Enums.TransactionStatus.Error)

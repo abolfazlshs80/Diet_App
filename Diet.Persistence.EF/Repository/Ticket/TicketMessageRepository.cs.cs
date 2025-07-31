@@ -1,3 +1,4 @@
+using Diet.Domain.Contract.DTOs.TicketMessage;
 using Diet.Domain.ticketMessage;
 using Diet.Domain.ticketMessage.Repository;
 using Diet.Persistence.EF.Context;
@@ -19,31 +20,41 @@ public class TicketMessageRepository : ITicketMessageRepository
         return await _dbContext.TicketMessage.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id);
     }
 
+    public async Task<GetItemTicketMessageDto> ByIdDtoAsync(Guid Id)
+    {
+        var res = await (from d in _dbContext.TicketMessage
+                         where d.Id == Id
+                         select new GetItemTicketMessageDto(d.Id, d.TextMessage, d.FileName, d.TicketId, d.FromId)
+         ).AsNoTracking().FirstOrDefaultAsync();
+        return res!;
+
+    }
+
     public async Task AddAsync(TicketMessage ticketMessage)
     {
         await _dbContext.TicketMessage.AddAsync(ticketMessage);
     }
 
-    public async Task UpdateAsync(TicketMessage ticketMessage)
+    public void Update(TicketMessage ticketMessage)
     {
         _dbContext.Update(ticketMessage);
     }
 
-    public async Task DeleteAsync(TicketMessage ticketMessage)
+    public void Delete(TicketMessage ticketMessage)
     {
         _dbContext.Remove(ticketMessage);
     }
 
-    public async Task<List<     TicketMessage>> AllAsync(string? searchText, int pageCount = 8, int pageNumber = 0)
+    public async Task<List<GetItemTicketMessageDto>> AllAsync(string? searchText, int pageCount = 8, int pageNumber = 0)
     {
-        var result = _dbContext.TicketMessage.AsQueryable();
-        if (!string.IsNullOrEmpty(searchText))
-            result = result.Where(_ => _.Id.ToString().Contains(searchText)); // Customize search logic
+        var res = await (from d in _dbContext.TicketMessage
+                         select new GetItemTicketMessageDto(d.Id, d.TextMessage, d.FileName, d.TicketId, d.FromId))
+             .Skip(pageNumber * pageCount)
+             .Take(pageCount)
+             .AsNoTracking()
+             .ToListAsync();
+        return res!;
 
-        return await result
-            .Skip(pageNumber * pageCount)
-            .Take(pageCount)
-            .AsNoTracking()
-            .ToListAsync();
     }
 }
+

@@ -29,7 +29,7 @@ public class UpdateRecommendationCommandHandler : ICommandHandler<UpdateRecommen
             return result.FirstError;
 
         await _unitOfWork.BeginTransactionAsync();
-        await _recommendationRepository.UpdateAsync(result.Value);
+         _recommendationRepository.Update(result.Value);
 
         var commitState = await _unitOfWork.CommitAsync();
         if (commitState.Value == Domain.Contract.Enums.TransactionStatus.Error)

@@ -24,7 +24,7 @@ public class DeleteTicketMessageCommandHandler : ICommandHandler<DeleteTicketMes
             return new DeleteTicketMessageCommandResult("error", "notfound");
 
         await _unitOfWork.BeginTransactionAsync();
-        await _TicketMessageRepository.DeleteAsync(result);
+         _TicketMessageRepository.Delete(result);
 
         var commitState = await _unitOfWork.CommitAsync();
 

@@ -1,3 +1,4 @@
+using Diet.Domain.Contract.DTOs.SupplementDurationAge;
 using Diet.Domain.supplementDurationAge;
 using Diet.Domain.supplementDurationAge.Repository;
 using Diet.Persistence.EF.Context;
@@ -18,32 +19,40 @@ public class SupplementDurationAgeRepository : ISupplementDurationAgeRepository
     {
         return await _dbContext.SupplementDurationAge.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id);
     }
+    public async Task<GetItemSupplementDurationAgeDto> ByIdDtoAsync(Guid Id)
+    {
+        var res = await (from d in _dbContext.SupplementDurationAge
+                         where d.Id == Id
+                         select new GetItemSupplementDurationAgeDto(d.Id, d.SupplementId, d.DurationAgeId)
+         ).AsNoTracking().FirstOrDefaultAsync();
+        return res!;
+
+    }
 
     public async Task AddAsync(Diet.Domain.supplementDurationAge.SupplementDurationAge supplementDurationAge)
     {
         await _dbContext.SupplementDurationAge.AddAsync(supplementDurationAge);
     }
 
-    public async Task UpdateAsync(Diet.Domain.supplementDurationAge.SupplementDurationAge supplementDurationAge)
+    public void Update(Diet.Domain.supplementDurationAge.SupplementDurationAge supplementDurationAge)
     {
         _dbContext.Update(supplementDurationAge);
     }
 
-    public async Task DeleteAsync(Diet.Domain.supplementDurationAge.SupplementDurationAge supplementDurationAge)
+    public void Delete(Diet.Domain.supplementDurationAge.SupplementDurationAge supplementDurationAge)
     {
         _dbContext.Remove(supplementDurationAge);
     }
 
-    public async Task<List<     Diet.Domain.supplementDurationAge.SupplementDurationAge>> AllAsync(string? searchText, int pageCount = 8, int pageNumber = 0)
+    public async Task<List<GetItemSupplementDurationAgeDto>> AllAsync(string? searchText, int pageCount = 8, int pageNumber = 0)
     {
-        var result = _dbContext.SupplementDurationAge.AsQueryable();
-        if (!string.IsNullOrEmpty(searchText))
-            result = result.Where(_ => _.Id.ToString().Contains(searchText)); // Customize search logic
+        var res = await (from d in _dbContext.SupplementDurationAge
+                         select new GetItemSupplementDurationAgeDto(d.Id, d.SupplementId, d.DurationAgeId))
+             .Skip(pageNumber * pageCount)
+             .Take(pageCount)
+             .AsNoTracking()
+             .ToListAsync();
+        return res!;
 
-        return await result
-            .Skip(pageNumber * pageCount)
-            .Take(pageCount)
-            .AsNoTracking()
-            .ToListAsync();
     }
 }

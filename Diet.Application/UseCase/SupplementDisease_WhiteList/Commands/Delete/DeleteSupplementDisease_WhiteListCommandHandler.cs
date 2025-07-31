@@ -24,7 +24,7 @@ public class DeleteSupplementDisease_WhiteListCommandHandler : ICommandHandler<D
             return new DeleteSupplementDisease_WhiteListCommandResult("error", "notfound");
 
         await _unitOfWork.BeginTransactionAsync();
-        await _SupplementDisease_WhiteListRepository.DeleteAsync(result);
+         _SupplementDisease_WhiteListRepository.Delete(result);
 
         var commitState = await _unitOfWork.CommitAsync();
 

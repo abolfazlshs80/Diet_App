@@ -24,7 +24,7 @@ public class DeleteSupplementLifeCourseCommandHandler : ICommandHandler<DeleteSu
             return new DeleteSupplementLifeCourseCommandResult("error", "notfound");
 
         await _unitOfWork.BeginTransactionAsync();
-        await _SupplementLifeCourseRepository.DeleteAsync(result);
+         _SupplementLifeCourseRepository.Delete(result);
 
         var commitState = await _unitOfWork.CommitAsync();
 

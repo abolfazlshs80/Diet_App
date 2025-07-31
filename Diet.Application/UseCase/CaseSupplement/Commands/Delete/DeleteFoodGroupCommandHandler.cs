@@ -31,7 +31,7 @@ public class DeleteCaseSupplementCommandHandler : ICommandHandler<DeleteCaseSupp
             return new DeleteCaseSupplementCommandResult("error", "Not Found Food_Food_Intraction");
 
         await _unitOfWork.BeginTransactionAsync();
-            await _CaseSupplementRepository.DeleteAsync(result);
+             _CaseSupplementRepository.Delete(result);
 
             var commitState = await _unitOfWork.CommitAsync();
 

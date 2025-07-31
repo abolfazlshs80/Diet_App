@@ -32,7 +32,7 @@ public class UpdateDrugCommandHandler : ICommandHandler<UpdateDrugCommand, Updat
 
 
             await _unitOfWork.BeginTransactionAsync();
-            await _DrugRepository.UpdateAsync(result.Value);
+             _DrugRepository.Update(result.Value);
 
             var commitState = await _unitOfWork.CommitAsync();
 

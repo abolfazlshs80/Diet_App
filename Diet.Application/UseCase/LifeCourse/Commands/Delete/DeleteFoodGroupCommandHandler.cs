@@ -30,7 +30,7 @@ public class DeleteLifeCourseCommandHandler : ICommandHandler<DeleteLifeCourseCo
             return new DeleteLifeCourseCommandResult("error", "NotFound LifeCourse");
     
             await _unitOfWork.BeginTransactionAsync();
-            await _LifeCourseRepository.DeleteAsync(result);
+             _LifeCourseRepository.Delete(result);
 
             var commitState = await _unitOfWork.CommitAsync();
 

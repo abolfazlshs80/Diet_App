@@ -33,7 +33,7 @@ public class DeleteCaseCommandHandler : ICommandHandler<DeleteCaseCommand, Delet
             return new DeleteCaseCommandResult("errorFound", " not found Case ");
 
         await _unitOfWork.BeginTransactionAsync();
-        await _CaseRepository.DeleteAsync(result);
+         _CaseRepository.Delete(result);
         var commitState = await _unitOfWork.CommitAsync();
 
         if (commitState.Value == Domain.Contract.Enums.TransactionStatus.Error)

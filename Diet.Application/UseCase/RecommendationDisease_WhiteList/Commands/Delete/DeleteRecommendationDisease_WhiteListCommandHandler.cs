@@ -24,7 +24,7 @@ public class DeleteRecommendationDisease_WhiteListCommandHandler : ICommandHandl
             return new DeleteRecommendationDisease_WhiteListCommandResult("error", "notfound");
 
         await _unitOfWork.BeginTransactionAsync();
-        await _RecommendationDisease_WhiteListRepository.DeleteAsync(result);
+         _RecommendationDisease_WhiteListRepository.Delete(result);
 
         var commitState = await _unitOfWork.CommitAsync();
 

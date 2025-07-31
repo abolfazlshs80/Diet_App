@@ -2,6 +2,7 @@
 using Diet.Domain.CaseFoodStuffAllergy;
 using Diet.Domain.CaseFoodStuffAllergy;
 using Diet.Domain.CaseFoodStuffAllergy.Repository;
+using Diet.Domain.Contract.DTOs.CaseFoodStuffAllergy;
 using Diet.Domain.user.Repository;
 using Diet.Persistence.EF.Context;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +23,15 @@ public class CaseFoodStuffAllergyRepository : ICaseFoodStuffAllergyRepository
     {
         return await _dbContext.CaseFoodStuffAllergy.AsNoTracking().SingleOrDefaultAsync(x => x.Id == Id);
     }
+    public async Task<GetItemCaseFoodStuffAllergyDto> ByIdDtoAsync(Guid Id)
+    {
+        var res = await (from d in _dbContext.CaseFoodStuffAllergy
+                         where d.Id == Id
+                         select new GetItemCaseFoodStuffAllergyDto(d.Id, d.FoodStuffId, d.CaseId)
+         ).AsNoTracking().FirstOrDefaultAsync();
+        return res!;
+
+    }
 
     public async Task AddAsync(CaseFoodStuffAllergy CaseFoodStuffAllergy)
     {
@@ -29,25 +39,27 @@ public class CaseFoodStuffAllergyRepository : ICaseFoodStuffAllergyRepository
 
     }
 
-    public async Task UpdateAsync(CaseFoodStuffAllergy CaseFoodStuffAllergy)
+    public void Update(CaseFoodStuffAllergy CaseFoodStuffAllergy)
     {
         _dbContext.Update(CaseFoodStuffAllergy);
 
     }
 
-    public async Task DeleteAsync(CaseFoodStuffAllergy CaseFoodStuffAllergy)
+    public void Delete(CaseFoodStuffAllergy CaseFoodStuffAllergy)
     {
         _dbContext.Remove(CaseFoodStuffAllergy);
 
     }
-
-    public async Task<List<CaseFoodStuffAllergy>> AllAsync(string? searchText, int pageCount = 8, int PageNumber = 0)
+    public async Task<List<GetItemCaseFoodStuffAllergyDto>> AllAsync(string? searchText, int pageCount = 8, int pageNumber = 0)
     {
-        var result = _dbContext.CaseFoodStuffAllergy.AsQueryable();
-        if (!string.IsNullOrEmpty(searchText))
-            result = result.Where(_ => _.CaseId.Equals(searchText)|| _.FoodStuffId.Equals(searchText));
-        return await result.Skip(PageNumber * pageCount).Take(pageCount).AsNoTracking().ToListAsync();
-    }
+        var res = await (from d in _dbContext.CaseFoodStuffAllergy
+                         select new GetItemCaseFoodStuffAllergyDto(d.Id, d.FoodStuffId, d.CaseId))
+             .Skip(pageNumber * pageCount)
+             .Take(pageCount)
+             .AsNoTracking()
+             .ToListAsync();
+        return res!;
 
+    }
 
 }

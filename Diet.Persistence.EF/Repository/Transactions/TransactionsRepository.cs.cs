@@ -1,3 +1,4 @@
+using Diet.Domain.Contract.DTOs.Transactions;
 using Diet.Domain.transactions;
 using Diet.Domain.transactions.Repository;
 using Diet.Persistence.EF.Context;
@@ -19,32 +20,41 @@ public class TransactionsRepository : ITransactionsRepository
         return await _dbContext.Transactions.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id);
     }
 
+    public async Task<GetItemTransactionsDto> ByIdDtoAsync(Guid Id)
+    {
+        var res = await (from d in _dbContext.Transactions
+                         where d.Id == Id
+                         select new GetItemTransactionsDto(d.Id, d.TotalPrice, d.ZarinPalAuthority, d.ZarinPalRefNum, d.TransactionType)
+         ).AsNoTracking().FirstOrDefaultAsync();
+        return res!;
+
+    }
+
     public async Task AddAsync(Diet.Domain.transactions.Transactions transactions)
     {
         await _dbContext.Transactions.AddAsync(transactions);
     }
 
-    public async Task UpdateAsync(Diet.Domain.transactions.Transactions transactions)
+    public void Update(Diet.Domain.transactions.Transactions transactions)
     {
         _dbContext.Update(transactions);
     }
 
-    public async Task DeleteAsync(Diet.Domain.transactions.Transactions transactions)
+    public void Delete(Diet.Domain.transactions.Transactions transactions)
     {
         _dbContext.Remove(transactions);
     }
 
-    public async Task<List<     Diet.Domain.transactions.Transactions>> AllAsync(string? searchText, int pageCount = 8, int pageNumber = 0)
+    public async Task<List<GetItemTransactionsDto>> AllAsync(string? searchText, int pageCount = 8, int pageNumber = 0)
     {
-        var result = _dbContext.Transactions.AsQueryable();
-        if (!string.IsNullOrEmpty(searchText))
-            result = result.Where(_ => _.Id.ToString().Contains(searchText)); // Customize search logic
+        var res = await (from d in _dbContext.Transactions
+                         select new GetItemTransactionsDto(d.Id, d.TotalPrice, d.ZarinPalAuthority, d.ZarinPalRefNum, d.TransactionType))
+             .Skip(pageNumber * pageCount)
+             .Take(pageCount)
+             .AsNoTracking()
+             .ToListAsync();
+        return res!;
 
-        return await result
-            .Skip(pageNumber * pageCount)
-            .Take(pageCount)
-            .AsNoTracking()
-            .ToListAsync();
     }
     public async Task<bool> IsExists(Guid id)
     {

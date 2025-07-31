@@ -29,7 +29,7 @@ public class UpdateSportCommandHandler : ICommandHandler<UpdateSportCommand, Upd
             return result.FirstError;
 
         await _unitOfWork.BeginTransactionAsync();
-        await _sportRepository.UpdateAsync(result.Value);
+         _sportRepository.Update(result.Value);
 
         var commitState = await _unitOfWork.CommitAsync();
         if (commitState.Value == Domain.Contract.Enums.TransactionStatus.Error)

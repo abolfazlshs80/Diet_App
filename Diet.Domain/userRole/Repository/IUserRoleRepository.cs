@@ -9,7 +9,7 @@ namespace Diet.Domain.userRole.Repository
         Task<GetItemUserRoleDto> ByIdDtoAsync(Guid id);
 
         Task AddAsync(Diet.Domain.userRole.UserRole userRole);
-        Task UpdateAsync(Diet.Domain.userRole.UserRole userRole);
-        Task DeleteAsync(Diet.Domain.userRole.UserRole userRole);
+        void Update(Diet.Domain.userRole.UserRole userRole);
+        void Delete(Diet.Domain.userRole.UserRole userRole);
     }
 }

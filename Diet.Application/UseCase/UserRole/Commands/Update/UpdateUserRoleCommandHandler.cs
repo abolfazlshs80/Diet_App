@@ -43,7 +43,7 @@ public class UpdateUserRoleCommandHandler : ICommandHandler<UpdateUserRoleComman
             return result.FirstError;
 
         await _unitOfWork.BeginTransactionAsync();
-        await _userRoleRepository.UpdateAsync(result.Value);
+         _userRoleRepository.Update(result.Value);
 
         var commitState = await _unitOfWork.CommitAsync();
         if (commitState.Value == Domain.Contract.Enums.TransactionStatus.Error)

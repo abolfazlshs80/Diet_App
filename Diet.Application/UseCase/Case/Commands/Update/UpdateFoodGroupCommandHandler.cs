@@ -42,7 +42,7 @@ public class UpdateCaseCommandHandler : ICommandHandler<UpdateCaseCommand, Updat
 
 
         await _unitOfWork.BeginTransactionAsync();
-        await _CaseRepository.UpdateAsync(result.Value);
+         _CaseRepository.Update(result.Value);
 
         var commitState = await _unitOfWork.CommitAsync();
 

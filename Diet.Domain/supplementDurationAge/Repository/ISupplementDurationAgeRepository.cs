@@ -9,7 +9,7 @@ namespace Diet.Domain.supplementDurationAge.Repository
         Task<GetItemSupplementDurationAgeDto> ByIdDtoAsync(Guid id);
 
         Task AddAsync(Diet.Domain.supplementDurationAge.SupplementDurationAge supplementDurationAge);
-        Task UpdateAsync(Diet.Domain.supplementDurationAge.SupplementDurationAge supplementDurationAge);
-        Task DeleteAsync(Diet.Domain.supplementDurationAge.SupplementDurationAge supplementDurationAge);
+        void Update(Diet.Domain.supplementDurationAge.SupplementDurationAge supplementDurationAge);
+        void Delete(Diet.Domain.supplementDurationAge.SupplementDurationAge supplementDurationAge);
     }
 }

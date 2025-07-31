@@ -3,6 +3,7 @@ using Diet.Domain.CaseUnPleasantFood;
 using Diet.Domain.CaseUnPleasantFood;
 using Diet.Domain.CaseUnPleasantFood;
 using Diet.Domain.CaseUnPleasantFood.Repository;
+using Diet.Domain.Contract.DTOs.CaseUnPleasantFood;
 using Diet.Domain.user.Repository;
 using Diet.Persistence.EF.Context;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,15 @@ public class CaseUnPleasantFoodRepository : ICaseUnPleasantFoodRepository
     {
         return await _dbContext.CaseUnPleasantFood.AsNoTracking().SingleOrDefaultAsync(x => x.Id == Id);
     }
+    public async Task<GetItemCaseUnPleasantFoodDto> ByIdDtoAsync(Guid Id)
+    {
+        var res = await (from d in _dbContext.CaseUnPleasantFood
+                         where d.Id == Id
+                         select new GetItemCaseUnPleasantFoodDto(d.Id, d.FoodId, d.CaseId)
+         ).AsNoTracking().FirstOrDefaultAsync();
+        return res!;
+
+    }
 
     public async Task AddAsync(CaseUnPleasantFood CaseUnPleasantFood)
     {
@@ -30,24 +40,28 @@ public class CaseUnPleasantFoodRepository : ICaseUnPleasantFoodRepository
 
     }
 
-    public async Task UpdateAsync(CaseUnPleasantFood CaseUnPleasantFood)
+    public void Update(CaseUnPleasantFood CaseUnPleasantFood)
     {
         _dbContext.Update(CaseUnPleasantFood);
 
     }
 
-    public async Task DeleteAsync(CaseUnPleasantFood CaseUnPleasantFood)
+    public void Delete(CaseUnPleasantFood CaseUnPleasantFood)
     {
         _dbContext.Remove(CaseUnPleasantFood);
 
     }
 
-    public async Task<List<CaseUnPleasantFood>> AllAsync(string? searchText, int pageCount = 8, int PageNumber = 0)
+    public async Task<List<GetItemCaseUnPleasantFoodDto>> AllAsync(string? searchText, int pageCount = 8, int pageNumber = 0)
     {
-        var result = _dbContext.CaseUnPleasantFood.AsQueryable();
-        if (!string.IsNullOrEmpty(searchText))
-            result = result.Where(_ => _.CaseId.Equals(searchText)|| _.FoodId.Equals(searchText));
-        return await result.Skip(PageNumber * pageCount).Take(pageCount).AsNoTracking().ToListAsync();
+        var res = await (from d in _dbContext.CaseUnPleasantFood
+                         select new GetItemCaseUnPleasantFoodDto(d.Id, d.FoodId, d.CaseId))
+             .Skip(pageNumber * pageCount)
+             .Take(pageCount)
+             .AsNoTracking()
+             .ToListAsync();
+        return res!;
+
     }
 
 

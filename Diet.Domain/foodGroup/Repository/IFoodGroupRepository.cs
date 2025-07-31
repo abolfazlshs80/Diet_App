@@ -18,6 +18,6 @@ public interface IFoodGroupRepository : IRepository
 
     Task<bool> IsExists(Guid Id);
     Task AddAsync(Domain.food.Entities.FoodGroup FoodGroup);
-    Task UpdateAsync(Domain.food.Entities.FoodGroup FoodGroup);
-    Task DeleteAsync(Domain.food.Entities.FoodGroup FoodGroup);
+    void Update(Domain.food.Entities.FoodGroup FoodGroup);
+    void Delete(Domain.food.Entities.FoodGroup FoodGroup);
 }

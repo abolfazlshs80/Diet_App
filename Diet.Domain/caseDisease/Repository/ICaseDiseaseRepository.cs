@@ -15,6 +15,6 @@ public interface ICaseDiseaseRepository : IRepository
 
 
     Task AddAsync(Domain.caseDisease.CaseDisease CaseDisease);
-    Task UpdateAsync(Domain.caseDisease.CaseDisease CaseDisease);
-    Task DeleteAsync(Domain.caseDisease.CaseDisease CaseDisease);
+    void Update(Domain.caseDisease.CaseDisease CaseDisease);
+    void Delete(Domain.caseDisease.CaseDisease CaseDisease);
 }

@@ -1,5 +1,6 @@
 ﻿using Diet.Domain.caseDisease;
 using Diet.Domain.CaseDisease.Repository;
+using Diet.Domain.Contract.DTOs.CaseDisease;
 using Diet.Domain.user.Repository;
 using Diet.Persistence.EF.Context;
 using Microsoft.EntityFrameworkCore;
@@ -20,31 +21,43 @@ public class CaseDiseaseRepository : ICaseDiseaseRepository
     {
         return await _dbContext.CaseDisease.AsNoTracking().SingleOrDefaultAsync(x => x.Id == Id);
     }
+    public async Task<GetItemCaseDiseaseDto> ByIdDtoAsync(Guid Id)
+    {
+        var res = await (from d in _dbContext.CaseDisease
+                         where d.Id == Id
+                         select new GetItemCaseDiseaseDto(d.Id, d.CaseId, d.DiseaseId)
+         ).AsNoTracking().FirstOrDefaultAsync();
+        return res!;
 
+    }
     public async Task AddAsync(CaseDisease CaseDisease)
     {
         await _dbContext.CaseDisease.AddAsync(CaseDisease);
 
     }
 
-    public async Task UpdateAsync(CaseDisease CaseDisease)
+    public void Update(CaseDisease CaseDisease)
     {
         _dbContext.Update(CaseDisease);
 
     }
 
-    public async Task DeleteAsync(CaseDisease CaseDisease)
+    public void Delete(CaseDisease CaseDisease)
     {
         _dbContext.Remove(CaseDisease);
 
     }
 
-    public async Task<List<CaseDisease>> AllAsync(string? searchText, int pageCount = 8, int PageNumber = 0)
+    public async Task<List<GetItemCaseDiseaseDto>> AllAsync(string? searchText, int pageCount = 8, int pageNumber = 0)
     {
-        var result = _dbContext.CaseDisease.AsQueryable();
-        if (!string.IsNullOrEmpty(searchText))
-            result = result.Where(_ => _.CaseId.Equals(searchText)|| _.DiseaseId.Equals(searchText));
-        return await result.Skip(PageNumber * pageCount).Take(pageCount).AsNoTracking().ToListAsync();
+        var res = await (from d in _dbContext.CaseDisease
+                         select new GetItemCaseDiseaseDto(d.Id, d.CaseId, d.DiseaseId))
+             .Skip(pageNumber * pageCount)
+             .Take(pageCount)
+             .AsNoTracking()
+             .ToListAsync();
+        return res!;
+
     }
 
 

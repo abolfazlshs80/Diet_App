@@ -40,7 +40,7 @@ public class UpdateFoodFoodIntractionCommandHandler : ICommandHandler<UpdateFood
 
 
             await _unitOfWork.BeginTransactionAsync();
-            await _FoodFoodIntractionRepository.UpdateAsync(result.Value);
+             _FoodFoodIntractionRepository.Update(result.Value);
 
             var commitState = await _unitOfWork.CommitAsync();
 

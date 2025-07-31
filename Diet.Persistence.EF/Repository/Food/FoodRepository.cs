@@ -1,6 +1,7 @@
 ﻿
 
 
+using Diet.Domain.Contract.DTOs.Food;
 using Diet.Domain.food.Entities;
 using Diet.Domain.user.Repository;
 using Diet.Persistence.EF.Context;
@@ -23,30 +24,44 @@ public class FoodRepository : IFoodRepository
         return await _dbContext.Food.AsNoTracking().SingleOrDefaultAsync(x => x.Id == Id);
     }
 
+    public async Task<GetItemFoodDto> ByIdDtoAsync(Guid Id)
+    {
+        var res = await (from d in _dbContext.Food
+                         where d.Id == Id
+                         select new GetItemFoodDto(d.Id, d.Title, d.Description, d.Value, d.FoodGroupId)
+         ).AsNoTracking().FirstOrDefaultAsync();
+        return res!;
+
+    }
     public async Task AddAsync(Domain.food.Entities.Food Food)
     {
         await _dbContext.AddAsync(Food);
       
     }
 
-    public async Task UpdateAsync(Domain.food.Entities.Food Food)
+    public void Update(Domain.food.Entities.Food Food)
     {
         _dbContext.Update(Food);
        
     }
 
-    public async Task DeleteAsync(Domain.food.Entities.Food Food)
+    public void Delete(Domain.food.Entities.Food Food)
     {
         _dbContext.Remove(Food);
        
     }
 
-    public async Task<List<Domain.food.Entities.Food>> AllAsync(string? searchText, int pageCount = 8, int PageNumber = 0)
+
+    public async Task<List<GetItemFoodDto>> AllAsync(string? searchText, int pageCount = 8, int pageNumber = 0)
     {
-        var result =  _dbContext.Food.AsQueryable();
-        if (!string.IsNullOrEmpty(searchText))
-            result = result.Where(_ => _.Title.Contains(searchText));
-        return await result.Skip(PageNumber * pageCount).Take(pageCount).AsNoTracking().ToListAsync();
+        var res = await (from d in _dbContext.Food
+                         select new GetItemFoodDto(d.Id, d.Title, d.Description, d.Value, d.FoodGroupId))
+             .Skip(pageNumber * pageCount)
+             .Take(pageCount)
+             .AsNoTracking()
+             .ToListAsync();
+        return res!;
+
     }
 
     public async Task<bool> IsExists(Guid id)

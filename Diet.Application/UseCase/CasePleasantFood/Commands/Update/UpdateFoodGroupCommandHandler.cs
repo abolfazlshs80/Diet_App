@@ -49,7 +49,7 @@ public class UpdateCasePleasantFoodCommandHandler : ICommandHandler<UpdateCasePl
 
 
             await _unitOfWork.BeginTransactionAsync();
-            await _CasePleasantFoodRepository.UpdateAsync(result.Value);
+             _CasePleasantFoodRepository.Update(result.Value);
 
             var commitState = await _unitOfWork.CommitAsync();
 
